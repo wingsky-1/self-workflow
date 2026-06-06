@@ -5,6 +5,8 @@
 > V1.5 系列（V1.5.1~V1.5.3 + V1 → V1.5 修复）已全部关闭 ✔️
 > V1.6 质量收尾已关闭 ✔️（7/9 项完成，2 项移除/移入 V1.8）
 > V1.7 docs 结构 + 索引注入已关闭 ✔️（2/2 项完成）
+> V1.8：specs 结构奠基（P2）🟢 — 进行中
+> V1.9 重构收尾已关闭 ✔️（4/4 项完成）
 
 ---
 
@@ -23,24 +25,6 @@
 
 4. 关键决策自动记录→通用 spec——当前决策捕捉不理想，要做成可复用的通用 spec
    → 来源：新增 #4
-
----
-
-## V1.9：重构收尾（P2）🟢
-
-> 安装器/模板/命令的积压重构项。
-
-1. task 模板从 feat command 移动到 templates——可由用户进行定制
-   → 来源：新增 #2
-
-2. 任务标题/描述/commit msg 生成优化——提升辨识度和可读性
-   → 来源：新增 #1
-
-3. checkpoint tag/commit ID 关联到任务阶段——task.yaml 中记录每个 Gate checkpoint 对应的 commit SHA
-   → 来源：新增 #7
-
-4. packages/installer/.opencode .self-workflow templates 三层目录关系梳理优化
-   → 来源：新增 #5
 
 ---
 
@@ -117,7 +101,7 @@
 - 每阶段专用 agent/skill——Adapter 编译能力（来源：todo #6） <放到V2.0 子Agent架构>
 - 普通对话中识别工作流触发（来源：新增 #6） <放到V3.0 用户体验性优化>
 - 老项目蒸馏 command——文档转 .self-workflow/docs 格式（来源：新增 #5） <放到V3.0 用户体验性优化>
-- tag 权重/层级体系——同 tag 多文档时帮助 Agent 择优匹配（来源：新增 #13） <放到V3.0 用户体验性优化>
+- tag 权重/层级体系——同 tag 多文档时帮助 Agent 择优匹配（来源：新增 #13） <放到V3.2 用户体验性优化>
 
 ---
 
@@ -135,6 +119,16 @@
 - [moved to V1.8] 文档受众分类 — 需形成 spec 级设计
 - [done] ADR-003（元数据模板填充策略）标记为"被超驰" ✅
 - [done] 删除 `adr-review-template.md` 并更新相关文档 + 安装器 index.js ✅
+
+</details>
+
+<details>
+<summary>V1.9：重构收尾（feat-安装器重构-模板清理-20260606 完成，4/4 项）</summary>
+
+- [done] task 模板从 feat command 移动到 templates——`feat-task.yaml` 独立文件，MANIFEST 部署 ✅
+- [done] 任务标题/描述/commit msg 生成优化——语义 slug + 含阶段名的 commit msg ✅
+- [done] checkpoint tag/commit ID 关联——phase schema 新增 `checkpoint` 字段 ✅
+- [done] 三层目录清理——删除 `installer/.opencode/` + `.self-workflow/`（17 个死代码文件），`installer/README.md` 文档化 ✅
 
 </details>
 
@@ -206,3 +200,7 @@
 
 1. 增加并行开发能力，task中记录是有哪个session在执行，需要细化方案单独实现 <大需求 建议单独一个迭代来做 V2.2>
 2. 增加debug工作流 <大需求 建议单独一个迭代来做 V2.3>
+3. 不仅是用户的决策和讨论需要记录adr，agent自己的分析和决策也要记录，这样才能保证执行过程可追溯 <并入V1.8>
+4. 开发doctor命令，检查用户对可定制文件的改动是否正确合理，会不会影响运行 <V3.0>
+5. 当前方案非常依赖上下文长度和主Agent遵从度，在切换为子Agent后会不会有好转，有没有更好的实现机制来优化当前框架 <V2.2>
+6. 安装能力要加强，对于用户可定制的文件的变更要有变更查看的能力，创建patch由用户手动确认？ 其他的可行方案？ <V3.0>
