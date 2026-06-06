@@ -1,7 +1,7 @@
 ---
 phase: 2
 workflow: feat
-description: 架构决策记录（ADR）模板
+description: 方案设计阶段产物模板——含 ADR、接口设计、数据模型
 ---
 
 # 方案设计 — <特性名称>

@@ -27,7 +27,7 @@ const MANIFEST = [
   // target-path                            source-path (relative to templates/)
   [".self-workflow/configs/guides/feat-workflow.md",     "configs/guides/feat-workflow.md"],
   [".self-workflow/configs/templates/analysis-template.md",    "configs/templates/analysis-template.md"],
-  [".self-workflow/configs/templates/adr-template.md",        "configs/templates/adr-template.md"],
+  [".self-workflow/configs/templates/design-template.md",        "configs/templates/design-template.md"],
   [".self-workflow/configs/templates/review-report-template.md", "configs/templates/review-report-template.md"],
   [".self-workflow/configs/templates/summary-template.md",  "configs/templates/summary-template.md"],
   [".self-workflow/configs/templates/implementation-template.md", "configs/templates/implementation-template.md"],

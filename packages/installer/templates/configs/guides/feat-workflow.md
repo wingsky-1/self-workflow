@@ -143,7 +143,7 @@ version: 0.1
 ### 输出产物
 
 写入 `.self-workflow/tasks/<workflow-id>/artifacts/02-design.md`
-格式参考：`.self-workflow/configs/templates/adr-template.md`
+格式参考：`.self-workflow/configs/templates/design-template.md`
 
 ### 完成检查清单
 
