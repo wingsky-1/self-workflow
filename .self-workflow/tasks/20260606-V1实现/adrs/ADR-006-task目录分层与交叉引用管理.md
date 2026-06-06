@@ -72,6 +72,32 @@ logs/* ──→ adrs/*（实施记录可引用相关 ADR）
 - ADR 归档后不再修改，logs 可以引用 ADR 编号（如"参见 ADR-004"）
 - 反之，ADR 不引用 logs（因为 logs 可能后续被清理或重命名）
 
+#### 例外：adrs/ 的 status 变更
+
+`adrs/` 只读规则有一条例外——ADR 的 `status` 字段从"已采纳"变为"已废弃"时：
+
+1. 修改 frontmatter 的 `status: 已采纳 → 已废弃`
+2. 在文件顶部追加废弃声明（正文不改）：
+   ```markdown
+   > **废弃声明**：本 ADR 于 YYYY-MM-DD 因 <原因> 废弃，替代方案见 ADR-XXX。
+   ```
+3. 在 task.yaml 中注明该 ADR 已废弃
+
+除此之外，`adrs/` 下的文件正文不做修改。勘误以追加注释方式处理。
+
+#### 跨 task 的 ADR 引用
+
+当一个决策影响多个 task 时：
+
+1. **决策在当前 task 记录**：ADR 只属于产生它的 task
+2. **受影响 task 标记引用**：在受影响 task 的 `task.yaml` 中增加 `cross-refs` 字段：
+   ```yaml
+   cross-refs:
+     - source: "20260606-V1实现/adrs/ADR-004-目录职责划分.md"
+       reason: "该决策影响本 task 的目录结构"
+   ```
+3. 源 ADR 无需知道被哪些 task 引用——引用的维护是引用方的责任
+
 ## 理由
 
 - **入口清晰**：新加入 task 的人先看根层 3 个文件，再按需深入子目录
