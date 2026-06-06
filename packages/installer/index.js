@@ -37,8 +37,7 @@ const MANIFEST = [
 const EMPTY_DIRS = [
   ".self-workflow/configs/guides",
   ".self-workflow/configs/templates",
-  ".self-workflow/tasks/artifacts",
-  ".self-workflow/tasks/errors",
+  ".self-workflow/tasks",
   ".self-workflow/docs",
   ".self-workflow/specs",
   ".opencode/agents",
