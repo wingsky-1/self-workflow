@@ -30,8 +30,7 @@ phases:
     completed: 2026-06-07T02:00:00+08:00
     artifact: "02-design.md"
     errors: []
-    checkpoint: null
-  - id: 3
+    checkpoint: f8b19f865b39746aa7d52f150cd50a7522c5c460
     name: 代码实现
     status: in_progress
     gate: pending
