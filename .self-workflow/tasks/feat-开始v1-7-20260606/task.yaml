@@ -1,0 +1,70 @@
+name: 开始v1-7
+title: 开始V1.7
+status: in_progress
+created: 2026-06-06
+updated: 2026-06-06T21:30:00+08:00
+tags: [V1.7, docs-structure, index-injection]
+description: >
+  开始V1.7版本的开发工作。V1.7主题：docs 结构 + 索引注入。
+  包含：(1) docs/ 目录结构梳理——当前9份经验文档平铺无分类，需建立分类目录+索引；
+  (2) docs 索引在 session_start 时自动注入上下文——新会话启动时 Agent 能自动读取相关经验。
+
+workflow-id: feat-开始v1-7-20260606
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: completed
+    gate: passed
+    started: 2026-06-06T21:08:00+08:00
+    completed: 2026-06-06T21:35:00+08:00
+    artifact: "01-analysis.md"
+    errors: []
+  - id: 2
+    name: 方案设计
+    status: in_progress
+    gate: pending
+    started: 2026-06-06T21:35:00+08:00
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts:
+    - "01-analysis.md"
+
+milestones: []
+
+cross-refs:
+  - ".self-workflow/todo.md#V1.7"
