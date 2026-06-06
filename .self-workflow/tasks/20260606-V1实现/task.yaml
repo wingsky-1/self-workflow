@@ -25,7 +25,7 @@ structure:
     - "ADR-005-task目录元数据规范.md"
     - "ADR-006-task目录分层与交叉引用管理.md"
   logs:
-    - "（M1.5/M1.6 实施记录）"
+    - "M0-M1.4-实施记录.md"
 
 milestones:
   - id: M0
