@@ -12,6 +12,20 @@ description: >
   实现 Self-Workflow V1 核心功能：安装器、工作流指引、Review Agent、
   产物归档、错误日志。完成后可用 /feat 执行完整工作流。
 
+structure:
+  root:
+    - "task.yaml"       # 元数据
+    - "plan.md"         # 执行计划
+    - "progress.md"     # 完成记录
+  adrs:
+    - "ADR-001-交互式问答优先.md"
+    - "ADR-002-安装器职责边界.md"
+    - "ADR-003-关键决策即时归档.md"
+    - "ADR-004-目录职责划分与开发使用分离.md"
+    - "ADR-005-task目录元数据规范.md"
+  logs:
+    - "（M1.5/M1.6 实施记录）"
+
 milestones:
   - id: M0
     name: OpenCode 能力审计
@@ -50,9 +64,5 @@ milestones:
 
 artifacts:
   - "plan.md"
-  - "完成状态.md"
-  - "ADR-001-交互式问答优先.md"
-  - "ADR-002-安装器职责边界.md"
-  - "ADR-003-关键决策即时归档.md"
-  - "ADR-004-目录职责划分与开发使用分离.md"
-  - "ADR-005-task目录元数据规范.md"
+  - "progress.md"
+  - "adrs/"
