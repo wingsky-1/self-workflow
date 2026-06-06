@@ -1,0 +1,65 @@
+# 工作流实例元数据
+# 在工作流启动时创建，各阶段更新状态
+
+workflow-id: feat-v1.5剩余问题修复-20260606
+type: feat
+status: in_progress  # in_progress | completed | cancelled | stuck
+created: 2026-06-06T17:22:00+08:00
+updated: 2026-06-06T17:30:00+08:00
+description: 修复 /feat 命令自举实施中暴露的框架缺陷及 todo.md 遗留项
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: completed      # pending | in_progress | completed | failed
+    gate: passed           # pending | passed | failed | skipped
+    started: 2026-06-06T17:22:00+08:00
+    completed: 2026-06-06T17:30:00+08:00
+    artifact: "01-analysis.md"
+    errors: []         # error IDs 列表
+
+  - id: 2
+    name: 方案设计
+    status: in_progress
+    gate: pending
+    started: 2026-06-06T17:30:00+08:00
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+
+# 错误索引（errors/<workflow-id>/errors.yaml 独立维护）
+# 格式：
+# errors:
+#   - id: err-001
+#     phase: 1
+#     description: "<简要描述>"
+#     severity: blocking | minor
+#     timestamp: <YYYY-MM-DDTHH:mm:ss>
+#     resolved: true | false
