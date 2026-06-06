@@ -1,5 +1,6 @@
 # 任务元数据
 # 每个 .self-workflow/tasks/<task-name>/ 目录下应有此文件
+# 服务对象：Agent（机器可读优先）。人类如需导航可向 Agent 询问。
 
 name: V1实现
 title: V1 里程碑实现

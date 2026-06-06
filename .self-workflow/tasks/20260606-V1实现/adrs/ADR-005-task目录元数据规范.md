@@ -66,6 +66,12 @@ artifacts:
 - **可聚合**：未来可以扫描所有 `tasks/*/task.yaml` 生成任务总览
 - **自举基础**：`task.yaml` 本身就是工作流执行时应该产出的文件类型
 
+## 设计原则
+
+- **Agent 优先**：task.yaml 的服务对象是 Agent，不是人类。人类如需导航 task 目录，应向 Agent 询问而非直接阅读 YAML。
+- **机器可读**：结构化数据优于自然语言描述，便于 Agent 解析和聚合。
+- **可聚合**：未来可以扫描所有 `tasks/*/task.yaml` 生成任务总览。
+
 ## 影响
 
 - 新建 task 目录时必须创建 `task.yaml`
