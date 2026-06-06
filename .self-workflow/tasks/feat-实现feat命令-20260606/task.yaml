@@ -1,6 +1,6 @@
 name: 实现feat命令
 title: 实现 /feat 命令
-status: in_progress
+status: completed
 created: 2026-06-06
 updated: 2026-06-06
 tags: [v1.5, command, feat-workflow, self-bootstrapping]
