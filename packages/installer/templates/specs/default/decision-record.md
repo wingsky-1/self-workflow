@@ -33,28 +33,12 @@ Agent 在执行任务时做出的**每一个关键决策**都必须记录为 ADR
 
 ## ADR 模板
 
-### simple — 单一选项、理由明确
+模板文件位于 `.self-workflow/configs/templates/`，使用 `/adr` 命令时自动选择：
 
-```markdown
-# ADR-XXX：标题
-## 背景
-## 决策
-## 理由
-## 关联
-```
+- **simple** — 单一选项、理由明确 → `adr-simple-template.md`
+- **complex** — 多方案对比、trade-off → `adr-complex-template.md`
 
-### complex — 多方案对比、trade-off
-
-```markdown
-# ADR-XXX：标题
-## 背景
-## 备选方案 （≥2 个）
-## 决策
-## 理由
-## 影响
-## 反对意见
-## 关联
-```
+Agent 创建 ADR 时用 Read 工具加载对应模板，而非手动拼写格式。
 
 ## ADR 生命周期
 
