@@ -6,96 +6,89 @@
 
 ---
 
-## V1.6：质量收尾 + 经验/spec 体系
+## V1.6：质量收尾（P0/P1 + 小 P2）
 
-> V1.5 五轮迭代完成后，质量审计发现 7 个具体问题 + 原有 5 项 P2 愿景。按 P0→P1→P2 组织。
+> V1.5 五轮迭代后质量审计发现的 7 个具体问题 + 3 项低成本的 P2 改进。本轮后框架进入稳定态。
 
 ### P0：阻断成熟度（2 项）🔴
 
-1. feat.md 前置检查移除已弃用的 `workflow-metadata-template.yaml` — 当前 /feat 执行时要求此模板存在，但 V1.5.2 已弃用
-   → 来源：质量审计（`.opencode/commands/feat.md:43`）
+1. feat.md 前置检查移除已弃用的 `workflow-metadata-template.yaml`
+   → 来源：质量审计（`feat.md:43`）
 
-2. 经验文档命名符合 ADR-003 约定 — `design-可定制性声明验证经验.md`、`gate-推理链一致性经验.md` 内容标记为"错误经验"但文件名缺分类后缀；`产物权威来源唯一-ADR引用而非内联.md` 无分类标记
-   → 来源：质量审计（ADR-003 选择了文件名约定 `*-分类.md`）
+2. 经验文档命名符合 ADR-003 约定（3 个文件重命名）
+   → 来源：质量审计
 
 ### P1：质量改善（4 项）🟡
 
-3. 文档中 `workflow.yaml` 引用更新 — 6 份文档（`功能特性清单.md`、`feat-command-需求设计.md`、`需求草案.md`、`验收标准.md`、2 份评审报告）仍描述已弃用的 workflow.yaml 方案
+3. 文档中 `workflow.yaml` 引用更新（6 份文档）
    → 来源：质量审计
 
-4. 文档中旧 `docs/todo.md` 路径更新为 `.self-workflow/todo.md` — 3 份设计文档仍引用 V1.5.2 前的旧路径
+4. 文档中旧 `docs/todo.md` 路径更新为 `.self-workflow/todo.md`（3 份文档）
    → 来源：质量审计
 
-5. catchup.md 修复 `plan.md` 引用 — `/catchup` 读取 plan.md，但 6 个任务仅 1 个有此文件（feat 模式任务不使用 plan.md）
+5. catchup.md 修复 `plan.md` 引用
    → 来源：质量审计（`catchup.md:20`）
 
-6. 修复 `feat-先做v1-5-2的需求/task.yaml` 的重复 `artifacts` 键 — 第二个 artifacts 会覆盖第一个，阶段产物引用丢失
+6. 修复 `feat-先做v1-5-2的需求/task.yaml` 的重复 `artifacts` 键
    → 来源：质量审计
 
-### P2：愿景（7 项）🟢
+### P2：低成本改进（3 项）🟢
 
-7. spec/docs 索引在 session_start 时自动注入上下文
-   → 来源：todo #20
+7. 文档受众分类——区分 Human 阅读/Agent 阅读/共读，指导编写格式
+   → 来源：新增 #4
 
-8. 经验去重检测——避免相同经验被反复沉淀
-   → 来源：todo #7
+8. ADR-003（元数据模板填充策略）标记为"被超驰"
+   → 来源：质量审计
 
-9. 经验一致性审查 command——默认扫描 `.self-workflow/docs`，Agent 可在总结阶段自主执行
-   → 来源：新增
+9. 删除 `adr-review-template.md` 并更新相关文档
+   → 来源：新增待评审
 
-10. 沉淀通用 spec 结构——多级索引目录加载、可审计性（阅读记录）、可拓展性（用户创建约束）
+---
+
+## V1.7：docs 结构 + 索引注入（P2）🟢
+
+> 先把 `.self-workflow/docs/` 的经验资产结构化，建立自动加载机制。specs 留到 V1.8。
+
+10. docs/ 目录结构梳理——当前 9 份经验文档平铺无分类，需建立分类目录 + 索引
+    → 来源：质量审计 + todo #20
+
+11. docs 索引在 session_start 时自动注入上下文——新会话启动时 Agent 能自动读取相关经验
+    → 来源：todo #20
+
+12. 文档受众分类落实——docs/ 中每篇文档标注 Human/Agent/共读，指导 Agent 按需加载
+    → 来源：V1.6 延续
+
+---
+
+## V1.8：specs 结构 + 经验质量（P2）🟢
+
+> docs 就绪后，建立 specs 体系并提升经验库质量。
+
+13. 沉淀通用 spec 结构——可拓展性（用户创建约束）、多级索引目录
     → 来源：新增 #2
 
-11. 文档受众分类——区分 Human 阅读/Agent 阅读/共读，指导编写格式
-    → 来源：新增 #4
+14. 经验去重检测——避免相同经验被反复沉淀
+    → 来源：todo #7
 
-12. ADR-003（元数据模板填充策略）标记为"被超驰"——V1.5.2 已将 phases 内联到 task.yaml，推翻此 ADR 的模板填充方案
-    → 来源：质量审计
-
-13. 删除 `adr-review-template.md` 并更新相关文档——该模板无实际使用场景
-    → 来源：新增待评审
+15. 经验一致性审查 command——默认扫描 `.self-workflow/docs`，Agent 可在总结阶段自主执行
+    → 来源：新增
 
 ---
 
-## V1.7：Agent 能力增强（P2）🟢
+## Vx：远期愿景（P2）🟢
 
-14. 子 Agent 执行拆分——工作流阶段支持委托给子 Agent
-    → 来源：todo #14
+> 已识别但近期不排期。随框架成熟逐步拉入具体版本。
 
-15. Review Agent 增强——适应不同场景，支持多维度评审，自发性深入挖掘
-    → 来源：新增 #1
-
-16. 评审问题给出 2~4 个可行方案供选择（置信度 >95 则自动决策，仅记录决策点）
-    → 来源：新增 #3
-
----
-
-## V2：体验与复利（P2）🟢
-
-17. 工作流 Agent/Skill 打磨，参考业界优秀实践
-    → 来源：todo #17
-
-18. 经验如何复利——刷新/去重/过时标记/晋升
-    → 来源：todo #7 完整版
-
-19. 每阶段专用 agent/skill——Adapter 编译能力
-    → 来源：todo #6
-
-20. /feat 增强——无输入时自动分析/认领任务；无目标任务时检查 todo 创建需求文档
-    → 来源：todo #18
-
----
-
-## V2+：探索性功能（P2）🟢
-
-21. 普通对话中识别工作流触发——有无可闭环的设计方案
-    → 来源：新增 #6
-
-22. 老项目蒸馏 command——将已有文档转为 .self-workflow/docs 格式
-    → 来源：新增 #5（体验性功能，优先级低）
-
-23. checkpoint tag/commit ID 关联到任务阶段——方便后续回退
-    → 来源：新增 #7（优先级低，当前有命名规则）
+- 子 Agent 执行拆分——工作流阶段支持委托给子 Agent（来源：todo #14）
+- Review Agent 增强——适应不同场景，多维度评审，自发性深入挖掘（来源：新增 #1）
+- 评审问题给出 2~4 个可行方案，置信度 >95 则自动决策（来源：新增 #3）
+- 工作流 Agent/Skill 打磨，参考业界优秀实践（来源：todo #17）
+- 经验如何复利——刷新/去重/过时标记/晋升（来源：todo #7 完整版）
+- 每阶段专用 agent/skill——Adapter 编译能力（来源：todo #6）
+- /feat 增强——无输入时自动分析/认领任务（来源：todo #18）
+- 普通对话中识别工作流触发（来源：新增 #6）
+- 老项目蒸馏 command——文档转 .self-workflow/docs 格式（来源：新增 #5）
+- checkpoint tag/commit ID 关联到任务阶段（来源：新增 #7）
 
 ---
 
@@ -128,8 +121,8 @@
 <summary>V1.5.1：Gate 强制步骤（feat-v1-5-1-gate强制步骤-20260606 完成，97.6%）</summary>
 
 - [done] F1: Gate 通过条件增加"Git tag 已创建"强制检查项 + Compound 补建逻辑 ✅ — feat-workflow.md v0.3
-- [done] F2: 阶段结束时如有决策则 adrs/ 下必须有 ADR 文件（非空，含来源引用+决策理由）✅ — 5阶段检查清单措辞改为存在性断言 + 决策声明
-- [done] F3: Gate 入口强制计算 scope+risk+user-signal 三维分值并显式输出 ✅ — 4 Gate入口含量化计算块 + 附录速查表权重列改为 *量化决定*
+- [done] F2: 阶段结束时如有决策则 adrs/ 下必须有 ADR 文件 ✅ — 5阶段检查清单措辞改为存在性断言 + 决策声明
+- [done] F3: Gate 入口强制计算 scope+risk+user-signal 三维分值并显式输出 ✅ — 4 Gate入口含量化计算块
 
 </details>
 
@@ -137,12 +130,9 @@
 <summary>V1.5 修复项（feat-v1.5剩余问题修复-20260606 完成，71% 4❌）</summary>
 
 - [done] feat-workflow 做成 slash command → ✅ `/feat` 已实现
-- [done] ADR 编号 per-task 独立 → ✅ 确认已是 per-task
-- [done] /adr 去类型参数，Agent 判断 → ✅ 已重构为默认 auto
-- [done] Review Agent 强制调用 → ✅ 5 处 task() 代码块
-- [done] Gate 权重优先级声明 → ✅ 量化覆盖声明
-- [done] 双级经验模型入 workflow → ✅ Phase 5 已拆分
-- [done] /adr 定位调整 → ✅ 默认 auto + 降级交互
+- [done] ADR 编号 per-task 独立 + /adr 去类型参数 + 定位调整 ✅
+- [done] Review Agent 强制调用 + Gate 权重优先级声明 ✅
+- [done] 双级经验模型入 workflow ✅
 
 </details>
 
