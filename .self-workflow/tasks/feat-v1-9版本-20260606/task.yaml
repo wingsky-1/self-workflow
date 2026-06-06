@@ -2,7 +2,7 @@ name: v1-9版本
 title: V1.9版本
 status: in_progress
 created: 2026-06-06
-updated: 2026-06-06T22:45:00+08:00
+updated: 2026-06-06T23:15:00+08:00
 tags: [V1.9, refactor, installer, templates]
 description: >
   V1.9 版本：重构收尾——安装器/模板/命令的积压重构项。
@@ -25,10 +25,10 @@ phases:
     errors: []
   - id: 2
     name: 方案设计
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-06T22:50:00+08:00
+    completed: 2026-06-06T23:15:00+08:00
     artifact: "02-design.md"
     errors: []
   - id: 3
@@ -61,7 +61,11 @@ experience-draft: false
 structure:
   root:
     - "task.yaml"
-  adrs: []
+  adrs:
+    - "ADR-001-feat-task模板提取与目录结构.md"
+    - "ADR-002-Slug生成算法优化.md"
+    - "ADR-003-Phase-Checkpoint-SHA字段设计.md"
+    - "ADR-004-安装器三层目录清理.md"
   logs: []
   artifacts: []
 
