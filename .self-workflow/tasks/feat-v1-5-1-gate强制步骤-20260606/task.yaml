@@ -2,7 +2,7 @@ name: v1-5-1-gate强制步骤
 title: V1.5.1 Gate强制步骤
 status: in_progress
 created: 2026-06-06
-updated: 2026-06-06T20:15:00+08:00
+updated: 2026-06-06T20:32:00+08:00
 tags: []
 description: >
   V1.5.1 Gate强制步骤（P0）：对 feat-workflow.md 实施3项强化——
@@ -32,17 +32,17 @@ phases:
     errors: []
   - id: 3
     name: 代码实现
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-06T20:15:00+08:00
-    completed: null
+    completed: 2026-06-06T20:32:00+08:00
     artifact: "03-implementation.md"
     errors: []
   - id: 4
     name: 功能验证
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
+    started: 2026-06-06T20:32:00+08:00
     completed: null
     artifact: "04-verification.md"
     errors: []
@@ -69,6 +69,7 @@ structure:
   artifacts:
     - "01-analysis.md"
     - "02-design.md"
+    - "03-implementation.md"
 
 milestones:
   - id: M1
@@ -81,6 +82,11 @@ milestones:
     status: completed
     completed: 2026-06-06T20:15:00+08:00
     note: "Direction review passed (2 warnings, non-blocking, both addressed)"
+  - id: M3
+    name: Gate 3 — 代码实现通过
+    status: completed
+    completed: 2026-06-06T20:32:00+08:00
+    note: "Template source rewritten (v0.3), installer sync verified"
 
 cross-refs:
   - source: ".self-workflow/todo.md#V1.5.1"
