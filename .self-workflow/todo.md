@@ -4,20 +4,7 @@
 > 归档规则：已完成项保留但折叠，已拒绝项标注 `[wontfix]` 并附拒绝理由
 > V1.5 系列（V1.5.1~V1.5.3 + V1 → V1.5 修复）已全部关闭 ✔️
 > V1.6 质量收尾已关闭 ✔️（7/9 项完成，2 项移除/移入 V1.8）
-
----
-
-## V1.7：docs 结构 + 索引注入（P2）🟢
-
-> 先把 `.self-workflow/docs/` 的经验资产结构化，建立自动加载机制。specs 留到 V1.8。
-
-1. docs/ 目录结构梳理——当前 9 份经验文档平铺无分类，需建立分类目录 + 索引
-   → 来源：质量审计 + todo #20
-   <补充说明>：不仅仅是对当前的文档进行分类，而是站在框架的角度为以后的用户所生成的文档建立分类/索引机制
-
-2. docs 索引在 session_start 时自动注入上下文——新会话启动时 Agent 能自动读取相关经验
-   → 来源：todo #20
-   <补充说明>：考虑渐进式披露（上下文长度），需不需要引入数据库 MCP 还是先实现初版，这些作为后续补强
+> V1.7 docs 结构 + 索引注入已关闭 ✔️（2/2 项完成）
 
 ---
 
@@ -92,6 +79,14 @@
 </details>
 
 <details>
+<summary>V1.7：docs 结构 + 索引注入（feat-开始v1-7-20260606 完成，2/2 项）</summary>
+
+- [done] docs/ 目录结构梳理——建立 3 分类目录（实施经验/参考模式/错误经验）+ README.md 权威分类源 ✅
+- [done] docs 索引在 session_start 时自动注入上下文——OpenCode Plugin（session.created + marker 检测 + 渐进式披露） ✅
+
+</details>
+
+<details>
 <summary>V1.5.3：验收标准修订 + 迭代审查（20260606 完成）</summary>
 
 - [done] 验收标准 P3 证据标准改为检查 adrs/ 目录实际文件 ✅
@@ -156,3 +151,4 @@
 5. packages\installer\.opencode packages\installer\.self-workflow packages\installer\templates 关系梳理优化
 6. 各阶段验证能力要做特定增强，尤其的对抗性审查，不要默认正确，用质疑的眼光去审视结果
 7. 经验沉淀不仅是能不能复用的问题，还有这个经验的重要程度，对项目后续推进的帮助性
+8. 增强feat，如果是从todo领取的任务，结束后还应该更新对应的todo状态
