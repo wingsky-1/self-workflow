@@ -1,0 +1,67 @@
+name: 开始v1-6版本
+title: 开始V1.6版本
+status: in_progress
+created: 2026-06-06
+updated: 2026-06-06T20:37:00+08:00
+tags: []
+description: >
+  开始V1.6版本
+
+workflow-id: feat-开始v1-6版本-20260606
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: completed
+    gate: passed
+    started: 2026-06-06T20:37:00+08:00
+    completed: 2026-06-06T20:45:00+08:00
+    artifact: "01-analysis.md"
+    errors: []
+  - id: 2
+    name: 方案设计
+    status: in_progress
+    gate: pending
+    started: 2026-06-06T20:45:00+08:00
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts: []
+
+milestones: []
+
+cross-refs:
+  - ".self-workflow/todo.md#V1.6"
