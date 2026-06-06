@@ -21,6 +21,9 @@ structure:
   artifacts:
     - "01-analysis.md"
     - "02-design.md"
+    - "03-implementation.md"
+    - "04-verification.md"
+    - "05-summary.md"
 
 milestones:
   - id: M0
@@ -32,3 +35,9 @@ artifacts:
   - "workflow.yaml"
   - "artifacts/"
   - "adrs/"
+
+cross-refs:
+  - source: "docs/feat-command-需求设计.md"
+    reason: "本次任务的需求设计文档"
+  - source: ".self-workflow/docs/feat-command-实施经验.md"
+    reason: "一级经验沉淀——自举验证、Gate 量化实战、双级经验模型"
