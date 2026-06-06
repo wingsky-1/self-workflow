@@ -5,13 +5,14 @@ workflow-id: feat-实现feat命令-20260606
 type: feat
 status: in_progress  # in_progress | completed | cancelled | stuck
 created: 2026-06-06T16:49:00+08:00
-updated: 2026-06-06T16:55:00+08:00
+updated: 2026-06-06T17:00:00+08:00
+description: 实现 /feat 命令——为 feat-workflow.md 提供确定性的 slash command 入口
 
 phases:
   - id: 1
     name: 需求分析
-    status: completed      # pending | in_progress | completed | failed
-    gate: passed           # pending | passed | failed | skipped
+    status: completed
+    gate: passed
     started: 2026-06-06T16:49:00+08:00
     completed: 2026-06-06T16:52:00+08:00
     artifact: "01-analysis.md"
@@ -19,18 +20,18 @@ phases:
 
   - id: 2
     name: 方案设计
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-06T16:55:00+08:00
-    gate: pending
-    started: null
-    completed: null
+    completed: 2026-06-06T17:00:00+08:00
     artifact: "02-design.md"
     errors: []
 
   - id: 3
     name: 代码实现
-    status: pending
+    status: in_progress
+    gate: pending
+    started: 2026-06-06T17:05:00+08:00
     gate: pending
     started: null
     completed: null
