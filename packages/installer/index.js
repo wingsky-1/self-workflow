@@ -49,7 +49,7 @@ const MANIFEST = [
   [".self-workflow/docs/参考模式/.gitkeep", "docs/参考模式/.gitkeep"],
   [".self-workflow/docs/错误经验/.gitkeep", "docs/错误经验/.gitkeep"],
   [".self-workflow/docs/README.md",         "docs/README.md"],
-  [".opencode/plugin/self-workflow-session.ts", "plugin/self-workflow-session.ts"],
+  [".opencode/plugins/self-workflow-session.ts", "plugin/self-workflow-session.ts"],
 ];
 
 const EMPTY_DIRS = [
@@ -61,7 +61,7 @@ const EMPTY_DIRS = [
   ".opencode/agents",
   ".opencode/commands",
   ".opencode/skills",
-  ".opencode/plugin",
+  ".opencode/plugins",
 ];
 
 // ─── Init Command ───────────────────────────────────────────────────────────
