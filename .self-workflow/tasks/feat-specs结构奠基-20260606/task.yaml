@@ -1,0 +1,75 @@
+name: specs结构奠基
+title: "V1.8：specs 结构奠基 — 建立 specs 体系（文档受众分类、通用 spec 结构、skill 降格、决策自动记录）"
+status: in_progress
+created: 2026-06-06
+updated: 2026-06-06T23:05:00+08:00
+tags: [specs, 文档结构, skill, ADR]
+description: >
+  V1.8 版本任务 — 建立 specs 体系基础，涵盖 4 项：
+  1. 文档受众分类 spec — 明确 docs/、specs/ 的受众（Human/Agent/共读）
+  2. 沉淀通用 spec 结构 — 可拓展性、多级索引目录
+  3. agent-reasoning + interaction-protocol 降格为 spec — 从 skill 形式转为始终生效的通用规范
+  4. 关键决策自动记录→通用 spec — Agent 的分析决策也要自动记录 ADR，保证执行过程可追溯
+
+workflow-id: feat-specs结构奠基-20260606
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: in_progress
+    gate: pending
+    started: 2026-06-06T23:05:00+08:00
+    completed: null
+    artifact: "01-analysis.md"
+    errors: []
+    checkpoint: null
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+    checkpoint: null
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+    checkpoint: null
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+    checkpoint: null
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+    checkpoint: null
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts: []
+
+milestones: []
+
+cross-refs: []
