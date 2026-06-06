@@ -26,6 +26,7 @@ structure:
     - "ADR-005-task目录元数据规范.md"
     - "ADR-006-task目录分层与交叉引用管理.md"
     - "ADR-007-委托优先原则.md"
+    - "ADR-008-docs与specs定位.md"
   logs:
     - "M0-M1.4-实施记录.md"
     - "M1.5-Session-Catchup.md"
@@ -79,3 +80,4 @@ artifacts:
 archive:
   - "docs/V2-质量保障需求设计.md"
   - ".self-workflow/docs/V1-实施经验.md"
+  - "adrs/ADR-008-docs与specs定位.md"
