@@ -1,0 +1,73 @@
+name: gate-审查增强
+title: V1.10：Gate + 审查增强 — 门控机制优化与对抗性审查能力提升
+status: in_progress
+created: 2026-06-07
+updated: 2026-06-07T01:15:00+08:00
+tags: [gate, review-agent, adversarial-review, quality]
+description: >
+  V1.10 版本（P2）。两项任务：
+  1. 门控机制优化——文档变更和新增也需要进行审查
+  2. 各阶段验证能力增强——尤其对抗性审查，不要默认正确，用质疑的眼光审视结果
+
+workflow-id: feat-gate-审查增强-20260607
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: completed
+    gate: passed
+    started: 2026-06-07T00:51:00+08:00
+    completed: 2026-06-07T01:15:00+08:00
+    artifact: "01-analysis.md"
+    errors: []
+    checkpoint: null
+  - id: 2
+    name: 方案设计
+    status: in_progress
+    gate: pending
+    started: 2026-06-07T01:15:00+08:00
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+    checkpoint: null
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+    checkpoint: null
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+    checkpoint: null
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+    checkpoint: null
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts: []
+
+milestones: []
+
+cross-refs: []
