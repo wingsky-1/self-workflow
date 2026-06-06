@@ -78,6 +78,6 @@ artifacts:
   - "logs/"
 
 archive:
-  - "docs/V2-质量保障需求设计.md"
+  - "docs/V1.5-质量保障需求设计.md"
   - ".self-workflow/docs/V1-实施经验.md"
   - "adrs/ADR-008-docs与specs定位.md"
