@@ -1,0 +1,57 @@
+# 任务元数据
+# 每个 .self-workflow/tasks/<task-name>/ 目录下应有此文件
+
+name: V1实现
+title: V1 里程碑实现
+status: in_progress  # in_progress | completed | cancelled | stuck
+created: 2026-06-06
+updated: 2026-06-06
+tags: [v1, milestone, installer, review-agent, workflow-guide]
+
+description: >
+  实现 Self-Workflow V1 核心功能：安装器、工作流指引、Review Agent、
+  产物归档、错误日志。完成后可用 /feat 执行完整工作流。
+
+milestones:
+  - id: M0
+    name: OpenCode 能力审计
+    status: completed
+    completed: 2026-06-06
+
+  - id: M1.1
+    name: 手写工作流指引
+    status: completed
+    completed: 2026-06-06
+
+  - id: M1.2
+    name: 安装器
+    status: completed
+    completed: 2026-06-06
+
+  - id: M1.3
+    name: Review Agent
+    status: completed
+    completed: 2026-06-06
+
+  - id: M1.4
+    name: 产物归档 + 错误日志
+    status: completed
+    completed: 2026-06-06
+
+  - id: M1.5
+    name: Session Catchup
+    status: pending
+    completed: null
+
+  - id: M1.6
+    name: 自举验证
+    status: pending
+    completed: null
+
+artifacts:
+  - "plan.md"
+  - "完成状态.md"
+  - "ADR-001-交互式问答优先.md"
+  - "ADR-002-安装器职责边界.md"
+  - "ADR-003-关键决策即时归档.md"
+  - "ADR-004-目录职责划分与开发使用分离.md"
