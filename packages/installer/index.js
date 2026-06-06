@@ -35,6 +35,7 @@ const MANIFEST = [
   [".self-workflow/configs/templates/error-log-template.md", "configs/templates/error-log-template.md"],
   [".self-workflow/configs/templates/workflow-metadata-template.yaml", "configs/templates/workflow-metadata-template.yaml"],
   [".opencode/agents/review-agent.md",        "agents/review-agent.md"],
+  [".opencode/commands/catchup.md",           "commands/catchup.md"],
 ];
 
 const EMPTY_DIRS = [
@@ -44,6 +45,7 @@ const EMPTY_DIRS = [
   ".self-workflow/docs",
   ".self-workflow/specs",
   ".opencode/agents",
+  ".opencode/commands",
 ];
 
 // ─── Init Command ───────────────────────────────────────────────────────────
@@ -120,6 +122,7 @@ function init(targetDir, dryRun) {
     console.log("  ✅ 安装完成，无需额外配置。");
     console.log("  📖 工作流指引：.self-workflow/configs/guides/feat-workflow.md");
     console.log("  🛡️  Review Agent：.opencode/agents/review-agent.md");
+    console.log("  📋 Session Catchup：.opencode/commands/catchup.md（输入 /catchup 使用）");
   }
 
   console.log("  ────────────────────────────────────────────\n");
