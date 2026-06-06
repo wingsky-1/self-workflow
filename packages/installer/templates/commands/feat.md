@@ -148,7 +148,7 @@ workflow-started:
 公式和分值映射见 `feat-workflow.md` 的"Gate 重量量化"章节。示例：`scope=+1(cross-module), risk=+1(architecture), user-signal=0(default) → total=+2 → full`
 
 #### 决策捕捉
-阶段中有架构选择（方向性决策、多方案对比、trade-off 评估）→ 触发 `/adr` 命令。
+阶段中有架构选择（方向性决策、多方案对比、trade-off 评估）→ 按 `specs/default/decision-record.md` 规范创建 ADR。
 
 ---
 

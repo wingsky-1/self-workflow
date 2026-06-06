@@ -39,7 +39,6 @@ const MANIFEST = [
   [".self-workflow/configs/templates/adr-complex-template.md",    "configs/templates/adr-complex-template.md"],
   [".opencode/agents/review-agent.md",        "agents/review-agent.md"],
   [".opencode/commands/catchup.md",           "commands/catchup.md"],
-  [".opencode/commands/adr.md",               "commands/adr.md"],
   [".opencode/commands/feat.md",              "commands/feat.md"],
   [".self-workflow/specs/README.md",          "specs/README.md"],
   [".self-workflow/specs/default/agent-reasoning.md",       "specs/default/agent-reasoning.md"],
