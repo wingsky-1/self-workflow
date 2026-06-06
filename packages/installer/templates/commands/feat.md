@@ -49,14 +49,20 @@ argument-hint: [--quick] <特性描述>
 ### 步骤 1：参数解析
 
 - 提取 `<描述>`，生成 slug：
-  - Unicode 中文字符（U+4E00–U+9FFF, U+3400–U+4DBF）保留原文
-  - ASCII 字母/数字保留，大写转小写
-  - 空格、标点、特殊符号替换为 `-`
-  - 连续多个 `-` 压缩为一个
-  - 首尾 `-` 去除
-  - 截断至 40 字符，在单词边界处截断（如有）
-  - 若结果为空 → 使用 `task`
-  - 示例：`"实现用户登录模块（含OAuth2.0）"` → `"实现用户登录模块-含oauth2-0"`
+  - 从 `<描述>` 和 todo.md 关联的 todo 项理解任务的实际工作内容（而非字面变换）
+  - 提炼 2-4 个核心关键词/短语，用 `-` 连接，生成语义 slug：
+    - 中文项目使用中文关键词（如 `安装器重构-模板清理`）
+    - 英文术语/版本号保持原样
+    - 辨识度要求：人类通过 slug 即可大致辨别任务内容
+  - 安全网清理（机械规则，对提炼后的关键词短语执行）：
+    - 空格/标点替换为 `-`
+    - 连续多个 `-` 压缩为一个
+    - 首尾 `-` 去除
+    - 截断至 40 字符
+    - 若结果为空 → 使用 `task`
+  - `name` 字段 = 语义 slug；`title` 字段 = Agent 精炼的一句话标题（含版本号+工作要点）
+  - `description` 字段 = Agent 生成的任务摘要（含关联 todo 项列表）
+  - 示例：`"/feat V1.9版本"`（结合 todo 中 4 项重构任务）→ slug `"安装器重构-模板清理"`
 - 检测 `--quick` 标志
 - 生成 workflow-id：`feat-<slug>-<YYYYMMDD>`
 - 检查 `.self-workflow/tasks/` 中是否已有以相同前缀开头的目录（同日同 slug）
@@ -79,30 +85,35 @@ argument-hint: [--quick] <特性描述>
 
 ### 步骤 3：写入 task.yaml
 
-基于以下模板写入，填充具体值：
+从 `.self-workflow/configs/tasks/feat-task.yaml` 加载模板结构（如不存在，使用下方的内联 fallback），
+填充占位符（`<slug>`、`<描述>`、`<当前时间 ISO 8601>` 等）后写入 `.self-workflow/tasks/<workflow-id>/task.yaml`。
+
+> **降级处理**：若模板文件不存在，提示用户运行 `node packages/installer/index.js init --target . --force` 安装模板，
+> 并 fallback 使用以下内联模板继续创建 task.yaml：
 
 ```yaml
-name: <slug>
-title: <描述>
-status: in_progress
-created: <YYYY-MM-DD>
-updated: <YYYY-MM-DDTHH:mm:ss+HH:MM>
-tags: []
-description: >
+name: <slug>  # 语义 slug，如 "安装器重构-模板清理"（而非机械变换的 "v1-9版本"）
+title: <描述>                 # 用户输入原始描述
+status: in_progress           # 初始状态
+created: <YYYY-MM-DD>         # 创建日期
+updated: <ISO 8601>           # 最后更新时间
+tags: []                      # 可由 Agent 补充
+description: >                # 用户输入原文（YAML folded scalar）
   <描述原文>
 
 workflow-id: <feat-<slug>-<YYYYMMDD>>
-type: feat
+type: feat                     # 工作流类型（未来可扩展 fix/refactor 等）
 
 phases:
   - id: 1
     name: 需求分析
-    status: in_progress
-    gate: pending
+    status: in_progress        # pending | in_progress | completed | failed | skipped
+    gate: pending              # pending | passed | failed
     started: <当前时间 ISO 8601>
     completed: null
     artifact: "01-analysis.md"
     errors: []
+    checkpoint: null           # Gate 通过后由 git rev-parse 填充 commit SHA
   - id: 2
     name: 方案设计
     status: pending
@@ -111,6 +122,7 @@ phases:
     completed: null
     artifact: "02-design.md"
     errors: []
+    checkpoint: null
   - id: 3
     name: 代码实现
     status: pending
@@ -119,6 +131,7 @@ phases:
     completed: null
     artifact: "03-implementation.md"
     errors: []
+    checkpoint: null
   - id: 4
     name: 功能验证
     status: pending
@@ -127,6 +140,7 @@ phases:
     completed: null
     artifact: "04-verification.md"
     errors: []
+    checkpoint: null
   - id: 5
     name: 总结沉淀
     status: pending
@@ -135,6 +149,7 @@ phases:
     completed: null
     artifact: "05-summary.md"
     errors: []
+    checkpoint: null
 
 experience-draft: false
 
@@ -150,28 +165,13 @@ milestones: []
 cross-refs: []
 ```
 
-**字段说明**：
-- `name`/`title`：slug 和原始描述，用于 dashboard 展示
-- `description`：使用 YAML 折叠块标量 `>`（自动换行），保留用户原始描述全文
-- `phases` — 5 阶段运行态追踪，含每阶段 status/gate/时间戳/errors。所有新任务从此 schema 初始化
-- `workflow-id` / `type` — 工作流标识
-- `experience-draft` — 布尔值，标记是否产出经验草稿
-- `cross-refs` — 交叉引用列表，关联需求文档和外部资源
-- `structure`：记录目录结构。`root` 只含 `task.yaml`（不再含 `workflow.yaml`）。子项（adrs/logs/artifacts）在对应文件创建时增量更新
-- `milestones`：空数组，工作流推进时由 Agent 按阶段追加
-- `tags`：初始为空，可由 Agent 在工作流中补充
-
-### 步骤 4：阶段追踪初始化
-
-`task.yaml` 已包含 `phases` 段（步骤 3），无需额外创建 `workflow.yaml`。所有阶段状态更新直接写入 `task.yaml` 的 `phases[*]` 字段。
-
-### 步骤 5：写入 errors.yaml
+### 步骤 4：写入 errors.yaml
 
 ```yaml
 errors: []
 ```
 
-### 步骤 6：进入阶段 1 — 需求分析
+### 步骤 5：进入阶段 1 — 需求分析
 
 1. 加载 `.self-workflow/configs/guides/feat-workflow.md` 作为执行指引
 2. 按指引加载 `interaction-protocol` Skill（涉及选项选择时使用 question 工具）
@@ -184,7 +184,7 @@ errors: []
 
 **生命周期移交**：此步骤完成后，命令启动阶段结束。后续所有阶段推进（Gate 审查、阶段 2-5、Checkpoint 创建）由 `feat-workflow.md` 指引驱动。
 
-### 步骤 7：输出启动报告
+### 步骤 6：输出启动报告
 
 ```yaml
 workflow-started:

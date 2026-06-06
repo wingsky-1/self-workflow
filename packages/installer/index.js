@@ -44,6 +44,7 @@ const MANIFEST = [
   [".opencode/commands/adr.md",               "commands/adr.md"],
   [".opencode/commands/feat.md",              "commands/feat.md"],
   [".self-workflow/specs/README.md",          "specs/README.md"],
+  [".self-workflow/configs/tasks/feat-task.yaml", "tasks/feat-task.yaml"],
   // docs/ 分类目录 + README + Plugin
   [".self-workflow/docs/实施经验/.gitkeep", "docs/实施经验/.gitkeep"],
   [".self-workflow/docs/参考模式/.gitkeep", "docs/参考模式/.gitkeep"],
@@ -55,6 +56,7 @@ const MANIFEST = [
 const EMPTY_DIRS = [
   ".self-workflow/configs/guides",
   ".self-workflow/configs/templates",
+  ".self-workflow/configs/tasks",
   ".self-workflow/tasks",
   ".self-workflow/docs",
   ".self-workflow/specs",
