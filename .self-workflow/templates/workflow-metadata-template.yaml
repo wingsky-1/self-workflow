@@ -16,6 +16,7 @@ phases:
     started: null
     completed: null
     artifact: "01-analysis.md"
+    errors: []         # error IDs 列表
 
   - id: 2
     name: 方案设计
@@ -24,6 +25,7 @@ phases:
     started: null
     completed: null
     artifact: "02-design.md"
+    errors: []
 
   - id: 3
     name: 代码实现
@@ -32,6 +34,7 @@ phases:
     started: null
     completed: null
     artifact: "03-implementation.md"
+    errors: []
 
   - id: 4
     name: 功能验证
@@ -40,6 +43,7 @@ phases:
     started: null
     completed: null
     artifact: "04-verification.md"
+    errors: []
 
   - id: 5
     name: 总结沉淀
@@ -48,3 +52,14 @@ phases:
     started: null
     completed: null
     artifact: "05-summary.md"
+    errors: []
+
+# 错误索引（errors/<workflow-id>/errors.yaml 独立维护）
+# 格式：
+# errors:
+#   - id: err-001
+#     phase: 1
+#     description: "<简要描述>"
+#     severity: blocking | minor
+#     timestamp: <YYYY-MM-DDTHH:mm:ss>
+#     resolved: true | false
