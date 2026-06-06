@@ -9,6 +9,15 @@ argument-hint: [--quick] <特性描述>
 
 # /feat 命令
 
+## 角色定位
+
+本命令是 `/feat` 工作流的系统级提示词框架，负责：
+- 入口交互、参数解析、目录初始化
+- 系统级约束定义（task() 调用规范、skill 加载规则、Gate 量化公式）
+- 任务仪表盘展示
+
+工作流的阶段定义、Gate 审查规则、Checkpoint 机制由 `.self-workflow/configs/guides/feat-workflow.md` 定义，本命令通过引用该文件驱动工作流执行。用户可通过修改安装器模板源 `packages/installer/templates/configs/guides/feat-workflow.md` 定制工作流（运行 `init --force` 同步）。
+
 ## 用法
 
 ```
@@ -62,7 +71,6 @@ argument-hint: [--quick] <特性描述>
 ```
 .self-workflow/tasks/<workflow-id>/
 ├── task.yaml
-├── workflow.yaml
 ├── adrs/           # 决策记录
 ├── logs/           # 实施记录
 ├── artifacts/      # 阶段产物
@@ -79,50 +87,84 @@ name: <slug>
 title: <描述>
 status: in_progress
 created: <YYYY-MM-DD>
-updated: <YYYY-MM-DD>
+updated: <YYYY-MM-DDTHH:mm:ss+HH:MM>
 tags: []
 description: >
   <描述原文>
 
+workflow-id: <feat-<slug>-<YYYYMMDD>>
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: in_progress
+    gate: pending
+    started: <当前时间 ISO 8601>
+    completed: null
+    artifact: "01-analysis.md"
+    errors: []
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+
+experience-draft: false
+
 structure:
   root:
     - "task.yaml"
-    - "workflow.yaml"
   adrs: []
   logs: []
   artifacts: []
 
 milestones: []
 
-artifacts:
-  - "workflow.yaml"
+cross-refs: []
 ```
 
 **字段说明**：
 - `name`/`title`：slug 和原始描述，用于 dashboard 展示
 - `description`：使用 YAML 折叠块标量 `>`（自动换行），保留用户原始描述全文
-- `structure`：记录目录结构。子项（adrs/logs/artifacts）在对应文件创建时增量更新
+- `phases` — 5 阶段运行态追踪，含每阶段 status/gate/时间戳/errors。所有新任务从此 schema 初始化
+- `workflow-id` / `type` — 工作流标识
+- `experience-draft` — 布尔值，标记是否产出经验草稿
+- `cross-refs` — 交叉引用列表，关联需求文档和外部资源
+- `structure`：记录目录结构。`root` 只含 `task.yaml`（不再含 `workflow.yaml`）。子项（adrs/logs/artifacts）在对应文件创建时增量更新
 - `milestones`：空数组，工作流推进时由 Agent 按阶段追加
 - `tags`：初始为空，可由 Agent 在工作流中补充
 
-### 步骤 4：写入 workflow.yaml
+### 步骤 4：阶段追踪初始化
 
-从 `.self-workflow/configs/templates/workflow-metadata-template.yaml` 读取模板，填充以下字段：
-
-| 字段 | 填充值 |
-|------|--------|
-| `workflow-id` | `<生成的 workflow-id>` |
-| `type` | `feat`（固定值） |
-| `status` | `in_progress` |
-| `created` | `<当前时间 ISO 8601 格式：YYYY-MM-DDTHH:mm:ss±HH:MM>` |
-| `updated` | 同 `created` |
-| `description` | `<描述原文>` |
-
-所有 `phases[0..4]` 保持模板默认值：
-- `status: pending`, `gate: pending`
-- `started: null`, `completed: null`, `errors: []`
-
-**注意**：时间戳格式为 `YYYY-MM-DDTHH:mm:ss±HH:MM`（含时区，如 `2026-06-06T16:12:00+08:00`），与模板约定一致。`updated` 字段在每次工作流状态变更时同步更新。
+`task.yaml` 已包含 `phases` 段（步骤 3），无需额外创建 `workflow.yaml`。所有阶段状态更新直接写入 `task.yaml` 的 `phases[*]` 字段。
 
 ### 步骤 5：写入 errors.yaml
 
@@ -135,7 +177,7 @@ errors: []
 1. 加载 `.self-workflow/configs/guides/feat-workflow.md` 作为执行指引
 2. 按指引加载 `interaction-protocol` Skill（涉及选项选择时使用 question 工具）
 3. 按指引加载 `agent-reasoning` Skill（委托优先、质疑方向、决策捕捉）
-4. 更新 `workflow.yaml`：
+4. 更新 `task.yaml`：
    - `phases[0].status` → `in_progress`
    - `phases[0].started` → `<当前时间 ISO 8601>`
    - 顶层 `updated` → `<当前时间 ISO 8601>`
@@ -144,7 +186,7 @@ errors: []
    - 产出 `artifacts/01-analysis.md`
    - 执行决策捕捉（阶段内如有架构选择需触发 `/adr`）
 
-**生命周期移交**：此步骤完成后，命令启动阶段结束。后续所有阶段推进（Gate 审查、阶段 2-5、Checkpoint 创建）由 `feat-workflow.md` 指引驱动。Agent 必须在每个阶段结束时按指引更新 `workflow.yaml`（阶段 status/gate、时间戳），并在每个 Gate 通过后创建 Git tag checkpoint。
+**生命周期移交**：此步骤完成后，命令启动阶段结束。后续所有阶段推进（Gate 审查、阶段 2-5、Checkpoint 创建）由 `feat-workflow.md` 指引驱动。Agent 必须在每个阶段结束时按指引更新 `task.yaml`（阶段 status/gate、时间戳），并在每个 Gate 通过后创建 Git tag checkpoint。
 
 ### 步骤 7：输出启动报告
 
@@ -159,9 +201,61 @@ workflow-started:
 
 ---
 
+## 工作流执行
+
+启动完成后，按 `.self-workflow/configs/guides/feat-workflow.md` 定义的阶段顺序执行。
+
+**快捷引用**：
+
+| 阶段 | Gate 重量 | 详见 |
+|------|----------|------|
+| 1. 需求分析 | light | `feat-workflow.md#阶段-1需求分析` |
+| 2. 方案设计 | full | `feat-workflow.md#阶段-2方案设计` |
+| 3. 代码实现 | full | `feat-workflow.md#阶段-3代码实现` |
+| 4. 功能验证 | light | `feat-workflow.md#阶段-4功能验证` |
+| 5. 总结沉淀 | light | `feat-workflow.md#阶段-5总结沉淀` |
+
+每个阶段结束时更新 `task.yaml` 中对应 phase 的 `status`/`gate`/时间戳。
+每个 Gate 通过后创建 Git tag checkpoint（见 feat-workflow.md 的 Checkpoint 章节）。
+
+### 系统约束
+
+#### task() 调用规范
+- 委托时始终携带 `load_skills` 参数，评估可用 skills 后选择合适的
+- 优先使用 `category` 参数匹配任务领域（visual-engineering/ultrabrain/deep/quick）
+- 子 Agent 返回后必须验证结果
+
+#### skill 加载规则
+- `interaction-protocol`：涉及 2+ 选项供用户选择时加载
+- `agent-reasoning`：委托优先、质疑方向、决策捕捉场景加载
+
+#### Gate 量化公式
+Gate weight 由三维分值决定——详见 feat-workflow.md 的"Gate 重量量化"章节：
+
+| 维度 | 条件 | 分值 |
+|------|------|------|
+| scope | single-file / multi-file / cross-module | -1 / 0 / +1 |
+| risk | typo-config / logic-change / architecture | -1 / 0 / +1 |
+| user-signal | quick-mode / default / full-review | -1 / 0 / +1 |
+
+| 总分 | Gate weight | 行为 |
+|------|------------|------|
+| ≤ -1 | skip | 跳过所有审查 |
+| = 0 | light | 仅程序化验证 |
+| ≥ 1 | full | 完整审查 |
+
+#### 决策捕捉
+阶段中有架构选择（方向性决策、多方案对比、trade-off 评估）→ 触发 `/adr` 命令。
+
+---
+
 ## 无参数模式（`/feat`）
 
-扫描 `.self-workflow/tasks/` 下所有 task，读取每个 `task.yaml` 的 status，输出任务仪表盘：
+扫描 `.self-workflow/tasks/` 下所有 task，读取每个 `task.yaml`：
+- 优先检查 `phases` 段是否存在 → 按新 schema 读取，遍历 phases 找到第一个 status != completed 的作为当前阶段
+- 无 `phases` 段 → 按旧 schema，读取 task.yaml 的顶层 status，再尝试读取同目录的 `workflow.yaml` 获取阶段信息
+
+输出任务仪表盘：
 
 ```
 📊 任务状态
@@ -186,11 +280,10 @@ workflow-started:
 | 缺少 `<描述>` 且非无参数模式 | 提示"请提供特性描述，例如：/feat 实现用户登录" |
 | workflow-id 冲突（追加后仍冲突 > 10 次） | 提示"slug 冲突过多，请使用更具体的描述" |
 | `.self-workflow/` 目录不存在 | 提示先运行 `self-workflow init` 安装 |
-| `templates/workflow-metadata-template.yaml` 不存在 | 提示模板缺失，建议重新安装 |
+| `templates/workflow-metadata-template.yaml` 不存在 | （注意：新任务不再使用此模板—`task.yaml` 已内嵌 phases 段，无需独立 workflow.yaml） |
 | 已有 in_progress 任务 | 提示用户确认后再继续 |
 
 ## 参考
 
 - 工作流指引：`.self-workflow/configs/guides/feat-workflow.md`
-- 模板文件：`.self-workflow/configs/templates/workflow-metadata-template.yaml`
 - 命令源码（安装器模板）：`packages/installer/templates/commands/feat.md`

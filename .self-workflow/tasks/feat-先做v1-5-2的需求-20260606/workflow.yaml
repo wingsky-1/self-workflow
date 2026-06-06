@@ -2,7 +2,7 @@ workflow-id: feat-先做v1-5-2的需求-20260606
 type: feat
 status: in_progress
 created: 2026-06-06T18:24:47+08:00
-updated: 2026-06-06T19:17:55+08:00
+updated: 2026-06-06T19:28:00+08:00
 description: V1.5.2 Todo 体系优化（P1）：todo.md 增加优先级/版本标记、已完成/已拒绝项归档机制、task.yaml 和 workflow.yaml 关系澄清、/feat command 和 feat-workflow 关系澄清。
 
 phases:
@@ -26,18 +26,18 @@ phases:
 
   - id: 3
     name: 代码实现
-    status: in_progress
+    status: completed
     gate: pending
     started: 2026-06-06T19:17:55+08:00
-    completed: null
+    completed: 2026-06-06T19:24:34+08:00
     artifact: "03-implementation.md"
     errors: []
 
   - id: 4
     name: 功能验证
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
+    started: 2026-06-06T19:28:00+08:00
     completed: null
     artifact: "04-verification.md"
     errors: []

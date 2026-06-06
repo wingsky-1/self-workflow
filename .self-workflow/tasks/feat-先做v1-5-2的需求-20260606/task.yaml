@@ -20,6 +20,7 @@ structure:
   artifacts:
     - "01-analysis.md"
     - "02-design.md"
+    - "03-implementation.md"
 
 milestones: []
 

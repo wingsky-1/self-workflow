@@ -71,11 +71,14 @@ review-report:
 
 在每次 Gate 审查中，必须执行以下检查：
 
-### task.yaml 存在性检查
+### task.yaml 存在性与 Schema 检查
 
 1. 检查当前 task 目录下是否存在 `task.yaml`
 2. 如果不存在 → 标记为 critical，建议创建
-3. 如果存在 → 验证 `status`、`milestones`、`artifacts` 字段是否完善
+3. 如果存在 → 验证：
+   - `status`、`milestones` 字段是否完善
+   - 是否有 `phases` 段 → 新 schema：验证 phases 数组至少有 5 个元素，每个 phase 包含 `status`/`gate` 字段
+   - 无 `phases` 段 → 旧 schema：标记为 info，提示建议迁移到新 schema
 
 ### 决策捕捉检查
 

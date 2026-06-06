@@ -33,6 +33,7 @@ const MANIFEST = [
   [".self-workflow/configs/templates/implementation-template.md", "configs/templates/implementation-template.md"],
   [".self-workflow/configs/templates/verification-template.md", "configs/templates/verification-template.md"],
   [".self-workflow/configs/templates/error-log-template.md", "configs/templates/error-log-template.md"],
+  // ⚠️ DEPRECATED (V1.5.2): workflow.yaml replaced by phases in task.yaml. Kept for historical reference.
   [".self-workflow/configs/templates/workflow-metadata-template.yaml", "configs/templates/workflow-metadata-template.yaml"],
   [".self-workflow/configs/templates/adr-simple-template.md",     "configs/templates/adr-simple-template.md"],
   [".self-workflow/configs/templates/adr-complex-template.md",    "configs/templates/adr-complex-template.md"],
