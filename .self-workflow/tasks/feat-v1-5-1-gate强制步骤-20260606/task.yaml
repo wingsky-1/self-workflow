@@ -1,8 +1,8 @@
 name: v1-5-1-gate强制步骤
 title: V1.5.1 Gate强制步骤
-status: in_progress
+status: completed
 created: 2026-06-06
-updated: 2026-06-06T20:35:00+08:00
+updated: 2026-06-06T20:40:00+08:00
 tags: []
 description: >
   V1.5.1 Gate强制步骤（P0）：对 feat-workflow.md 实施3项强化——
@@ -48,14 +48,14 @@ phases:
     errors: []
   - id: 5
     name: 总结沉淀
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-06T20:35:00+08:00
-    completed: null
+    completed: 2026-06-06T20:40:00+08:00
     artifact: "05-summary.md"
     errors: []
 
-experience-draft: false
+experience-draft: true
 
 structure:
   root:
@@ -71,6 +71,7 @@ structure:
     - "02-design.md"
     - "03-implementation.md"
     - "04-verification.md"
+    - "05-summary.md"
 
 milestones:
   - id: M1
@@ -93,6 +94,11 @@ milestones:
     status: completed
     completed: 2026-06-06T20:35:00+08:00
     note: "All AC1/AC2/AC3 verified, no regressions"
+  - id: M5
+    name: Phase 5 + Compound — 总结沉淀完成
+    status: completed
+    completed: 2026-06-06T20:40:00+08:00
+    note: "Summary written, doc-level experience drafted, compound archived"
 
 cross-refs:
   - source: ".self-workflow/todo.md#V1.5.1"
