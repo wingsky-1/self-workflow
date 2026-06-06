@@ -1,0 +1,65 @@
+# 工作流实例元数据
+# 在工作流启动时创建，各阶段更新状态
+
+workflow-id: <workflow-id>
+type: feat
+status: in_progress  # in_progress | completed | cancelled | stuck
+created: <YYYY-MM-DDTHH:mm:ss>
+updated: <YYYY-MM-DDTHH:mm:ss>
+description: <特性描述>
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: pending    # pending | in_progress | completed | failed
+    gate: pending      # pending | passed | failed | skipped
+    started: null
+    completed: null
+    artifact: "01-analysis.md"
+    errors: []         # error IDs 列表
+
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+
+# 错误索引（errors/<workflow-id>/errors.yaml 独立维护）
+# 格式：
+# errors:
+#   - id: err-001
+#     phase: 1
+#     description: "<简要描述>"
+#     severity: blocking | minor
+#     timestamp: <YYYY-MM-DDTHH:mm:ss>
+#     resolved: true | false

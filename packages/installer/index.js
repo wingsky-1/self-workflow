@@ -24,15 +24,23 @@ const TEMPLATES_DIR = path.join(__dirname, "templates");
 // ─── File manifest ──────────────────────────────────────────────────────────
 
 const MANIFEST = [
-  // target-path               source-path (relative to templates/)
-  [".self-workflow/guides/feat-workflow.md",  "guides/feat-workflow.md"],
+  // target-path                            source-path (relative to templates/)
+  [".self-workflow/configs/guides/feat-workflow.md",     "configs/guides/feat-workflow.md"],
+  [".self-workflow/configs/templates/analysis-template.md",    "configs/templates/analysis-template.md"],
+  [".self-workflow/configs/templates/adr-template.md",        "configs/templates/adr-template.md"],
+  [".self-workflow/configs/templates/review-report-template.md", "configs/templates/review-report-template.md"],
+  [".self-workflow/configs/templates/summary-template.md",  "configs/templates/summary-template.md"],
+  [".self-workflow/configs/templates/workflow-metadata-template.yaml", "configs/templates/workflow-metadata-template.yaml"],
   [".opencode/agents/review-agent.md",        "agents/review-agent.md"],
 ];
 
 const EMPTY_DIRS = [
-  ".self-workflow/guides",
-  ".self-workflow/artifacts",
-  ".self-workflow/errors",
+  ".self-workflow/configs/guides",
+  ".self-workflow/configs/templates",
+  ".self-workflow/tasks/artifacts",
+  ".self-workflow/tasks/errors",
+  ".self-workflow/docs",
+  ".self-workflow/specs",
   ".opencode/agents",
 ];
 
@@ -108,7 +116,7 @@ function init(targetDir, dryRun) {
     console.log("  ⚠️  安装完成，但有错误（见上）。");
   } else {
     console.log("  ✅ 安装完成，无需额外配置。");
-    console.log("  📖 工作流指引：.self-workflow/guides/feat-workflow.md");
+    console.log("  📖 工作流指引：.self-workflow/configs/guides/feat-workflow.md");
     console.log("  🛡️  Review Agent：.opencode/agents/review-agent.md");
   }
 
