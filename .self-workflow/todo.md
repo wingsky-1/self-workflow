@@ -154,3 +154,5 @@
 3. 门控机制需要优化，文档变更和新增也需要进行审查
 4. 关键决策或讨论的自动记录还是不理想，要做成通用spec
 5. packages\installer\.opencode packages\installer\.self-workflow packages\installer\templates 关系梳理优化
+6. 各阶段验证能力要做特定增强，尤其的对抗性审查，不要默认正确，用质疑的眼光去审视结果
+7. 经验沉淀不仅是能不能复用的问题，还有这个经验的重要程度，对项目后续推进的帮助性
