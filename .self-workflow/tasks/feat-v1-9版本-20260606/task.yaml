@@ -1,0 +1,71 @@
+name: v1-9版本
+title: V1.9版本
+status: in_progress
+created: 2026-06-06
+updated: 2026-06-06T22:45:00+08:00
+tags: [V1.9, refactor, installer, templates]
+description: >
+  V1.9 版本：重构收尾——安装器/模板/命令的积压重构项。
+  包含：(1) task 模板从 feat command 移动到 templates——可由用户进行定制；
+  (2) 任务标题/描述/commit msg 生成优化——提升辨识度和可读性；
+  (3) checkpoint tag/commit ID 关联到任务阶段——task.yaml 中记录每个 Gate checkpoint 对应的 commit SHA；
+  (4) packages/installer/.opencode .self-workflow templates 三层目录关系梳理优化。
+
+workflow-id: feat-v1-9版本-20260606
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: completed
+    gate: passed
+    started: 2026-06-06T22:20:00+08:00
+    completed: 2026-06-06T22:45:00+08:00
+    artifact: "01-analysis.md"
+    errors: []
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts: []
+
+milestones: []
+
+cross-refs:
+  - ".self-workflow/todo.md#V1.9"
