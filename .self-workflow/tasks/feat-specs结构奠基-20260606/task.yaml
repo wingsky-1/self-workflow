@@ -1,8 +1,8 @@
 name: specs结构奠基
 title: "V1.8：specs 结构奠基 — 建立 specs 体系（文档受众分类、通用 spec 结构、skill 降格、决策自动记录）"
-status: in_progress
+status: completed
 created: 2026-06-06
-updated: 2026-06-06T23:30:00+08:00
+updated: 2026-06-07T00:15:00+08:00
 tags: [specs, 文档结构, skill, ADR]
 description: >
   V1.8 版本任务 — 建立 specs 体系基础，涵盖 4 项：
@@ -44,19 +44,19 @@ phases:
     checkpoint: "9090508a6cf8b2a1e4f8fe35d52ef0edc8bc1f8a"
   - id: 4
     name: 功能验证
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-07T00:05:00+08:00
+    completed: 2026-06-07T00:10:00+08:00
     artifact: "04-verification.md"
     errors: []
-    checkpoint: null
+    checkpoint: "2239e83c2bff46f91f81253ebf85ff51a060638e"
   - id: 5
     name: 总结沉淀
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-07T00:10:00+08:00
+    completed: 2026-06-07T00:15:00+08:00
     artifact: "05-summary.md"
     errors: []
     checkpoint: null
@@ -76,6 +76,9 @@ structure:
   artifacts:
     - "artifacts/01-analysis.md"
     - "artifacts/02-design.md"
+    - "artifacts/03-implementation.md"
+    - "artifacts/04-verification.md"
+    - "artifacts/05-summary.md"
 
 milestones: []
 
