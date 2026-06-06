@@ -1,6 +1,6 @@
 {
   "name": "@self-workflow/installer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Self-Workflow 安装器 — 初始化项目的工作流目录结构",
   "type": "module",
   "bin": {

@@ -42,6 +42,7 @@ const MANIFEST = [
   [".opencode/agents/review-agent.md",        "agents/review-agent.md"],
   [".opencode/commands/catchup.md",           "commands/catchup.md"],
   [".opencode/commands/adr.md",               "commands/adr.md"],
+  [".opencode/commands/feat.md",              "commands/feat.md"],
   [".self-workflow/specs/README.md",          "specs/README.md"],
 ];
 
@@ -168,7 +169,7 @@ function main() {
     console.log("");
     console.log("  ╔══════════════════════════════════════╗");
     console.log("  ║       Self-Workflow 安装器           ║");
-    console.log("  ║      版本 0.1.0 · V1 预备            ║");
+    console.log("  ║      版本 0.2.0 · V1.5                ║");
     console.log("  ╚══════════════════════════════════════╝");
     init(options.target, options.dryRun, options.force);
   } else {

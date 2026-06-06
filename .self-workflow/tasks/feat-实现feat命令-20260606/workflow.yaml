@@ -29,18 +29,18 @@ phases:
 
   - id: 3
     name: 代码实现
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-06T17:05:00+08:00
-    gate: pending
-    started: null
-    completed: null
+    completed: 2026-06-06T17:10:00+08:00
     artifact: "03-implementation.md"
     errors: []
 
   - id: 4
     name: 功能验证
-    status: pending
+    status: in_progress
+    gate: pending
+    started: 2026-06-06T17:15:00+08:00
     gate: pending
     started: null
     completed: null

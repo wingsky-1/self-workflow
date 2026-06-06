@@ -1,0 +1,34 @@
+name: 实现feat命令
+title: 实现 /feat 命令
+status: in_progress
+created: 2026-06-06
+updated: 2026-06-06
+tags: [v1.5, command, feat-workflow, self-bootstrapping]
+description: >
+  实现 /feat 命令——为 feat-workflow.md 提供确定性的 slash command 入口，
+  一键启动工作流，自动完成目录初始化、元数据创建、阶段推进。
+
+structure:
+  root:
+    - "task.yaml"
+    - "workflow.yaml"
+  adrs:
+    - "ADR-001-Command文件分发策略.md"
+    - "ADR-002-Slug生成算法.md"
+    - "ADR-003-元数据模板填充策略.md"
+    - "ADR-004-命令内部步骤编排.md"
+  logs: []
+  artifacts:
+    - "01-analysis.md"
+    - "02-design.md"
+
+milestones:
+  - id: M0
+    name: 需求分析 + 方案设计
+    status: completed
+    completed: 2026-06-06
+
+artifacts:
+  - "workflow.yaml"
+  - "artifacts/"
+  - "adrs/"
