@@ -1,0 +1,52 @@
+name: v1.5剩余问题修复
+title: V1.5剩余问题修复
+status: completed
+created: 2026-06-06
+updated: 2026-06-06
+tags: [v1.5, bugfix, workflow-enhancement, framework-defect]
+description: >
+  修复 /feat 命令自举实施中暴露的 4 项框架缺陷（F1-F4）以及 todo.md 遗留项（T1-T4），
+  包括 Gate 权重优先级声明、Review Agent 强制调用机制、双级经验模型、/adr 命令重构、
+  经验分级设计、/feat 新会话实测。
+
+structure:
+  root:
+    - "task.yaml"
+    - "workflow.yaml"
+  adrs:
+    - "ADR-001-ReviewAgent强制调用混合方案.md"
+    - "ADR-002-adr默认auto降级交互.md"
+    - "ADR-003-经验文件名约定分类.md"
+  logs: []
+  artifacts:
+    - "01-analysis.md"
+    - "02-design.md"
+    - "03-implementation.md"
+    - "04-verification.md"
+    - "05-summary.md"
+
+milestones:
+  - id: M0
+    name: feat-workflow修复（F1+F2+F3）
+    status: completed
+    completed: 2026-06-06
+  - id: M1
+    name: /adr命令重构（F4+T1+T2）
+    status: completed
+    completed: 2026-06-06
+  - id: M2
+    name: 经验分级+实测（T3+T4）
+    status: partial
+    completed: 2026-06-06
+    note: "T3完成；T4待新会话实测"
+
+artifacts:
+  - "workflow.yaml"
+  - "adrs/"
+  - "artifacts/"
+
+cross-refs:
+  - source: "docs/V1.5/迭代需求/V1.5-剩余问题-20260606.md"
+    reason: "本次任务的需求文档"
+  - source: ".self-workflow/docs/installer-错误经验.md"
+    reason: "本次沉淀的doc级经验——.opencode不可直接修改"
