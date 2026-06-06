@@ -85,93 +85,21 @@ argument-hint: [--quick] <特性描述>
 
 ### 步骤 3：写入 task.yaml
 
-从 `.self-workflow/configs/tasks/feat-task.yaml` 加载模板结构（如不存在，使用下方的内联 fallback），
-填充占位符（`<slug>`、`<描述>`、`<当前时间 ISO 8601>` 等）后写入 `.self-workflow/tasks/<workflow-id>/task.yaml`。
+从 `.self-workflow/configs/tasks/feat-task.yaml` 加载模板结构，填充占位符（`<slug>`、`<描述>`、`<当前时间 ISO 8601>` 等）后写入 `.self-workflow/tasks/<workflow-id>/task.yaml`。
 
-> **降级处理**：若模板文件不存在，提示用户运行 `node packages/installer/index.js init --target . --force` 安装模板，
-> 并 fallback 使用以下内联模板继续创建 task.yaml：
+> 若模板文件不存在，中止并提示用户运行 `node packages/installer/index.js init --target . --force` 安装模板。
 
-```yaml
-name: <slug>  # 语义 slug，如 "安装器重构-模板清理"（而非机械变换的 "v1-9版本"）
-title: <描述>                 # 用户输入原始描述
-status: in_progress           # 初始状态
-created: <YYYY-MM-DD>         # 创建日期
-updated: <ISO 8601>           # 最后更新时间
-tags: []                      # 可由 Agent 补充
-description: >                # 用户输入原文（YAML folded scalar）
-  <描述原文>
+### 步骤 4：阶段追踪初始化
 
-workflow-id: <feat-<slug>-<YYYYMMDD>>
-type: feat                     # 工作流类型（未来可扩展 fix/refactor 等）
+`task.yaml` 已包含 `phases` 段（步骤 3），无需额外创建 `workflow.yaml`。所有阶段状态更新直接写入 `task.yaml` 的 `phases[*]` 字段。
 
-phases:
-  - id: 1
-    name: 需求分析
-    status: in_progress        # pending | in_progress | completed | failed | skipped
-    gate: pending              # pending | passed | failed
-    started: <当前时间 ISO 8601>
-    completed: null
-    artifact: "01-analysis.md"
-    errors: []
-    checkpoint: null           # Gate 通过后由 git rev-parse 填充 commit SHA
-  - id: 2
-    name: 方案设计
-    status: pending
-    gate: pending
-    started: null
-    completed: null
-    artifact: "02-design.md"
-    errors: []
-    checkpoint: null
-  - id: 3
-    name: 代码实现
-    status: pending
-    gate: pending
-    started: null
-    completed: null
-    artifact: "03-implementation.md"
-    errors: []
-    checkpoint: null
-  - id: 4
-    name: 功能验证
-    status: pending
-    gate: pending
-    started: null
-    completed: null
-    artifact: "04-verification.md"
-    errors: []
-    checkpoint: null
-  - id: 5
-    name: 总结沉淀
-    status: pending
-    gate: pending
-    started: null
-    completed: null
-    artifact: "05-summary.md"
-    errors: []
-    checkpoint: null
-
-experience-draft: false
-
-structure:
-  root:
-    - "task.yaml"
-  adrs: []
-  logs: []
-  artifacts: []
-
-milestones: []
-
-cross-refs: []
-```
-
-### 步骤 4：写入 errors.yaml
+### 步骤 5：写入 errors.yaml
 
 ```yaml
 errors: []
 ```
 
-### 步骤 5：进入阶段 1 — 需求分析
+### 步骤 6：进入阶段 1 — 需求分析
 
 1. 加载 `.self-workflow/configs/guides/feat-workflow.md` 作为执行指引
 2. 按指引加载 `interaction-protocol` Skill（涉及选项选择时使用 question 工具）
