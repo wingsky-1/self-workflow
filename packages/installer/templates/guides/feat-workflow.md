@@ -549,9 +549,12 @@ Review Agent 简要检查：
 
 工作流完成后，执行以下操作：
 
-1. **归档产物**：确认所有阶段产物已写入 `.self-workflow/artifacts/<workflow-id>/`
-2. **标记工作流状态**：在 `workflow.yaml` 中将 `status` 设为 `completed`
-3. **经验草稿**：如果阶段 5 产出了经验，标记为 `draft` 等级
+1. **确认产物完整性**：所有 5 个阶段产物已写入 `.self-workflow/artifacts/<workflow-id>/`
+2. **更新元数据**：在 `workflow.yaml` 中：
+   - 最后阶段 `status: completed`, `gate: passed`, `completed: <当前时间>`
+   - 顶层 `status: completed`, `updated: <当前时间>`
+3. **经验草稿**：如果阶段 5 产出了经验，在 `workflow.yaml` 中添加 `experience-draft: true`
+4. **Compound 标记**：完成后不再修改任何 `artifacts/` 下的文件
 
 > **注意**：完整的 Compound（经验自动晋升、检索）将在 V2 实现。V1 仅做基础归档和草稿收集。
 
@@ -588,13 +591,140 @@ Review Agent 简要检查：
 | 阶段 3 错误 | `errors/<workflow-id>/03-implementation-errors.md` |
 | 错误索引 | `errors/<workflow-id>/errors.yaml` |
 
+### 工作流状态管理（workflow.yaml 生命周期）
+
+工作流执行过程中需要持续维护 `workflow.yaml`，它是工作流实例的权威状态记录。
+
+#### 启动时创建
+
+```yaml
+workflow-id: feat-<特性名>-<YYYYMMDD>
+type: feat
+status: in_progress
+created: <YYYY-MM-DDTHH:mm:ss>
+updated: <YYYY-MM-DDTHH:mm:ss>
+description: "<用户描述>"
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: pending    # pending → in_progress → completed → failed
+    gate: pending      # pending → passed → failed → skipped
+    started: null
+    completed: null
+    artifact: "01-analysis.md"
+
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+```
+
+#### 每个阶段开始时更新
+
+```yaml
+# 找到对应 phase，更新为：
+status: in_progress
+started: <当前时间>
+```
+
+#### 每个 Gate 通过后更新
+
+```yaml
+# 当前 phase 标记完成，gate 标记通过
+status: completed
+gate: passed
+completed: <当前时间>
+updated: <当前时间>
+
+# 下一个 phase 标记为进行中
+# 找到下一阶段，更新：
+status: in_progress
+started: <当前时间>
+```
+
+#### 特殊情况
+
+- **Gate 失败**（返回修复）：phase 的 `gate` 保持 `pending`，不推进到下一阶段
+- **工作流取消**：`status` → `cancelled`，保留当前产物快照
+- **Ralph Loop 耗尽**：`gate` → `failed`，`status` → `stuck`
+
+### 历史产物查询
+
+Agent 可以通过读取 `artifacts/` 和 `errors/` 目录来回答用户的问题：
+
+| 用户问法 | Agent 行为 |
+|---------|-----------|
+| "上次用户登录模块的开发记录在哪？" | 扫描 `artifacts/` 目录，按关键词匹配 workflow-id |
+| "之前遇到过类似的数据库问题吗？" | 扫描 `errors/` 目录，按关键词匹配错误描述 |
+| "我们项目对 API 设计有什么规范？" | 读取 `.self-workflow/specs/`（V2 功能，V1 返回"尚未定义"） |
+| "这个工作流当前进展到哪了？" | 读取 `artifacts/<workflow-id>/workflow.yaml` 的 status 和 current-phase |
+
 ### 快速入门（Agent 指引）
 
 执行工作流时，按此顺序操作：
 
 1. 解析用户输入，确定需求描述
 2. 创建工作流 ID：`feat-<简述>-<日期>`
-3. 创建 `artifacts/<workflow-id>/workflow.yaml`，写入元数据
+3. 创建 `artifacts/<workflow-id>/workflow.yaml`，写入元数据（见"工作流状态管理"）
 4. 按阶段 1 → Gate → 阶段 2 → Gate → ... 顺序执行
-5. 每个阶段完成后，先执行 Gate 检查，通过后再进入下一阶段
-6. 所有阶段完成后，执行 Compound 归档
+5. 每个阶段完成后：
+   a. 执行 Gate 检查
+   b. **Gate 通过**：更新 `workflow.yaml` 中当前 phase 的 status 和 gate，推进到下一阶段
+   c. **Gate 不通过**：返回当前阶段修复，gate 保持 pending
+6. 所有阶段完成后，执行 Compound 归档（更新 status → completed）
+
+### 错误索引（errors.yaml）格式
+
+`errors/<workflow-id>/errors.yaml` 是当前工作流所有错误的索引文件。记录每个错误时同步更新此文件：
+
+```yaml
+workflow-id: <workflow-id>
+errors:
+  - id: err-001
+    phase: 1
+    description: "<问题简要描述>"
+    severity: blocking | minor
+    timestamp: <YYYY-MM-DDTHH:mm:ss>
+    resolved: true | false
+
+  - id: err-002
+    phase: 3
+    description: "<问题简要描述>"
+    severity: blocking
+    timestamp: <YYYY-MM-DDTHH:mm:ss>
+    resolved: false
+```
+
+**severity 说明**：
+- `blocking`：阻碍当前阶段推进的问题
+- `minor`：非阻塞性问题，但值得记录
+
+每个错误的详细上下文记录在对应的阶段错误日志文件中（如 `01-analysis-errors.md`）。
