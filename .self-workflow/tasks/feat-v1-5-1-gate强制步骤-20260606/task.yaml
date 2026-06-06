@@ -1,0 +1,81 @@
+name: v1-5-1-gate强制步骤
+title: V1.5.1 Gate强制步骤
+status: in_progress
+created: 2026-06-06
+updated: 2026-06-06T19:58:00+08:00
+tags: []
+description: >
+  V1.5.1 Gate强制步骤（P0）：对 feat-workflow.md 实施3项强化——
+  (1) Gate通过条件增加Git tag强制检查+Compound补建逻辑，
+  (2) 阶段结束时如有决策则adrs/下必须有ADR文件，
+  (3) Gate入口强制计算scope+risk+user-signal三维分值并显式输出。
+
+workflow-id: feat-v1-5-1-gate强制步骤-20260606
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: completed
+    gate: passed
+    started: 2026-06-06T19:54:00+08:00
+    completed: 2026-06-06T19:58:00+08:00
+    artifact: "01-analysis.md"
+    errors: []
+  - id: 2
+    name: 方案设计
+    status: in_progress
+    gate: pending
+    started: 2026-06-06T19:58:00+08:00
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts:
+    - "01-analysis.md"
+
+milestones:
+  - id: M1
+    name: Gate 1 — 需求分析通过
+    status: completed
+    completed: 2026-06-06T19:58:00+08:00
+    note: "Review Agent passed (3 info-level suggestions, non-blocking)"
+
+cross-refs:
+  - source: ".self-workflow/todo.md#V1.5.1"
+    reason: "本次迭代需求来源——Gate强制步骤（P0）3项"
+  - source: ".self-workflow/tasks/feat-v1.5剩余问题修复-20260606"
+    reason: "上游任务——V1.5剩余问题修复中暴露的3项P0缺陷"
+  - source: "bg_e329b1c9 (review-agent)"
+    reason: "Gate 1 审查报告——pass (3 info, non-blocking)"
