@@ -76,18 +76,7 @@ version: 0.1
 
 如果在此阶段遇到问题（需求不明确、约束冲突等），立即记录到：
 `.self-workflow/tasks/<workflow-id>/errors/01-analysis-errors.md`
-
-格式：
-```markdown
-# 阶段 1 错误日志
-
-## 错误 1
-- **问题描述**：<描述>
-- **根因**：<根因分析>
-- **解决方案**：<采用方案>
-- **时间戳**：<YYYY-MM-DDTHH:mm:ss>
-- **已解决**：是/否
-```
+格式参考：`.self-workflow/configs/templates/error-log-template.md`
 
 ---
 
@@ -231,28 +220,7 @@ version: 0.1
 ### 输出产物
 
 写入 `.self-workflow/tasks/<workflow-id>/artifacts/03-implementation.md`
-
-产物格式：
-```markdown
-# 代码实现 — <特性名称>
-
-## 变更清单
-
-| 文件 | 变更类型 | 说明 |
-|------|---------|------|
-| <文件路径> | 新增/修改/删除 | <说明> |
-
-## 关键实现决策
-
-- <决策 1>：<理由>
-- <决策 2>：<理由>
-
-## 测试覆盖
-
-| 测试文件 | 测试用例数 | 覆盖场景 |
-|---------|-----------|---------|
-| <文件路径> | <数量> | <场景说明> |
-```
+格式参考：`.self-workflow/configs/templates/implementation-template.md`
 
 ### 完成检查清单
 
@@ -339,31 +307,7 @@ npm run test          # 单元测试
 ### 输出产物
 
 写入 `.self-workflow/tasks/<workflow-id>/artifacts/04-verification.md`
-
-产物格式：
-```markdown
-# 功能验证 — <特性名称>
-
-## 测试结果
-
-| 测试套件 | 通过 | 失败 | 跳过 |
-|---------|------|------|------|
-| <套件名> | <数量> | <数量> | <数量> |
-
-## 验收标准验证
-
-- [ ] <标准 1>：✅/❌
-- [ ] <标准 2>：✅/❌
-
-## 边界测试
-
-- <边界场景 1>：通过
-- <边界场景 2>：通过
-
-## 已知问题
-
-- <未解决的问题>
-```
+格式参考：`.self-workflow/configs/templates/verification-template.md`
 
 ### 完成检查清单
 

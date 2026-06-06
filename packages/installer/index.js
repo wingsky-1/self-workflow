@@ -30,6 +30,9 @@ const MANIFEST = [
   [".self-workflow/configs/templates/adr-template.md",        "configs/templates/adr-template.md"],
   [".self-workflow/configs/templates/review-report-template.md", "configs/templates/review-report-template.md"],
   [".self-workflow/configs/templates/summary-template.md",  "configs/templates/summary-template.md"],
+  [".self-workflow/configs/templates/implementation-template.md", "configs/templates/implementation-template.md"],
+  [".self-workflow/configs/templates/verification-template.md", "configs/templates/verification-template.md"],
+  [".self-workflow/configs/templates/error-log-template.md", "configs/templates/error-log-template.md"],
   [".self-workflow/configs/templates/workflow-metadata-template.yaml", "configs/templates/workflow-metadata-template.yaml"],
   [".opencode/agents/review-agent.md",        "agents/review-agent.md"],
 ];
