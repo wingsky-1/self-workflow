@@ -35,13 +35,13 @@ phases:
     checkpoint: "496316aaa039b14b3f94e6512d1fedbc4c2dbe91"
   - id: 3
     name: 代码实现
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-06T23:55:00+08:00
-    completed: null
+    completed: 2026-06-07T00:05:00+08:00
     artifact: "03-implementation.md"
     errors: []
-    checkpoint: null
+    checkpoint: "9090508a6cf8b2a1e4f8fe35d52ef0edc8bc1f8a"
   - id: 4
     name: 功能验证
     status: pending
