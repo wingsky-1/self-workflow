@@ -181,12 +181,9 @@ errors: []
    - `phases[0].status` → `in_progress`
    - `phases[0].started` → `<当前时间 ISO 8601>`
    - 顶层 `updated` → `<当前时间 ISO 8601>`
-5. 按 `feat-workflow.md` **阶段 1：需求分析** 的检查清单和输出要求执行：
-   - 理解需求 → 识别约束 → 定义验收标准
-   - 产出 `artifacts/01-analysis.md`
-   - 执行决策捕捉（阶段内如有架构选择需触发 `/adr`）
+5. 按 `feat-workflow.md` **阶段 1：需求分析** 的检查清单和输出要求执行，产出 `artifacts/01-analysis.md`
 
-**生命周期移交**：此步骤完成后，命令启动阶段结束。后续所有阶段推进（Gate 审查、阶段 2-5、Checkpoint 创建）由 `feat-workflow.md` 指引驱动。Agent 必须在每个阶段结束时按指引更新 `task.yaml`（阶段 status/gate、时间戳），并在每个 Gate 通过后创建 Git tag checkpoint。
+**生命周期移交**：此步骤完成后，命令启动阶段结束。后续所有阶段推进（Gate 审查、阶段 2-5、Checkpoint 创建）由 `feat-workflow.md` 指引驱动。
 
 ### 步骤 7：输出启动报告
 
@@ -203,17 +200,7 @@ workflow-started:
 
 ## 工作流执行
 
-启动完成后，按 `.self-workflow/configs/guides/feat-workflow.md` 定义的阶段顺序执行。
-
-**快捷引用**：
-
-| 阶段 | Gate 重量 | 详见 |
-|------|----------|------|
-| 1. 需求分析 | light | `feat-workflow.md#阶段-1需求分析` |
-| 2. 方案设计 | full | `feat-workflow.md#阶段-2方案设计` |
-| 3. 代码实现 | full | `feat-workflow.md#阶段-3代码实现` |
-| 4. 功能验证 | light | `feat-workflow.md#阶段-4功能验证` |
-| 5. 总结沉淀 | light | `feat-workflow.md#阶段-5总结沉淀` |
+启动完成后，按 `.self-workflow/configs/guides/feat-workflow.md` 定义的阶段和 Gate 顺序执行。Gate 重量速查和完整流程见指引文件附录。
 
 每个阶段结束时更新 `task.yaml` 中对应 phase 的 `status`/`gate`/时间戳。
 每个 Gate 通过后创建 Git tag checkpoint（见 feat-workflow.md 的 Checkpoint 章节）。
@@ -230,19 +217,8 @@ workflow-started:
 - `agent-reasoning`：委托优先、质疑方向、决策捕捉场景加载
 
 #### Gate 量化公式
-Gate weight 由三维分值决定——详见 feat-workflow.md 的"Gate 重量量化"章节：
-
-| 维度 | 条件 | 分值 |
-|------|------|------|
-| scope | single-file / multi-file / cross-module | -1 / 0 / +1 |
-| risk | typo-config / logic-change / architecture | -1 / 0 / +1 |
-| user-signal | quick-mode / default / full-review | -1 / 0 / +1 |
-
-| 总分 | Gate weight | 行为 |
-|------|------------|------|
-| ≤ -1 | skip | 跳过所有审查 |
-| = 0 | light | 仅程序化验证 |
-| ≥ 1 | full | 完整审查 |
+每个 Gate 入口必须显式计算 scope+risk+user-signal 三维分值以确定 weight（skip/light/full）。
+公式和分值映射见 `feat-workflow.md` 的"Gate 重量量化"章节。示例：`scope=+1(cross-module), risk=+1(architecture), user-signal=0(default) → total=+2 → full`
 
 #### 决策捕捉
 阶段中有架构选择（方向性决策、多方案对比、trade-off 评估）→ 触发 `/adr` 命令。

@@ -21,6 +21,8 @@ structure:
     - "01-analysis.md"
     - "02-design.md"
     - "03-implementation.md"
+    - "04-verification.md"
+    - "05-summary.md"
 
 milestones: []
 
