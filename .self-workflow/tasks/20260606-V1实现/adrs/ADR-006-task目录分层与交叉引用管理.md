@@ -93,7 +93,7 @@ logs/* ──→ adrs/*（实施记录可引用相关 ADR）
 2. **受影响 task 标记引用**：在受影响 task 的 `task.yaml` 中增加 `cross-refs` 字段：
    ```yaml
    cross-refs:
-     - source: "20260606-V1实现/adrs/ADR-004-目录职责划分.md"
+      - source: "20260606-V1实现/adrs/ADR-004-目录职责划分与开发使用分离.md"
        reason: "该决策影响本 task 的目录结构"
    ```
 3. 源 ADR 无需知道被哪些 task 引用——引用的维护是引用方的责任
