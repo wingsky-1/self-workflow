@@ -1,8 +1,8 @@
 name: 开始v1-7
 title: 开始V1.7
-status: in_progress
+status: completed
 created: 2026-06-06
-updated: 2026-06-06T21:30:00+08:00
+updated: 2026-06-06T23:40:00+08:00
 tags: [V1.7, docs-structure, index-injection]
 description: >
   开始V1.7版本的开发工作。V1.7主题：docs 结构 + 索引注入。

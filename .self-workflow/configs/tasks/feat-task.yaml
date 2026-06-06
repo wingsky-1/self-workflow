@@ -1,0 +1,75 @@
+# packages/installer/templates/tasks/feat-task.yaml
+# feit 工作流的 task.yaml 默认模板
+# 占位符由 /feat 命令执行时 Agent 填充
+
+name: <slug>                 # 步骤 1 生成的 slug（如 "V1.9版本"）
+title: <描述>                 # 用户输入原始描述
+status: in_progress           # 初始状态
+created: <YYYY-MM-DD>         # 创建日期
+updated: <ISO 8601>           # 最后更新时间
+tags: []                      # 可由 Agent 补充
+description: >                # 用户输入原文（YAML folded scalar）
+  <描述原文>
+
+workflow-id: <feat-<slug>-<YYYYMMDD>>
+type: feat                     # 工作流类型（未来可扩展 fix/refactor 等）
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: in_progress        # pending | in_progress | completed | failed | skipped
+    gate: pending              # pending | passed | failed
+    started: <ISO 8601>
+    completed: null
+    artifact: "01-analysis.md"
+    errors: []
+    checkpoint: null           # ← 新增：Gate 通过后填充 git tag 的 commit SHA
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+    checkpoint: null
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+    checkpoint: null
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+    checkpoint: null
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+    checkpoint: null
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts: []
+
+milestones: []
+
+cross-refs: []

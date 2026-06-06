@@ -514,9 +514,13 @@ task(subagent_type="review-agent", prompt="审查验证结果文档 <artifacts/0
 
 ```bash
 git add .self-workflow/tasks/<workflow-id>/task.yaml
-git commit -m "<workflow-id>: phase-<N> gate passed"
+git commit -m "<workflow-id>: phase-<N> <阶段英文名> — <涉及模块摘要>"
 git tag <workflow-id>-ph<N>-<name>-gate-passed
+# 记录 checkpoint SHA 到 task.yaml
+# Agent 须将 git rev-parse <workflow-id>-ph<N>-<name>-gate-passed 的输出写入 task.yaml 对应 phase 的 checkpoint 字段
 ```
+
+> **涉及模块摘要**：由 Agent 自主提取本次 Gate 期间变更涉及的目录/文件名（如 `installer/templates, feat.md, feat-workflow.md`），用 `, ` 分隔。
 
 **Tag 命名规范**：`<workflow-id>-ph<阶段号>-<阶段英文名>-gate-passed`
 
@@ -561,10 +565,10 @@ git worktree remove ../<worktree-name>
 1. **确认产物完整性**：所有 5 个阶段产物已写入 `.self-workflow/tasks/<workflow-id>/artifacts/`
 2. **Git tag 补建**：扫描各阶段 gate，缺失的 tag 必须补建：
    - 对于 phase N（1-5），若 `gate: passed` 但无对应 tag：
-     a. `git log --oneline --grep="<workflow-id>: phase-<N> gate passed"` 定位 commit
-     b. `git tag <workflow-id>-ph<N>-<name>-gate-passed <commit-sha>` 补建
-     c. 记录到 errors.yaml（type: compound-recovery, severity: minor）
-     d. 若 `--grep` 返回空结果，尝试用 task.yaml 的 `phase[N].completed` 时间戳做 `--after --before` 范围搜索作为 fallback
+      a. `git log --oneline --grep="<workflow-id>: phase-<N>"` 定位 commit
+      b. `git tag <workflow-id>-ph<N>-<name>-gate-passed <commit-sha>` 补建
+      c. 记录到 errors.yaml（type: compound-recovery, severity: minor）
+      d. 若 `--grep` 返回空结果：读取 task.yaml phase[N].checkpoint 字段，若非 null 则用 `git tag <name> <sha>` 补建。
 3. **交叉引用检查**：执行产物引用一致性检查：
    - task.yaml 中 artifacts 列出的文件都存在？
    - milestones 的 ref 指向存在？
