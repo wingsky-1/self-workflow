@@ -23,6 +23,7 @@ structure:
     - "ADR-003-关键决策即时归档.md"
     - "ADR-004-目录职责划分与开发使用分离.md"
     - "ADR-005-task目录元数据规范.md"
+    - "ADR-006-task目录分层与交叉引用管理.md"
   logs:
     - "（M1.5/M1.6 实施记录）"
 
@@ -56,11 +57,13 @@ milestones:
     name: Session Catchup
     status: pending
     completed: null
+    ref: "plan.md#m15-session-catchup"
 
   - id: M1.6
     name: 自举验证
     status: pending
     completed: null
+    ref: "plan.md#m16-自举验证"
 
 artifacts:
   - "plan.md"
