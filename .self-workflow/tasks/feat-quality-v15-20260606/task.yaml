@@ -1,0 +1,58 @@
+# 任务元数据
+name: quality-v15
+title: V1.5 质量加固
+status: completed
+created: 2026-06-06
+updated: 2026-06-06
+tags: [v1.5, milestone, quality, workflow-enhancement]
+
+description: >
+  V1.5 质量加固：修复 8 个已知流程缺陷，建立三层质量防线（流程防错、Agent 约束、产物验证）。
+  包含 4 个里程碑（M0 框架融入、M1 流程防错、M2 Agent 约束、M3 产物验证），
+  共 18 个文件变更。
+
+structure:
+  root:
+    - "task.yaml"
+    - "workflow.yaml"
+  artifacts:
+    - "01-analysis.md"
+    - "02-design.md"
+    - "03-implementation.md"
+    - "04-verification.md"
+    - "05-summary.md"
+
+milestones:
+  - id: M0
+    name: 框架融入（2 Skills + 1 Command + 模板）
+    status: completed
+    completed: 2026-06-06
+
+  - id: M1
+    name: 流程防错（方向 Gate + Checkpoint + 决策捕捉 + Gate 量化）
+    status: completed
+    completed: 2026-06-06
+
+  - id: M2
+    name: Agent 约束（质疑节点 + 检查清单 + 行为审查）
+    status: completed
+    completed: 2026-06-06
+
+  - id: M3
+    name: 产物验证（结构化验证 + 交叉引用 + 模板强制）
+    status: completed
+    completed: 2026-06-06
+
+artifacts:
+  - "artifacts/"
+  - "workflow.yaml"
+
+cross-refs:
+  - source: "20260606-V1实现/adrs/ADR-001-交互式问答优先.md"
+    reason: "转化为 interaction-protocol Skill"
+  - source: "20260606-V1实现/adrs/ADR-003-关键决策即时归档.md"
+    reason: "转化为 /adr Command + 决策捕捉机制"
+  - source: "20260606-V1实现/adrs/ADR-005-task目录元数据规范.md"
+    reason: "转化为 task.yaml 创建强制"
+  - source: "20260606-V1实现/adrs/ADR-007-委托优先原则.md"
+    reason: "转化为 agent-reasoning Skill"

@@ -1,7 +1,7 @@
 ---
 name: feat-workflow
 description: 特性开发工作流指引 — 多步骤特性开发的完整流程，包含 5 阶段 + Phase Gate 审查
-version: 0.1
+version: 0.2
 ---
 
 # Feat 工作流指引
@@ -24,7 +24,10 @@ version: 0.1
 
 ```
 .self-workflow/tasks/<workflow-id>/
+├── task.yaml              # 任务元数据（启动时创建）
 ├── workflow.yaml          # 工作流实例元数据（启动时创建）
+├── adrs/                  # 决策记录
+├── logs/                  # 实施记录
 ├── artifacts/             # 各阶段产物
 │   ├── 01-analysis.md
 │   ├── 02-design.md
@@ -69,8 +72,9 @@ version: 0.1
 - [ ] 需求理解文档已写入 `01-analysis.md`
 - [ ] 功能清单覆盖所有核心需求
 - [ ] 约束条件已识别
-- [ ] 验收标准已定义且可测试
+- [ ] 验收标准已定义且可测试（Given-When-Then 格式优先）
 - [ ] 不纳入范围已明确标注
+- [ ] **决策捕捉**：阶段中有没有需要记录的决策？（架构选择/约束发现 → 需要 ADR）
 
 ### 错误日志
 
@@ -125,20 +129,24 @@ version: 0.1
 
 **目标**：架构决策、接口设计、数据模型设计。
 
+### 入口：强制质疑节点
+
+进入方案设计前，必须先输出质疑报告：
+
+**质疑内容**：
+1. **方向质疑**：方案方向是否合理？如果合理说明理由，不合理则提出替代方案。
+2. **约束检查**：可能被遗漏的技术/业务约束。
+3. **风险提示**：需要关注的风险点。
+
+质疑报告提交给 Human 确认后，方可进入方案设计。
+
 ### 执行内容
 
-1. **架构决策**
-   - 识别需要做架构决策的关键点
-   - 对每个决策点列出至少 2 个备选方案
-   - 评估 trade-off，明确选择理由
-
-2. **接口设计**
-   - 定义模块/组件之间的接口
-   - 输入输出格式、错误处理策略
-
-3. **数据模型设计**
-   - 新增/修改的数据结构
-   - 与现有数据模型的关系
+- [ ] 输出质疑报告，确认方案方向合理
+- [ ] **架构决策**：识别决策关键点，每个决策至少列出 2 个备选方案，评估 trade-off
+- [ ] **接口设计**：定义模块/组件间接口，含输入输出格式、错误处理策略
+- [ ] **数据模型设计**：新增/修改的数据结构，与现有模型的关系
+- [ ] **决策捕捉**：阶段中有没有需要记录的决策？（架构选择/陷阱解决/设计偏离 → 需要 ADR）
 
 ### 输出产物
 
@@ -147,10 +155,12 @@ version: 0.1
 
 ### 完成检查清单
 
+- [ ] 质疑报告已提交并经 Human 确认
 - [ ] 关键架构决策已记录（含 trade-off 评估）
 - [ ] 接口设计已定义
 - [ ] 数据模型已设计
 - [ ] 备选方案至少 2 个
+- [ ] 决策捕捉已执行
 
 ### 错误日志
 
@@ -162,6 +172,17 @@ version: 0.1
 ## Gate：设计审查（weight: full）
 
 ### 审查步骤
+
+#### 步骤 0：方向审查（新增）
+
+在程序化验证之前执行方向审查。Review Agent 回答：
+
+1. **架构一致性**：方案与项目现有 ADR 是否一致？
+2. **替代方案**：有没有更简单的替代方案？
+3. **约束检查**：有没有遗漏的约束条件？
+4. **影响范围**：这个方案的影响范围是什么？
+
+方向审查不通过 → 返回方案设计阶段修正，不进入后续步骤。
 
 #### 步骤 1：程序化验证
 
@@ -182,6 +203,14 @@ version: 0.1
 
 审查报告格式参考：`.self-workflow/configs/templates/review-report-template.md`
 
+审查报告新增 **behavior** 维度：
+```
+behavior: passed | warning | failed
+```
+- passed：主 Agent 行为规范（执行了决策捕捉、使用了 question 工具、质疑报告充分）
+- warning：行为有轻微偏离
+- failed：行为严重偏离（如未执行决策捕捉、未使用 question 工具）
+
 如果 Review Agent 尚未就绪，主 Agent 自行按 Grill 风格审查。
 
 #### 步骤 3：人工确认
@@ -190,8 +219,10 @@ version: 0.1
 
 ### 通过条件
 
+- [ ] 方向审查通过（无架构不一致问题）
 - [ ] 设计文档完成
 - [ ] 对抗性审查通过（无 critical 问题）
+- [ ] behavior 维度非 failed
 - [ ] （可选）用户已确认设计
 
 **不通过** → 返回阶段 2 修正设计。
@@ -204,18 +235,12 @@ version: 0.1
 
 ### 执行内容
 
-1. **编码**
-   - 按设计文档的接口和数据模型实现
-   - 遵循项目编码规范
-   - 保持与现有代码风格一致
-
-2. **单元测试**
-   - 新增代码必须有对应的单元测试
-   - 测试覆盖核心逻辑路径和边界情况
-
-3. **自检**
-   - 运行 lint 检查代码风格
-   - 运行 typecheck 检查类型安全
+- [ ] **编码**：对照设计文档逐项检查所有接口是否实现
+- [ ] **单元测试**：新增代码必须有对应的单元测试，覆盖核心逻辑路径和边界条件
+- [ ] **检查依赖**：是否引入了不必要的依赖？
+- [ ] **自检**：lint 检查通过（0 error, 0 warning）
+- [ ] **自检**：typecheck 通过
+- [ ] **决策捕捉**：阶段中有没有需要记录的决策？（实现中遇到的设计偏离/架构调整 → 需要 ADR）
 
 ### 输出产物
 
@@ -226,8 +251,10 @@ version: 0.1
 
 - [ ] 所有功能点的代码已实现
 - [ ] 单元测试已编写并通过
-- [ ] lint 检查通过
+- [ ] lint 检查通过（0 error, 0 warning）
 - [ ] typecheck 通过
+- [ ] 未引入不必要的依赖
+- [ ] 决策捕捉已执行
 
 ### 错误日志
 
@@ -270,11 +297,30 @@ npm run test          # 单元测试
 
 ❌ 不需要用户确认。
 
-### Gate 重量自动降级
+### Gate 重量量化
 
-如果变更确实很小（≤ 3 个文件，不涉及架构决策），Agent 应主动将本 Gate 降级：
-- `full` → `light`：跳过对抗性审查，仅程序化验证
-- `full` → `skip`：极简变更（如 typo 修复），跳过所有审查
+Gate weight 由三个维度量化计算，取代主观判断：
+
+| 维度 | 条件 | 分值 |
+|------|------|------|
+| scope（范围） | single-file / multi-file / cross-module | -1 / 0 / +1 |
+| risk（风险） | typo-config / logic-change / architecture | -1 / 0 / +1 |
+| user-signal（信号） | quick-mode / default / full-review | -1 / 0 / +1 |
+
+**总分计算**：各维度分值相加
+
+| 总分 | Gate weight | 行为 |
+|------|------------|------|
+| ≤ -1 | skip | 跳过所有审查 |
+| = 0 | light | 仅程序化验证，跳过对抗性审查 |
+| ≥ 1 | full | 完整审查（程序化 + 对抗性） |
+
+**示例**：
+- typo 修复：scope=-1 + risk=-1 + user-signal=-1 → 总分 -3 → skip
+- 新增独立功能：scope=0 + risk=0 + user-signal=0 → 总分 0 → light
+- 核心架构重构：scope=+1 + risk=+1 + user-signal=+1 → 总分 3 → full
+
+> Human 可覆盖量化结果：如果 Human 明确要求全量审查，即使计算结果为 skip/light，也按 full 执行。
 
 ### 通过条件
 
@@ -292,17 +338,10 @@ npm run test          # 单元测试
 
 ### 执行内容
 
-1. **运行完整测试套件**
-   - 所有单元测试
-   - 集成测试（如有）
-   - E2E 测试（如有）
-
-2. **边界条件检查**
-   - 空值/边界值处理
-   - 错误路径覆盖
-
-3. **手动验证**（可选）
-   - 用实际场景验证功能是否满足验收标准
+- [ ] **完整测试套件**：所有单元测试、集成测试（如有）、E2E 测试（如有）
+- [ ] **边界条件检查**：空值/边界值处理、错误路径覆盖
+- [ ] **验收标准逐条验证**：用实际场景验证功能是否满足验收标准
+- [ ] **决策捕捉**：阶段中有没有需要记录的决策？（测试中发现的架构问题 → 需要 ADR）
 
 ### 输出产物
 
@@ -315,6 +354,7 @@ npm run test          # 单元测试
 - [ ] 验收标准全部满足
 - [ ] 边界条件已覆盖
 - [ ] 无已知严重问题
+- [ ] 决策捕捉已执行
 
 ---
 
@@ -353,21 +393,73 @@ Review Agent 简要检查：
 
 ### 执行内容
 
-1. **编写总结**
-   - 回顾本次工作流的得与失
-   - 记录有价值的经验和教训
-
-2. **经验草稿**
-   - 提取可复用的解决方案
-   - 标记为 `draft` 等级
-
-3. **文档补充**
-   - 更新 README 或相关文档（如果代码变更涉及公共接口）
+- [ ] **编写总结**：回顾本次工作流的得与失，记录有价值的经验和教训
+- [ ] **经验草稿**：提取可复用的解决方案，标记为 `draft` 等级
+- [ ] **文档补充**：更新 README 或相关文档（如果代码变更涉及公共接口）
+- [ ] **决策捕捉**：总结阶段中是否有需要记录的流程性决策？
 
 ### 输出产物
 
 写入 `.self-workflow/tasks/<workflow-id>/artifacts/05-summary.md`
 格式参考：`.self-workflow/configs/templates/summary-template.md`
+
+### 完成检查清单
+
+- [ ] 总结回顾已完成
+- [ ] 经验草稿已提取（如有）
+- [ ] 文档已更新（如需要）
+- [ ] 决策捕捉已执行
+
+---
+
+## Checkpoint 回溯（Git-based）
+
+**原理**：利用 Git 的 tag/commit 机制作为 checkpoint，`git worktree` 支持多会话开发。
+
+### 创建 Checkpoint
+
+每 Gate 通过后，Agent 执行：
+
+```bash
+git add .self-workflow/tasks/<workflow-id>/workflow.yaml
+git commit -m "<workflow-id>: phase-<N> gate passed"
+git tag <workflow-id>-ph<N>-<name>-gate-passed
+```
+
+**Tag 命名规范**：`<workflow-id>-ph<阶段号>-<阶段英文名>-gate-passed`
+
+示例：`feat-user-login-20260606-ph1-analysis-gate-passed`
+
+### 回溯操作
+
+从阶段 N 回到阶段 M（M < N）时：
+
+```bash
+# 1. 恢复到目标阶段的 checkpoint
+git checkout <workflow-id>-ph<M>-<name>-gate-passed
+
+# 2. 更新 workflow.yaml：M+1 到 N 的 gate 标记为 skipped
+# 3. 新建分支继续工作（避免覆盖原分支）
+git checkout -b <workflow-id>-revised
+```
+
+### 多会话开发（git worktree）
+
+```bash
+# 在主分支开发的同时，开另一个会话处理紧急事项
+git worktree add ../<worktree-name> <branch-name>
+
+# 在新 worktree 中独立工作、提交
+# 完成后清理
+git worktree remove ../<worktree-name>
+```
+
+### 回溯规则
+
+- 跳过 M 到 N-1 之间已通过的 Gate（在 workflow.yaml 中记录为 `skipped`）
+- 涉及 ADR 变更的回溯 → 必须重新经过方向审查 Gate（设计审查 Gate 的步骤 0）
+- 只验证：M 阶段被修改的产物 + 受修改影响的下游阶段
+
 ---
 
 ## Compound（自动执行）
@@ -375,11 +467,18 @@ Review Agent 简要检查：
 工作流完成后，执行以下操作：
 
 1. **确认产物完整性**：所有 5 个阶段产物已写入 `.self-workflow/tasks/<workflow-id>/artifacts/`
-2. **更新元数据**：在 `workflow.yaml` 中：
+2. **交叉引用检查**：执行产物引用一致性检查：
+   - task.yaml 中 artifacts 列出的文件都存在？
+   - milestones 的 ref 指向存在？
+   - ADR 互相引用的文件都存在？
+   - 新增文件被 task.yaml 记录？
+   - 删除文件从引用中移除？
+   - 不通过时提示修复，但不阻断
+3. **更新元数据**：在 `workflow.yaml` 中：
    - 最后阶段 `status: completed`, `gate: passed`, `completed: <当前时间>`
    - 顶层 `status: completed`, `updated: <当前时间>`
-3. **经验草稿**：如果阶段 5 产出了经验，在 `workflow.yaml` 中添加 `experience-draft: true`
-4. **Compound 标记**：完成后不再修改任何 `tasks/<workflow-id>/` 下的文件
+4. **经验草稿**：如果阶段 5 产出了经验，在 `workflow.yaml` 中添加 `experience-draft: true`
+5. **Compound 标记**：完成后不再修改任何 `tasks/<workflow-id>/` 下的文件
 
 > **注意**：完整的 Compound（经验自动晋升、检索）将在 V2 实现。V1 仅做基础归档和草稿收集。
 
@@ -389,12 +488,14 @@ Review Agent 简要检查：
 
 ### Gate 重量速查
 
-| Gate | weight | 程序化验证 | 对抗性审查 | 人工确认 |
-|------|--------|-----------|-----------|---------|
-| 分析审查 | `light` | 跳过 | ✅ Review Agent | ✅ 需要 |
-| 设计审查 | `full` | 跳过 | ✅ Grill 风格 | ⚠️ 可选 |
-| 实现审查 | `full` | ✅ lint/typecheck/test | ✅ Review Agent | ❌ |
-| 验证审查 | `light` | ✅ 完整测试套件 | ✅ Review Agent | ❌ |
+| Gate | weight | 方向审查 | 程序化验证 | 对抗性审查（含行为审查） | 人工确认 |
+|------|--------|---------|-----------|------------------------|---------|
+| 分析审查 | `light` | — | 跳过 | ✅ Review Agent | ✅ 需要 |
+| 设计审查 | `full` | ✅ 新增 | 跳过 | ✅ Grill 风格 + behavior | ⚠️ 可选 |
+| 实现审查 | `full` | — | ✅ lint/typecheck/test | ✅ Review Agent | ❌ |
+| 验证审查 | `light` | — | ✅ 完整测试套件 | ✅ Review Agent | ❌ |
+
+**重量量化**：`full`/`light`/`skip` 由 scope + risk + user-signal 三维分值计算决定（见"Gate 重量量化"）。
 
 ### 产物清单
 
@@ -405,6 +506,7 @@ Review Agent 简要检查：
 | 代码实现 | `tasks/<workflow-id>/artifacts/03-implementation.md` |
 | 功能验证 | `tasks/<workflow-id>/artifacts/04-verification.md` |
 | 总结沉淀 | `tasks/<workflow-id>/artifacts/05-summary.md` |
+| 任务元数据 | `tasks/<workflow-id>/task.yaml` |
 | 工作流元数据 | `tasks/<workflow-id>/workflow.yaml` |
 
 ### 错误日志路径
@@ -430,6 +532,7 @@ Review Agent 简要检查：
    - Gate 失败返回修复：gate 保持 `pending`，不推进
    - 工作流取消：状态 `cancelled`，保留产物快照
    - Ralph Loop 耗尽：gate `failed`，状态 `stuck`
+5. **Checkpoint**：每 Gate 通过后，创建 Git tag（见"Checkpoint 回溯"）
 
 ### 历史产物查询
 
@@ -448,13 +551,16 @@ Agent 可以通过读取 `tasks/` 目录来回答用户的问题：
 
 1. 解析用户输入，确定需求描述
 2. 创建工作流 ID：`feat-<简述>-<日期>`
-3. 创建 `tasks/<workflow-id>/workflow.yaml`，写入元数据（见"工作流状态管理"）
-4. 按阶段 1 → Gate → 阶段 2 → Gate → ... 顺序执行
-5. 每个阶段完成后：
-   a. 执行 Gate 检查
-   b. **Gate 通过**：更新 `workflow.yaml` 中当前 phase 的 status 和 gate，推进到下一阶段
-   c. **Gate 不通过**：返回当前阶段修复，gate 保持 pending
-6. 所有阶段完成后，执行 Compound 归档（更新 status → completed）
+3. 创建 `tasks/<workflow-id>/task.yaml`，写入任务元数据（参考现有 task.yaml 格式）
+4. 创建 `tasks/<workflow-id>/workflow.yaml`，写入元数据（见"工作流状态管理"）
+5. 创建 `tasks/<workflow-id>/adrs/` 和 `tasks/<workflow-id>/logs/` 子目录
+6. 按阶段 1 → Gate → 阶段 2 → Gate → ... 顺序执行
+7. 每个阶段完成后：
+   a. 执行决策捕捉：判断本阶段是否有需要记录的决策
+   b. 执行 Gate 检查
+   c. **Gate 通过**：创建 Git tag checkpoint，更新 `workflow.yaml` 中当前 phase 的 status 和 gate，推进到下一阶段
+   d. **Gate 不通过**：返回当前阶段修复，gate 保持 pending
+8. 所有阶段完成后，执行 Git tag + Compound 归档（交叉引用检查 + 更新 status → completed）
 
 ### 错误管理
 

@@ -2,6 +2,13 @@
 phase: 4
 workflow: feat
 description: 功能验证阶段产物模板
+validation:
+  required-fields:
+    - "测试结果"
+    - "验收标准验证"
+    - "边界测试"
+  required-format:
+    "验收标准验证": "每条验收标准标记 ✅ 或 ❌"
 ---
 
 # 功能验证 — <特性名称>

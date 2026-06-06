@@ -34,8 +34,14 @@ const MANIFEST = [
   [".self-workflow/configs/templates/verification-template.md", "configs/templates/verification-template.md"],
   [".self-workflow/configs/templates/error-log-template.md", "configs/templates/error-log-template.md"],
   [".self-workflow/configs/templates/workflow-metadata-template.yaml", "configs/templates/workflow-metadata-template.yaml"],
+  [".self-workflow/configs/templates/adr-simple-template.md",     "configs/templates/adr-simple-template.md"],
+  [".self-workflow/configs/templates/adr-complex-template.md",    "configs/templates/adr-complex-template.md"],
+  [".self-workflow/configs/templates/adr-review-template.md",     "configs/templates/adr-review-template.md"],
+  [".opencode/skills/interaction-protocol/SKILL.md",  "skills/interaction-protocol/SKILL.md"],
+  [".opencode/skills/agent-reasoning/SKILL.md",       "skills/agent-reasoning/SKILL.md"],
   [".opencode/agents/review-agent.md",        "agents/review-agent.md"],
   [".opencode/commands/catchup.md",           "commands/catchup.md"],
+  [".opencode/commands/adr.md",               "commands/adr.md"],
   [".self-workflow/specs/README.md",          "specs/README.md"],
 ];
 
@@ -47,6 +53,7 @@ const EMPTY_DIRS = [
   ".self-workflow/specs",
   ".opencode/agents",
   ".opencode/commands",
+  ".opencode/skills",
 ];
 
 // ─── Init Command ───────────────────────────────────────────────────────────

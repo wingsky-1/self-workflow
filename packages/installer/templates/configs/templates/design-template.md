@@ -2,6 +2,13 @@
 phase: 2
 workflow: feat
 description: 方案设计阶段产物模板——含 ADR、接口设计、数据模型
+validation:
+  required-fields:
+    - "架构决策记录"
+    - "接口设计"
+    - "数据模型"
+  required-format:
+    "架构决策记录": "包含至少 2 个备选方案的对比表"
 ---
 
 # 方案设计 — <特性名称>

@@ -2,6 +2,14 @@
 phase: 1
 workflow: feat
 description: 需求分析阶段产物模板
+validation:
+  required-fields:
+    - "需求概述"
+    - "功能清单"
+    - "验收标准"
+    - "不纳入范围"
+  required-format:
+    "验收标准": "Given-When-Then"
 ---
 
 # 需求分析 — <特性名称>

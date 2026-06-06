@@ -2,6 +2,12 @@
 phase: 5
 workflow: feat
 description: 总结沉淀阶段产物模板
+validation:
+  required-fields:
+    - "工作流概况"
+    - "阶段回顾"
+  required-format:
+    "阶段回顾": "包含各阶段的亮点和改进"
 ---
 
 # 总结沉淀 — <特性名称>

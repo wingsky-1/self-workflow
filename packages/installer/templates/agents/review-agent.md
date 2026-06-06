@@ -45,6 +45,8 @@ review-report:
   workflow: "<workflow-id>"
   gate: "<gate-name>"
   summary: "<审查摘要>"
+  behavior: passed | warning | failed
+  behavior-notes: "<行为偏离说明（如非 passed）>"
   findings:
     - severity: critical | warning | info
       location: "<文件路径:行号>"
@@ -65,6 +67,29 @@ review-report:
 | warning | 非阻断性问题（质量、风格、覆盖不足） | 可通过，但记录 |
 | info | 建议项 | 仅记录，不影响 Gate |
 
+## 强制检查项（无论是否有 Spec）
+
+在每次 Gate 审查中，必须执行以下检查：
+
+### task.yaml 存在性检查
+
+1. 检查当前 task 目录下是否存在 `task.yaml`
+2. 如果不存在 → 标记为 critical，建议创建
+3. 如果存在 → 验证 `status`、`milestones`、`artifacts` 字段是否完善
+
+### 决策捕捉检查
+
+1. 检查当前阶段的产物中是否包含"决策捕捉"记录
+2. 如果阶段的 Gate 已通过但没有决策捕捉记录，且阶段涉及了架构选择 → 标记为 warning
+
+### 行为审查
+
+评估主 Agent 的执行行为：
+
+1. 是否执行了决策捕捉？
+2. 是否按要求使用 question 工具（涉及 2+ 选项时）？
+3. 质疑报告是否充分（设计阶段入口）？
+
 ## 无 Spec 时的行为
 
 如果项目没有定义 Spec，退化为通用质量审查：
@@ -82,3 +107,4 @@ review-report:
 | 安全审查 | 常见安全漏洞 |
 | 设计一致性 | 是否与现有架构一致 |
 | 文档完整性 | 相关文档是否同步更新 |
+| 行为审查 | 主 Agent 行为（决策捕捉、question 工具使用、质疑报告） |

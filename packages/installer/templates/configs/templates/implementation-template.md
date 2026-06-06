@@ -2,6 +2,11 @@
 phase: 3
 workflow: feat
 description: 代码实现阶段产物模板
+validation:
+  required-fields:
+    - "变更清单"
+    - "关键实现决策"
+    - "测试覆盖"
 ---
 
 # 代码实现 — <特性名称>
