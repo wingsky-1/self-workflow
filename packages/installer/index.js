@@ -36,9 +36,7 @@ const MANIFEST = [
   [".self-workflow/configs/templates/workflow-metadata-template.yaml", "configs/templates/workflow-metadata-template.yaml"],
   [".opencode/agents/review-agent.md",        "agents/review-agent.md"],
   [".opencode/commands/catchup.md",           "commands/catchup.md"],
-  [".self-workflow/specs/coding-style.yaml",  "specs/coding-style.yaml"],
-  [".self-workflow/specs/architecture.yaml",  "specs/architecture.yaml"],
-  [".self-workflow/specs/workflow-protocol.yaml", "specs/workflow-protocol.yaml"],
+  [".self-workflow/specs/README.md",          "specs/README.md"],
 ];
 
 const EMPTY_DIRS = [
@@ -126,7 +124,7 @@ function init(targetDir, dryRun) {
     console.log("  📖 工作流指引：.self-workflow/configs/guides/feat-workflow.md");
     console.log("  🛡️  Review Agent：.opencode/agents/review-agent.md");
     console.log("  📋 Session Catchup：.opencode/commands/catchup.md（输入 /catchup 使用）");
-    console.log("  📏 项目规范：.self-workflow/specs/（coding-style / architecture / workflow-protocol）");
+    console.log("  📏 项目规范：.self-workflow/specs/README.md（Markdown 格式，可直接编辑）");
   }
 
   console.log("  ────────────────────────────────────────────\n");
