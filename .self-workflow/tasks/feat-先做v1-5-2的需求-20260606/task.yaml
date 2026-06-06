@@ -13,11 +13,17 @@ structure:
   root:
     - "task.yaml"
     - "workflow.yaml"
-  adrs: []
+  adrs:
+    - "ADR-001-合并task.yaml和workflow.yaml.md"
+    - "ADR-002-feat.md重定位为系统提示词框架.md"
   logs: []
-  artifacts: []
+  artifacts:
+    - "01-analysis.md"
+    - "02-design.md"
 
 milestones: []
 
 artifacts:
   - "workflow.yaml"
+  - "adrs/"
+  - "artifacts/"
