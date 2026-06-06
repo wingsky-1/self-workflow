@@ -1,0 +1,50 @@
+# 工作流实例元数据
+# 在工作流启动时创建，各阶段更新状态
+
+workflow-id: <workflow-id>
+type: feat
+status: in_progress  # in_progress | completed | cancelled | stuck
+created: <YYYY-MM-DDTHH:mm:ss>
+updated: <YYYY-MM-DDTHH:mm:ss>
+description: <特性描述>
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: pending    # pending | in_progress | completed | failed
+    gate: pending      # pending | passed | failed | skipped
+    started: null
+    completed: null
+    artifact: "01-analysis.md"
+
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
