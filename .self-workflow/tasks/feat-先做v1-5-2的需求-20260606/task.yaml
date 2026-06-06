@@ -1,0 +1,23 @@
+name: 先做v1-5-2的需求
+title: V1.5.2 Todo 体系优化
+status: in_progress
+created: 2026-06-06
+updated: 2026-06-06
+tags: [v1.5.2, p1, quality, todo-system, workflow-metadata]
+description: >
+  实现 V1.5.2 Todo 体系优化（P1）：todo.md 增加优先级/版本标记、
+  已完成/已拒绝项归档机制、task.yaml 和 workflow.yaml 关系澄清、
+  /feat command 和 feat-workflow 关系澄清。
+
+structure:
+  root:
+    - "task.yaml"
+    - "workflow.yaml"
+  adrs: []
+  logs: []
+  artifacts: []
+
+milestones: []
+
+artifacts:
+  - "workflow.yaml"
