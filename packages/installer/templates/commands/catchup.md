@@ -17,7 +17,7 @@ description: Session Catchup — 扫描 .self-workflow/ 中的进行中任务和
 
 对每个 `in_progress` 的任务：
 - 读取 `task.yaml` 中的 milestones，找出 `status: pending` 或 `status: in_progress` 的里程碑
-- 读取 `plan.md` 了解该任务的执行计划
+- 读取 `task.yaml` 的 phases 段了解当前进度
 - 简要总结当前进展到哪一步
 
 ## 3. 检查未解决的错误

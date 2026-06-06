@@ -3,7 +3,7 @@
 > 版本：v0.2
 > 状态：已补全（已完成与 feat-workflow.md v0.2 的交叉对照审查）
 > 最后更新：2026-06-06
-> 关联：`V1.5-需求设计.md`、`feat-workflow.md`(v0.2)、`docs/todo.md` #1
+> 关联：`V1.5-需求设计.md`、`feat-workflow.md`(v0.2)、`.self-workflow/todo.md` #1
 
 ---
 
@@ -390,7 +390,7 @@ workflow-started:
 
 ---
 
-## 附：关联问题（来自 docs/todo.md）
+## 附：关联问题（来自 .self-workflow/todo.md）
 
 | # | 问题 | 本设计覆盖 |
 |---|------|-----------|

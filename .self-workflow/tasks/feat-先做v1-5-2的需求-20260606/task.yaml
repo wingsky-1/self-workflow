@@ -25,8 +25,3 @@ structure:
     - "05-summary.md"
 
 milestones: []
-
-artifacts:
-  - "workflow.yaml"
-  - "adrs/"
-  - "artifacts/"

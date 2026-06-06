@@ -40,8 +40,7 @@ argument-hint: [--quick] <特性描述>
 在创建目录和文件之前，先执行以下检查：
 
 1. **目录存在性**：确认 `.self-workflow/` 目录存在，不存在则提示先运行 `self-workflow init`
-2. **模板可用性**：确认 `.self-workflow/configs/templates/workflow-metadata-template.yaml` 存在
-3. **并发保护**：扫描 `.self-workflow/tasks/*/task.yaml`，检查是否有 `status: in_progress` 的任务
+2. **并发保护**：扫描 `.self-workflow/tasks/*/task.yaml`，检查是否有 `status: in_progress` 的任务
    - 无冲突 → 继续
    - 已有进行中任务 → 提示用户：
      > "已有进行中任务 `feat-xxx-YYYYMMDD`（阶段 N/5）。不建议并发执行多个工作流。是否继续？"
@@ -256,7 +255,6 @@ workflow-started:
 | 缺少 `<描述>` 且非无参数模式 | 提示"请提供特性描述，例如：/feat 实现用户登录" |
 | workflow-id 冲突（追加后仍冲突 > 10 次） | 提示"slug 冲突过多，请使用更具体的描述" |
 | `.self-workflow/` 目录不存在 | 提示先运行 `self-workflow init` 安装 |
-| `templates/workflow-metadata-template.yaml` 不存在 | （注意：新任务不再使用此模板—`task.yaml` 已内嵌 phases 段，无需独立 workflow.yaml） |
 | 已有 in_progress 任务 | 提示用户确认后再继续 |
 
 ## 参考
