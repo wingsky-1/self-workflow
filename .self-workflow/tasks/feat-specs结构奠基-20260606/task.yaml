@@ -66,9 +66,16 @@ experience-draft: false
 structure:
   root:
     - "task.yaml"
-  adrs: []
+  adrs:
+    - "adrs/ADR-001-spec文件格式.md"
+    - "adrs/ADR-002-spec加载机制-插件注入.md"
+    - "adrs/ADR-003-spec目录结构-default加主题分类.md"
+    - "adrs/ADR-004-skill向spec迁移-直接删除.md"
+    - "adrs/ADR-005-跨任务决策沉淀-关键决策目录.md"
   logs: []
-  artifacts: []
+  artifacts:
+    - "artifacts/01-analysis.md"
+    - "artifacts/02-design.md"
 
 milestones: []
 
