@@ -5,26 +5,10 @@
 > V1.5 系列（V1.5.1~V1.5.3 + V1 → V1.5 修复）已全部关闭 ✔️
 > V1.6 质量收尾已关闭 ✔️（7/9 项完成，2 项移除/移入 V1.8）
 > V1.7 docs 结构 + 索引注入已关闭 ✔️（2/2 项完成）
-> V1.8：specs 结构奠基（P2）🟢 — 进行中
+> V1.8：specs 结构奠基（P2）🟢 — 已关闭 ✔️（4/4 项完成）
 > V1.9 重构收尾已关闭 ✔️（4/4 项完成）
 
 ---
-
-## V1.8：specs 结构奠基（P2）🟢
-
-> 建立 specs 体系——后续经验质量、审查增强均依赖此基础。
-
-1. 文档受众分类 spec——形成 spec 指导 Agent 认识哪些文档（docs/ specs/）受众是谁（Human/Agent/共读）
-   → 来源：V1.6 #7
-
-2. 沉淀通用 spec 结构——可拓展性（用户创建约束）、多级索引目录
-   → 来源：新增 #2
-
-3. agent-reasoning + interaction-protocol 降格为 spec——当前以 skill 形式存在（`.opencode/skills/`），应属于始终生效的通用 spec
-   → 来源：新增 #2
-
-4. 关键决策自动记录→通用 spec——不仅是用户的决策和讨论，Agent 自己的分析决策也要记录 ADR，保证执行过程可追溯。当前决策捕捉不理想，要做成可复用的通用 spec
-   → 来源：新增 #4 + 新增 #3
 
 ---
 
@@ -106,6 +90,16 @@
 ---
 
 ## 已关闭
+
+<details>
+<summary>V1.8：specs 结构奠基（feat-specs结构奠基-20260606 完成，4/4 项）</summary>
+
+- [done] 文档受众分类 spec — `specs/default/doc-audience.md` + 推广参考模式 ✅
+- [done] 通用 spec 结构 — `specs/default/` + `specs/README.md` 分类定义段 + Plugin 注入 ✅
+- [done] agent-reasoning + interaction-protocol 降格为 spec — Skill 已删除，内容迁移至 `specs/default/`，双钩子注入架构 ✅
+- [done] 关键决策自动记录→通用 spec — `specs/default/decision-record.md` + `docs/关键决策/` + ADR 晋升流程 + 废弃 `/adr` 命令 ✅
+
+</details>
 
 <details>
 <summary>V1.6：质量收尾（feat-开始v1-6版本-20260606 完成，7/9 项，2 项移除/移入 V1.8）</summary>
