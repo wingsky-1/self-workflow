@@ -5,19 +5,6 @@
 
 ---
 
-## V1.5.1：Gate 强制步骤（P0）🔴
-
-1. feat-workflow.md：Gate 通过条件增加"Git tag 已创建"强制检查项 + Compound 补建逻辑
-   → 来源：feat-v1.5剩余问题修复 P1 ❌——3/5 tag 缺失
-
-2. feat-workflow.md：阶段结束时如有决策则 adrs/ 下必须有 ADR 文件（非空，含来源引用+决策理由）
-   → 来源：feat-v1.5剩余问题修复 P3 ❌ + V1-3 ❌——Agent 写了检查章节但不创建文件
-
-3. feat-workflow.md：Gate 入口强制计算 scope+risk+user-signal 三维分值并显式输出
-   → 来源：feat-v1.5剩余问题修复 P4 ⚠️ + V15-6 ⚠️——Gate 3/4 未量化
-
----
-
 ## V1.6：经验初步 + spec 结构（P2）🟢
 
 4. spec/docs 索引在 session_start 时自动注入上下文
@@ -118,6 +105,15 @@
 </details>
 
 <details>
+<summary>V1.5.1：Gate 强制步骤（feat-v1-5-1-gate强制步骤-20260606 完成）</summary>
+
+- [done] F1: Gate 通过条件增加"Git tag 已创建"强制检查项 + Compound 补建逻辑 ✅ — feat-workflow.md v0.3
+- [done] F2: 阶段结束时如有决策则 adrs/ 下必须有 ADR 文件（非空，含来源引用+决策理由）✅ — 5阶段检查清单措辞改为存在性断言 + 决策声明
+- [done] F3: Gate 入口强制计算 scope+risk+user-signal 三维分值并显式输出 ✅ — 4 Gate入口含量化计算块 + 附录速查表权重列改为 *量化决定*
+
+</details>
+
+<details>
 <summary>V1 已完成（20260606-V1实现）</summary>
 
 - [done] checkpoint 配合每阶段 commit → ✅ Git tag 机制
@@ -128,3 +124,8 @@
 <!-- wontfix 示例格式：
 - [wontfix] 功能描述 → 拒绝理由：xxxx
 -->
+
+## 新增（待评审排期）
+
+1. 后续修改todo要保留新增章节
+2. adr-review-template.md 没有存在的必要，删除这个模板并更新相关文档
