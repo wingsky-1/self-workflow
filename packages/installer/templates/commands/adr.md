@@ -1,5 +1,5 @@
 ---
-description: 快速创建 ADR（Architecture Decision Record），支持 simple/complex/review 三种模板，自动编号并更新 task.yaml
+description: 快速创建 ADR（Architecture Decision Record），默认 Agent 自主归档，内容不足时降级交互
 ---
 
 # /adr 命令
@@ -7,14 +7,13 @@ description: 快速创建 ADR（Architecture Decision Record），支持 simple/
 ## 用法
 
 ```
-/adr <simple|complex|review> <ADR 标题>
+/adr <ADR 标题>
 ```
 
 ## 参数
 
 | 参数 | 说明 |
 |------|------|
-| 模板类型 | `simple`（简单决策）、`complex`（复杂决策）、`review`（评审结果决策） |
 | 标题 | ADR 的标题文字，简短描述决策内容 |
 
 ## 执行流程
@@ -37,13 +36,13 @@ description: 快速创建 ADR（Architecture Decision Record），支持 simple/
 
 ### 步骤 3：选择模板
 
-根据用户指定的模板类型，读取对应模板文件：
+Agent 根据决策的复杂度自行判断使用哪个模板，无需用户指定：
 
-| 模板类型 | 模板文件 |
+| 判断依据 | 模板文件 |
 |---------|---------|
-| `simple` | `.self-workflow/configs/templates/adr-simple-template.md` |
-| `complex` | `.self-workflow/configs/templates/adr-complex-template.md` |
-| `review` | `.self-workflow/configs/templates/adr-review-template.md` |
+| 简单决策（单一选项、理由明确） | `.self-workflow/configs/templates/adr-simple-template.md` |
+| 复杂决策（多方案对比、trade-off 评估） | `.self-workflow/configs/templates/adr-complex-template.md` |
+| 评审结果决策（基于审查报告的决策） | `.self-workflow/configs/templates/adr-review-template.md` |
 
 ### 步骤 4：填写模板
 
@@ -52,11 +51,14 @@ description: 快速创建 ADR（Architecture Decision Record），支持 simple/
 - `<编号>` → 步骤 2 确定的编号
 - `<标题>` → 用户提供的标题
 - `<YYYY-MM-DD>` → 当前日期
-- 其余字段（背景、决策、理由等）→ 通过 `question` 工具向用户收集
 
-**simple 模板**：收集背景、决策、理由
-**complex 模板**：收集背景、备选方案（至少 2 个）、选择、理由、影响、反对意见、关联
-**review 模板**：收集背景、审查结论（引用审查报告）、决策、理由、讨论记录、影响、关联
+**默认模式**：Agent 自主归档。Agent 在上下文中准备完整 ADR 内容（背景、决策、理由等），直接填入模板，无需交互。
+若 Agent 上下文中的内容不足以填充模板必需字段 → **降级为交互模式**：通过 `question` 工具向用户收集缺失字段。
+
+**模板字段说明**（Agent 自主提供或降级交互时收集时参考）：
+- **simple 模板**：背景、决策、理由
+- **complex 模板**：背景、备选方案（至少 2 个）、选择、理由、影响、反对意见、关联
+- **review 模板**：背景、审查结论（引用审查报告）、决策、理由、讨论记录、影响、关联
 
 ### 步骤 5：写入文件
 
@@ -78,7 +80,7 @@ description: 快速创建 ADR（Architecture Decision Record），支持 simple/
 adr-created:
   id: "<编号>"
   title: "<标题>"
-  type: "<模板类型>"
+  mode: "<auto | interactive>"
   path: ".self-workflow/tasks/<task-id>/adrs/ADR-<编号>-<标题>.md"
   task: "<task-id>"
 ```

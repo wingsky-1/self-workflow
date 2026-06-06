@@ -102,7 +102,11 @@ version: 0.2
 - 验收标准是否可测试？
 - 约束条件是否被合理识别？
 
-如果 Review Agent 尚未就绪，由主 Agent 自行完成上述检查。
+**执行指令**（必须执行，不可跳过）：
+
+task(subagent_type="review-agent", prompt="审查需求分析文档 <artifacts/01-analysis.md>。检查：需求理解是否与用户输入一致？功能清单是否覆盖全部需求？验收标准是否可测试(Given-When-Then)？约束条件是否合理？不纳入范围是否明确？输出：pass/fail，如 fail 列出具体问题。")
+
+如果 Review Agent 不可用，主 Agent 自行完成上述检查。
 
 #### 步骤 3：人工确认
 
@@ -175,7 +179,13 @@ version: 0.2
 
 #### 步骤 0：方向审查（新增）
 
-在程序化验证之前执行方向审查。Review Agent 回答：
+在程序化验证之前执行方向审查。
+
+**执行指令**（必须执行，不可跳过）：
+
+task(subagent_type="review-agent", prompt="执行方向审查。阅读设计文档 <artifacts/02-design.md>，回答：1)方案与项目现有ADR是否一致？2)有没有更简单的替代方案？3)有没有遗漏的约束条件？4)这个方案的影响范围是什么？输出：pass/fail，如 fail 列出具体问题和建议。")
+
+如果 Review Agent 不可用，主 Agent 自行回答以下问题：
 
 1. **架构一致性**：方案与项目现有 ADR 是否一致？
 2. **替代方案**：有没有更简单的替代方案？
@@ -191,6 +201,10 @@ version: 0.2
 #### 步骤 2：对抗性审查（Grill 风格）
 
 调用 Review Agent 执行对抗性设计评审。
+
+**执行指令**（必须执行，不可跳过）：
+
+task(subagent_type="review-agent", prompt="执行对抗性设计评审(Grill风格)。对设计文档 <artifacts/02-design.md> 的每个架构决策：分析备选方案是否充分评估、检查选择的理由是否成立、挑战隐含假设、确认trade-off被明确记录。输出审查报告(YAML格式)，每个决策 passed/warning/failed，含 behavior 维度评估。")
 
 **审查流程**（Grill 风格）：
 1. 读取设计文档中的每个架构决策
@@ -211,7 +225,6 @@ behavior: passed | warning | failed
 - warning：行为有轻微偏离
 - failed：行为严重偏离（如未执行决策捕捉、未使用 question 工具）
 
-如果 Review Agent 尚未就绪，主 Agent 自行按 Grill 风格审查。
 
 #### 步骤 3：人工确认
 
@@ -287,6 +300,10 @@ npm run test          # 单元测试
 
 调用 Review Agent 审查代码实现。
 
+**执行指令**（必须执行，不可跳过）：
+
+task(subagent_type="review-agent", prompt="审查代码实现。对照设计文档 <artifacts/02-design.md> 检查：实现是否与设计一致？代码质量(命名、结构)？测试覆盖是否充分？是否引入安全漏洞？输出：passed/warning/failed，如非 passed 列出具体问题。")
+
 **审查要点**：
 - 实现是否与设计文档一致？
 - 代码质量（命名、结构、注释）
@@ -321,6 +338,8 @@ Gate weight 由三个维度量化计算，取代主观判断：
 - 核心架构重构：scope=+1 + risk=+1 + user-signal=+1 → 总分 3 → full
 
 > Human 可覆盖量化结果：如果 Human 明确要求全量审查，即使计算结果为 skip/light，也按 full 执行。
+>
+> **优先级声明**：量化结果覆盖声明权重。附录 Gate 速查表中的 weight 列仅为"典型场景默认值"。实际执行以 scope + risk + user-signal 三维量化公式计算结果为准。
 
 ### 通过条件
 
@@ -369,6 +388,10 @@ Gate weight 由三个维度量化计算，取代主观判断：
 #### 步骤 2：对抗性审查
 
 Review Agent 简要检查：
+
+**执行指令**（必须执行，不可跳过）：
+
+task(subagent_type="review-agent", prompt="审查验证结果文档 <artifacts/04-verification.md>。检查：测试覆盖是否充分？边界条件是否处理？是否引入回归问题？验收标准是否全部满足？输出：passed/warning/failed。")
 - 测试覆盖是否充分
 - 边界条件是否处理
 - 是否引入回归问题
@@ -405,10 +428,17 @@ Review Agent 简要检查：
 
 ### 完成检查清单
 
-- [ ] 总结回顾已完成
-- [ ] 经验草稿已提取（如有）
-- [ ] 文档已更新（如需要）
+- [ ] **task 级经验**：`artifacts/05-summary.md` 含本次得与失
+- [ ] **doc 级经验**：判断是否有跨任务可复用经验（遇到框架缺陷？发现可推广模式？验证新机制？）→ 有则写入 `.self-workflow/docs/`
+- [ ] 文档已更新（如代码变更涉及公共接口）
 - [ ] 决策捕捉已执行
+
+**双级经验说明**：
+- **task 级**：记录在 `05-summary.md`，是本任务的执行总结，供后续查看本次工作流过程
+- **doc 级**：写入 `.self-workflow/docs/`，是跨任务可复用的经验。判断标准：
+  - 是否遇到了框架缺陷？（→ `*-实施经验.md`）
+  - 是否发现了可推广的解决方案模式？（→ `*-参考模式.md`）
+  - 是否踩了坑？（→ `*-错误经验.md`）
 
 ---
 
