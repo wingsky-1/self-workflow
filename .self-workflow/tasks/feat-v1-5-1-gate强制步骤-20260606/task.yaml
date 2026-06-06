@@ -2,7 +2,7 @@ name: v1-5-1-gate强制步骤
 title: V1.5.1 Gate强制步骤
 status: in_progress
 created: 2026-06-06
-updated: 2026-06-06T19:58:00+08:00
+updated: 2026-06-06T20:15:00+08:00
 tags: []
 description: >
   V1.5.1 Gate强制步骤（P0）：对 feat-workflow.md 实施3项强化——
@@ -24,17 +24,17 @@ phases:
     errors: []
   - id: 2
     name: 方案设计
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-06T19:58:00+08:00
-    completed: null
+    completed: 2026-06-06T20:15:00+08:00
     artifact: "02-design.md"
     errors: []
   - id: 3
     name: 代码实现
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
+    started: 2026-06-06T20:15:00+08:00
     completed: null
     artifact: "03-implementation.md"
     errors: []
@@ -60,10 +60,15 @@ experience-draft: false
 structure:
   root:
     - "task.yaml"
-  adrs: []
+  adrs:
+    - "ADR-001-F3量化公式混合方案.md"
+    - "ADR-002-Compound补建tag反查算法.md"
+    - "ADR-003-显式声明防绕过.md"
+    - "ADR-004-设计文档ADR引用而非内联.md"
   logs: []
   artifacts:
     - "01-analysis.md"
+    - "02-design.md"
 
 milestones:
   - id: M1
@@ -71,6 +76,11 @@ milestones:
     status: completed
     completed: 2026-06-06T19:58:00+08:00
     note: "Review Agent passed (3 info-level suggestions, non-blocking)"
+  - id: M2
+    name: Gate 2 — 方案设计通过
+    status: completed
+    completed: 2026-06-06T20:15:00+08:00
+    note: "Direction review passed (2 warnings, non-blocking, both addressed)"
 
 cross-refs:
   - source: ".self-workflow/todo.md#V1.5.1"
