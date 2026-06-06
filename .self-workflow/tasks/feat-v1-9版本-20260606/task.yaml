@@ -1,8 +1,8 @@
 name: v1-9版本
 title: V1.9版本
-status: in_progress
+status: completed
 created: 2026-06-06
-updated: 2026-06-06T23:30:00+08:00
+updated: 2026-06-06T23:55:00+08:00
 tags: [V1.9, refactor, installer, templates]
 description: >
   V1.9 版本：重构收尾——安装器/模板/命令的积压重构项。
@@ -41,23 +41,22 @@ phases:
     errors: []
   - id: 4
     name: 功能验证
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-06T23:40:00+08:00
+    completed: 2026-06-06T23:45:00+08:00
     artifact: "04-verification.md"
     errors: []
   - id: 5
     name: 总结沉淀
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-06T23:50:00+08:00
+    completed: 2026-06-06T23:55:00+08:00
     artifact: "05-summary.md"
     errors: []
 
-experience-draft: false
-
+experience-draft: true
 structure:
   root:
     - "task.yaml"
@@ -67,7 +66,11 @@ structure:
     - "ADR-003-Phase-Checkpoint-SHA字段设计.md"
     - "ADR-004-安装器三层目录清理.md"
   logs: []
-  artifacts: []
+  artifacts:
+    - "01-analysis.md"
+    - "02-design.md"
+    - "04-verification.md"
+    - "05-summary.md"
 
 milestones: []
 
