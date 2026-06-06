@@ -1,10 +1,13 @@
-# Gate 推理链一致性 —— 踩坑记录
+---
+title: "Gate 推理链一致性"
+category: 错误经验
+tags: [gate, 推理链, 阶段一致性, 审查]
+date: 2026-06-06
+source: tasks/feat-先做v1-5-2的需求-20260606
+quality: draft
+---
 
-> 分类：错误经验
-> 领域：工作流 / Gate 审查 / 阶段间推理
-> 日期：2026-06-06
-> 关联任务：feat-先做v1-5-2的需求-20260606
-> 关联 ADR：ADR-001 合并 task.yaml 和 workflow.yaml
+# Gate 推理链一致性 —— 踩坑记录
 
 ## 摘要
 

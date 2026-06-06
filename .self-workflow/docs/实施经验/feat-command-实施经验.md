@@ -1,8 +1,9 @@
 ---
-title: /feat 命令实施经验
+title: "/feat 命令实施经验"
+category: 实施经验
 source: tasks/feat-实现feat命令-20260606
 quality: draft
-tags: [v1.5, feat-command, self-bootstrapping, lessons]
+tags: [feat-command, 自举, gate, v1.5]
 ---
 
 # /feat 命令实施经验
