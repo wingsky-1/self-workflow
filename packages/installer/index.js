@@ -51,7 +51,7 @@ const EMPTY_DIRS = [
 
 // ─── Init Command ───────────────────────────────────────────────────────────
 
-function init(targetDir, dryRun) {
+function init(targetDir, dryRun, force) {
   const resolvedTarget = path.resolve(targetDir);
   const actions = [];
 
@@ -83,9 +83,10 @@ function init(targetDir, dryRun) {
       continue;
     }
 
-    if (!fs.existsSync(targetPath)) {
+    if (!fs.existsSync(targetPath) || force) {
       const content = fs.readFileSync(sourcePath, "utf-8");
-      actions.push({ type: "create", message: `写入 ${targetRelPath}` });
+      const action = fs.existsSync(targetPath) ? "update" : "create";
+      actions.push({ type: "write", message: `${action === "update" ? "更新" : "写入"} ${targetRelPath}` });
       if (!dryRun) {
         fs.mkdirSync(path.dirname(targetPath), { recursive: true });
         fs.writeFileSync(targetPath, content, "utf-8");
@@ -103,13 +104,14 @@ function init(targetDir, dryRun) {
     console.log("\n  ⚠️  DRY-RUN 模式 — 未写入任何文件\n");
   }
 
-  console.log("\n  📋 安装报告");
+    console.log("\n  📋 安装报告");
   console.log(`  目标目录：${resolvedTarget}`);
   console.log(`  操作：${actions.length} 项\n`);
 
   for (const action of actions) {
     const icon =
       action.type === "create" ? "  ✅" :
+      action.type === "write" ? "  📝" :
       action.type === "exists" ? "  ⚠️" :
       "  ❌";
     console.log(`  ${icon}  ${action.message}`);
@@ -133,7 +135,7 @@ function init(targetDir, dryRun) {
 // ─── CLI ────────────────────────────────────────────────────────────────────
 
 function parseArgs(args) {
-  const options = { command: null, target: process.cwd(), dryRun: false };
+  const options = { command: null, target: process.cwd(), dryRun: false, force: false };
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -141,6 +143,8 @@ function parseArgs(args) {
       options.target = args[++i];
     } else if (arg === "--dry-run") {
       options.dryRun = true;
+    } else if (arg === "--force" || arg === "-f") {
+      options.force = true;
     } else if (!arg.startsWith("--")) {
       options.command = arg;
     }
@@ -159,10 +163,10 @@ function main() {
     console.log("  ║       Self-Workflow 安装器           ║");
     console.log("  ║      版本 0.1.0 · V1 预备            ║");
     console.log("  ╚══════════════════════════════════════╝");
-    init(options.target, options.dryRun);
+    init(options.target, options.dryRun, options.force);
   } else {
     console.error(`未知命令：${options.command}`);
-    console.error("用法：node index.js init [--target <dir>] [--dry-run]");
+    console.error("用法：node index.js init [--target <dir>] [--dry-run] [--force]");
     process.exit(1);
   }
 }
