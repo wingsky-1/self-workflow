@@ -20,11 +20,11 @@ V1.6 是 V1.5 五轮迭代后的**质量审计收尾版本**。V1.5 系列暴露
 |--------|---|--------|------|------|
 | P0 🔴 | 1 | feat.md 移除已弃用模板检查 | `feat.md` 步骤 0 仍检查 `workflow-metadata-template.yaml` 存在性，但该模板已在 V1.5.2 废弃（phases 内联到 task.yaml） | 质量审计 |
 | P0 🔴 | 2 | 经验文档命名符合 ADR-003 约定 | 3 个 docs/ 下的经验文档文件名不符合 `<领域>-<分类>.md` 约定，需重命名并更新引用 | 质量审计 |
-| P1 🟡 | 3 | workflow.yaml 引用更新 | ADR-001 已将 workflow.yaml 合并到 task.yaml，但 6 份文档仍保留旧引用，需更新 | 质量审计 |
+| ~~P1 🟡~~ | ~~3~~ | ~~workflow.yaml 引用更新~~ | **[removed]** 用户决定不再处理 workflow.yaml 旧引用 | — |
 | P1 🟡 | 4 | docs/todo.md 路径更新 | 3 份根级文档仍引用旧路径 `docs/todo.md`，需更新为 `.self-workflow/todo.md` | 质量审计 |
 | P1 🟡 | 5 | catchup.md 修复 plan.md 引用 | catchup.md 第 20 行引用 `plan.md`，但该文件已在 V1.5.2 废弃，应改为读 task.yaml phases | 质量审计 |
 | P1 🟡 | 6 | 修复 task.yaml 重复 artifacts 键 | `feat-先做v1-5-2的需求-20260606/task.yaml` 第 29-32 行有与 `structure.artifacts` 重复的顶层 `artifacts` 键 | 质量审计 |
-| P2 🟢 | 7 | 文档受众分类 | 为 .self-workflow/ 下文档标注 Human 阅读/Agent 阅读/共读，指导编写格式和 Agent 加载策略 | 新增 #4 |
+| ~~P2 🟢~~ | ~~7~~ | ~~文档受众分类~~ | **[移入 V1.8]** 非简单标注——需形成 spec 指导 Agent 识别受众并据此编写/评审 | — |
 | P2 🟢 | 8 | ADR-003 标记"被超驰" | `feat-实现feat命令-20260606/adrs/ADR-003`（元数据模板填充策略）因 workflow.yaml 已废弃而失效，需标记 superseded | 质量审计 |
 | P2 🟢 | 9 | 删除 adr-review-template.md | 删除该模板文件（3 处副本），更新 `.self-workflow/todo.md` 引用 | 新增待评审 |
 
@@ -72,7 +72,8 @@ V1.6 是 V1.5 五轮迭代后的**质量审计收尾版本**。V1.5 系列暴露
 ## 不纳入范围
 
 - ❌ 修改任何 `.self-workflow/tasks/<old-task>/` 下的历史 artifacts（除 #6 外）
-- ❌ 新增功能——V1.6 是纯质量修复版本
+- ❌ ~~#3 workflow.yaml 引用更新~~ — 用户决定不再处理
+- ❌ ~~#7 文档受众分类~~ — 移入 V1.8（需 spec 级设计）
 - ❌ V1.7 的 docs/ 目录结构梳理（已排入 V1.7）
 - ❌ V1.7 的 docs 索引自动注入机制（已排入 V1.7）
 - ❌ 经验去重检测、一致性审查命令（已排入 V1.8）
