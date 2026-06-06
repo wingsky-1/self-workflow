@@ -153,3 +153,4 @@
 2. task模板应该从feat command移动到templates，可由用户进行定制
 3. 门控机制需要优化，文档变更和新增也需要进行审查
 4. 关键决策或讨论的自动记录还是不理想，要做成通用spec
+5. packages\installer\.opencode packages\installer\.self-workflow packages\installer\templates 关系梳理优化

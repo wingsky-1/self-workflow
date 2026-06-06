@@ -31,30 +31,30 @@ phases:
     errors: []
   - id: 3
     name: 代码实现
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-06T23:00:00+08:00
+    completed: 2026-06-06T23:15:00+08:00
     artifact: "03-implementation.md"
     errors: []
   - id: 4
     name: 功能验证
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-06T23:15:00+08:00
+    completed: 2026-06-06T23:20:00+08:00
     artifact: "04-verification.md"
     errors: []
   - id: 5
     name: 总结沉淀
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-06T23:20:00+08:00
+    completed: 2026-06-06T23:30:00+08:00
     artifact: "05-summary.md"
     errors: []
 
-experience-draft: false
+experience-draft: true
 
 structure:
   root:
