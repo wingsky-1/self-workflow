@@ -23,10 +23,10 @@ phases:
     errors: []
   - id: 2
     name: 方案设计
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-06T21:35:00+08:00
-    completed: null
+    completed: 2026-06-06T23:00:00+08:00
     artifact: "02-design.md"
     errors: []
   - id: 3
@@ -63,8 +63,12 @@ structure:
   logs: []
   artifacts:
     - "01-analysis.md"
+    - "02-design.md"
 
-milestones: []
+milestones:
+  - "M1: docs/ 分类目录结构 + README + 文档迁移"
+  - "M2: Plugin 实现 + chat.system.transform 注入"
+  - "M3: 安装器模板同步 + 端到端验证"
 
 cross-refs:
   - ".self-workflow/todo.md#V1.7"
