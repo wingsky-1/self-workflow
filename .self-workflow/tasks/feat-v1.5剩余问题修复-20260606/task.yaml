@@ -17,6 +17,7 @@ structure:
     - "ADR-001-ReviewAgent强制调用混合方案.md"
     - "ADR-002-adr默认auto降级交互.md"
     - "ADR-003-经验文件名约定分类.md"
+    - "ADR-004-安装器管理文件修改路径规则.md"
   logs: []
   artifacts:
     - "01-analysis.md"
