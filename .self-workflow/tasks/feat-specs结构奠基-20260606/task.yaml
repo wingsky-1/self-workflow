@@ -26,18 +26,18 @@ phases:
     checkpoint: "20d556ef0a924b56197f7ca2febe9c723871d4e5"
   - id: 2
     name: 方案设计
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-06T23:30:00+08:00
-    completed: null
+    completed: 2026-06-06T23:55:00+08:00
     artifact: "02-design.md"
     errors: []
-    checkpoint: null
+    checkpoint: "496316aaa039b14b3f94e6512d1fedbc4c2dbe91"
   - id: 3
     name: 代码实现
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
+    started: 2026-06-06T23:55:00+08:00
     completed: null
     artifact: "03-implementation.md"
     errors: []

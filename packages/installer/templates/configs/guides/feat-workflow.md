@@ -491,6 +491,7 @@ task(subagent_type="review-agent", prompt="审查验证结果文档 <artifacts/0
 
 - [ ] **task 级经验**：`artifacts/05-summary.md` 含本次得与失
 - [ ] **doc 级经验**：判断是否有跨任务可复用经验（遇到框架缺陷？发现可推广模式？验证新机制？）→ 有则写入 `.self-workflow/docs/`
+- [ ] **ADR 晋升检查**：扫描任务中所有 ADR，评估是否有值得晋升到 `docs/关键决策/` 的跨任务决策（按 `specs/default/decision-record.md` 中的晋升标准），使用 `question` 工具向 Human 提议
 - [ ] 文档已更新（如代码变更涉及公共接口）
 - [ ] **决策捕捉**：已检查 adrs/ 目录（有决策则必有文件）
 - [ ] **决策声明**：已显式标注（`[ ] 本阶段无架构决策` 或引用 ADR 路径）

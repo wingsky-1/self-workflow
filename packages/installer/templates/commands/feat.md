@@ -102,8 +102,7 @@ errors: []
 ### 步骤 6：进入阶段 1 — 需求分析
 
 1. 加载 `.self-workflow/configs/guides/feat-workflow.md` 作为执行指引
-2. 按指引加载 `interaction-protocol` Skill（涉及选项选择时使用 question 工具）
-3. 按指引加载 `agent-reasoning` Skill（委托优先、质疑方向、决策捕捉）
+2. 读取 `.self-workflow/specs/default/` 下的规范——agent-reasoning 和 interaction-protocol 已通过插件自动注入 system prompt，Agent 需遵守
 4. 更新 `task.yaml`：
    - `phases[0].status` → `in_progress`
    - `phases[0].started` → `<当前时间 ISO 8601>`
@@ -139,9 +138,10 @@ workflow-started:
 - 优先使用 `category` 参数匹配任务领域（visual-engineering/ultrabrain/deep/quick）
 - 子 Agent 返回后必须验证结果
 
-#### skill 加载规则
-- `interaction-protocol`：涉及 2+ 选项供用户选择时加载
-- `agent-reasoning`：委托优先、质疑方向、决策捕捉场景加载
+#### spec 规范
+- `specs/default/` 下的规范（agent-reasoning、interaction-protocol 等）通过 `self-workflow-session` 插件自动注入 system prompt，Agent 在所有会话中必须遵守
+- 委托子 Agent 时，同样需确保子 Agent 遵守 `specs/default/` 规范（插件应在所有 Agent 中生效）
+- 通用 `load_skills` 委托规则保留——委托时始终携带 `load_skills` 参数，评估可用 skills 后选择合适的
 
 #### Gate 量化公式
 每个 Gate 入口必须显式计算 scope+risk+user-signal 三维分值以确定 weight（skip/light/full）。
