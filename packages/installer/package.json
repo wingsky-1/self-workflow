@@ -1,0 +1,12 @@
+{
+  "name": "@self-workflow/installer",
+  "version": "0.1.0",
+  "description": "Self-Workflow 安装器 — 初始化项目的工作流目录结构",
+  "type": "module",
+  "bin": {
+    "self-workflow": "./index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
