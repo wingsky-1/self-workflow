@@ -1,0 +1,61 @@
+# 工作流协议规范
+# 定义工作流执行过程中的行为约束
+
+name: workflow-protocol
+version: 1.0.0
+applicable-workflows: [feat, debug, doc, review]
+
+rules:
+  - id: adr-001
+    description: 架构决策必须记录为 ADR，写入 tasks/<id>/adrs/
+    level: MUST
+    scope: architecture-decision
+    enforcement: review
+
+  - id: adr-002
+    description: ADR 格式必须包含：背景、决策、理由、影响、关联
+    level: MUST
+    scope: adr
+    enforcement: review
+
+  - id: artifact-001
+    description: 每个阶段的输出必须使用对应的模板格式
+    level: MUST
+    scope: artifact
+    enforcement: review
+
+  - id: artifact-002
+    description: task.yaml 必须随任务状态变更同步更新
+    level: MUST
+    scope: task-metadata
+    enforcement: review
+
+  - id: gate-001
+    description: Phase Gate 不通过时不得强行推进到下一阶段
+    level: MUST
+    scope: gate
+    enforcement: review
+
+  - id: gate-002
+    description: Gate 审查报告必须包含 pass/fail 结论
+    level: MUST
+    scope: gate
+    enforcement: review
+
+  - id: interaction-001
+    description: 涉及选项选择时必须使用 question 工具
+    level: MUST
+    scope: agent-behavior
+    enforcement: review
+
+  - id: interaction-002
+    description: 询问下一步前先总结已完成内容，再说明下一步
+    level: SHOULD
+    scope: agent-behavior
+    enforcement: review
+
+  - id: agent-001
+    description: 执行 Human 方向前，Agent 应先质疑合理性
+    level: MUST
+    scope: agent-behavior
+    enforcement: review

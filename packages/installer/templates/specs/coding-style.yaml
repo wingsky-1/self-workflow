@@ -1,0 +1,58 @@
+# 编码规范
+# level: MUST（强制遵守，Phase Gate 阻断）
+#        SHOULD（建议遵守，Gate 产生警告）
+#        MAY（可选参考，仅记录）
+# enforcement: lint（Layer 2 程序化门）、review（Layer 3 对抗性审查）
+
+name: coding-style
+version: 1.0.0
+applicable-workflows: [feat, debug, review]
+
+rules:
+  - id: naming-001
+    description: 函数命名使用 camelCase
+    level: MUST
+    scope: typescript
+    enforcement: lint
+
+  - id: naming-002
+    description: 组件命名使用 PascalCase
+    level: MUST
+    scope: tsx
+    enforcement: lint
+
+  - id: naming-003
+    description: 常量命名使用 UPPER_SNAKE_CASE
+    level: MUST
+    scope: typescript
+    enforcement: lint
+
+  - id: naming-004
+    description: 文件名使用 kebab-case
+    level: MUST
+    scope: file
+    enforcement: lint
+
+  - id: error-handling-001
+    description: 异步操作必须使用 try-catch 或 Promise.catch
+    level: MUST
+    scope: async-function
+    enforcement: review
+
+  - id: error-handling-002
+    description: catch 块不得为空
+    level: MUST
+    scope: typescript
+    enforcement: lint
+
+  - id: logging-001
+    description: 调试完成后移除 console.log
+    level: SHOULD
+    scope: typescript
+    enforcement: review
+
+  - id: comment-001
+    description: 注释应说明"为什么"而非"是什么"
+    level: SHOULD
+    scope: all
+    enforcement: review
