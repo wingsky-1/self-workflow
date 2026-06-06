@@ -4,14 +4,14 @@
 
 name: V1实现
 title: V1 里程碑实现
-status: in_progress  # in_progress | completed | cancelled | stuck
+status: completed  # in_progress | completed | cancelled | stuck
 created: 2026-06-06
 updated: 2026-06-06
 tags: [v1, milestone, installer, review-agent, workflow-guide, session-catchup]
 
 description: >
   实现 Self-Workflow V1 核心功能：安装器、工作流指引、Review Agent、
-  产物归档、错误日志。完成后可用 /feat 执行完整工作流。
+  产物归档、错误日志、Session Catchup。已通过回顾总结完成自举验证分析。
 
 structure:
   root:
@@ -25,9 +25,11 @@ structure:
     - "ADR-004-目录职责划分与开发使用分离.md"
     - "ADR-005-task目录元数据规范.md"
     - "ADR-006-task目录分层与交叉引用管理.md"
+    - "ADR-007-委托优先原则.md"
   logs:
     - "M0-M1.4-实施记录.md"
     - "M1.5-Session-Catchup.md"
+    - "V1-回顾总结.md"
 
 milestones:
   - id: M0
@@ -63,11 +65,17 @@ milestones:
 
   - id: M1.6
     name: 自举验证
-    status: pending
-    completed: null
+    status: completed
+    completed: 2026-06-06
+    note: "通过回顾总结完成自举验证分析，详见 logs/V1-回顾总结.md"
     ref: "plan.md#m16-自举验证"
 
 artifacts:
   - "plan.md"
   - "progress.md"
   - "adrs/"
+  - "logs/"
+
+archive:
+  - "docs/V2-质量保障需求设计.md"
+  - ".self-workflow/docs/V1-实施经验.md"
