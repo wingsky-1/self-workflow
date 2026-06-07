@@ -2,30 +2,30 @@
 # feit 工作流的 task.yaml 默认模板
 # 占位符由 /feat 命令执行时 Agent 填充
 
-name: 经验治理-优化执行                 # 步骤 1 生成的 slug（如 "V1.9版本"）
-title: 经验治理优化执行——24份文档 frontmatter/tag/source/quality 批量修复                 # 用户输入原始描述
-status: completed
+name: 经验治理-合并引用                 # 步骤 1 生成的 slug（如 "V1.9版本"）
+title: 经验治理二期——3组合并 + 10组引用                 # 用户输入原始描述
+status: in_progress           # 初始状态
 created: 2026-06-07         # 创建日期
-updated: 2026-06-07T06:29:32+08:00           # 最后更新时间
+updated: 2026-06-07T06:46:17+08:00           # 最后更新时间
 tags: []                      # 可由 Agent 补充
 description: >                # 用户输入原文（YAML folded scalar）
-  基于 exp-governance 审查报告产出的 6 Tier 优化计划，对 .self-workflow/docs/ 下 24 份经验文档执行：Tier1 原始 ADR 添加 frontmatter+精炼内容、Tier2 修复字段名错误(created→date)、Tier3 补充缺失 date、Tier4 修复无效 source 路径、Tier5 中文 tag 批量英文化、Tier6 draft→verified 批量晋升。
+  在第一期 frontmatter/tag/source/quality 修复基础上，执行文档合并（6→3）和交叉引用（10组）。合并：安装器认知陷阱同根异面、ADR推广位置+写法互补、提取删除因果链。引用：跨任务决策↔ADR推广、ADR推广↔交叉一致性、提取删除↔phase-gate、gate强制步骤↔gate推理链、readme权威源→spec注入、plugin-session→spec注入、spec文档写法↔LLM指令设计。
 
-workflow-id: feat-经验治理-优化执行-20260607
+workflow-id: feat-经验治理-合并引用-20260607
 type: feat                     # 工作流类型（未来可扩展 fix/refactor 等）
 
 phases:
   - id: 1
     name: 需求分析
-    status: completed        # pending | in_progress | completed | failed | skipped
+    status: in_progress        # pending | in_progress | completed | failed | skipped
     gate: pending              # pending | passed | failed
-    started: 2026-06-07T06:29:32+08:00
+    started: 2026-06-07T06:46:17+08:00
     completed: null
     artifact: "01-analysis.md"
     errors: []
     checkpoint: null           # ← 新增：Gate 通过后填充 git tag 的 commit SHA
   - id: 2
-    started: 2026-06-07T06:31:42+08:00
+    started: 2026-06-07T06:47:38+08:00
     name: 方案设计
     status: pending
     gate: pending
@@ -35,7 +35,7 @@ phases:
     errors: []
     checkpoint: null
   - id: 3
-    started: 2026-06-07T06:33:00+08:00
+    started: 2026-06-07T06:47:53+08:00
     name: 代码实现
     status: pending
     gate: pending
@@ -45,7 +45,6 @@ phases:
     errors: []
     checkpoint: null
   - id: 4
-    started: 2026-06-07T06:36:21+08:00
     name: 功能验证
     status: pending
     gate: pending
@@ -55,7 +54,6 @@ phases:
     errors: []
     checkpoint: null
   - id: 5
-    started: 2026-06-07T06:37:19+08:00
     name: 总结沉淀
     status: pending
     gate: pending
