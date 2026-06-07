@@ -1,0 +1,78 @@
+name: Gate流程纪律强化
+title: V1.21：Gate + 流程纪律强化（P0/P1）
+status: in_progress
+created: 2026-06-07
+updated: 2026-06-07T20:18:00+08:00
+tags: [gate, discipline, workflow, v1.21]
+description: >
+  V1.21版本——Gate + 流程纪律强化。P0: Gate 纪律——不通过绝对不进入下一阶段；P1: 产物自查 + 提交前自检清单，降低返工率。
+  关联 todo 项：
+  1. Phase Gate 纪律强化 (P0)
+  2. 产物自查 (P1)
+  3. Gate 提交前自检清单 (P1)
+  4. Gate 量化强制输出 (P0)
+  5. 实现阶段严控 (P1)
+  6. Gate 程序化验证跳过显式声明 (P1)
+
+workflow-id: feat-Gate流程纪律强化-20260607
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: in_progress
+    gate: pending
+    started: 2026-06-07T20:18:00+08:00
+    completed: null
+    artifact: "01-analysis.md"
+    errors: []
+    checkpoint: null
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+    checkpoint: null
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+    checkpoint: null
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+    checkpoint: null
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+    checkpoint: null
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts: []
+
+milestones: []
+
+cross-refs: []
