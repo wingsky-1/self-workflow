@@ -1,8 +1,8 @@
 name: Gate流程纪律强化
 title: V1.21：Gate + 流程纪律强化（P0/P1）
-status: in_progress
+status: completed
 created: 2026-06-07
-updated: 2026-06-07T20:18:00+08:00
+updated: 2026-06-07T21:35:00+08:00
 tags: [gate, discipline, workflow, v1.21]
 description: >
   V1.21版本——Gate + 流程纪律强化。P0: Gate 纪律——不通过绝对不进入下一阶段；P1: 产物自查 + 提交前自检清单，降低返工率。
@@ -56,13 +56,13 @@ phases:
     checkpoint: null
   - id: 5
     name: 总结沉淀
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-07T21:25:00+08:00
-    completed: null
+    completed: 2026-06-07T21:35:00+08:00
     artifact: "05-summary.md"
     errors: []
-    checkpoint: null
+    checkpoint: 859dc9dbaa45f9fc8de269338c76f8c6396eaa9c
 
 experience-draft: false
 
