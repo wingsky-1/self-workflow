@@ -22,9 +22,9 @@ argument-hint: [--dry-run]
    - `.self-workflow/specs/` — 已定义规范（如存在）
    - `.opencode/commands/`、`.opencode/agents/` — 已有工具链（如存在）
    - 未解决问题 — 搜索 errors.yaml 或其他错误记录（如存在）
-   - `.self-workflow/docs/` — 经验文档规模感知（如存在，文件数量即可）
+   - `.self-workflow/docs/` — 至少读取 README.md（了解分类体系），根据需要选择性读取代表性文档的 frontmatter 或摘要
    
-   ⚠️ 扫描目的是为阶段 2 的优先级判断提供上下文，不是全面审计。不存在则跳过，不要深入。
+   ⚠️ 扫描目的是为阶段 2 的优先级判断提供上下文。仅统计文件数量不提供有效信息——至少了解主题分类和关键概念。不存在则跳过，不要全面审计。
 
 ### 阶段 2：评审新增项
 

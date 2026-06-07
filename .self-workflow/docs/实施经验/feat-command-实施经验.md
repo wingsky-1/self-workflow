@@ -1,9 +1,10 @@
 ---
 title: "/feat 命令实施经验"
 category: 实施经验
+tags: [feat-command, 自举, gate, v1.5]
+date: 2026-06-06
 source: tasks/feat-实现feat命令-20260606
 quality: draft
-tags: [feat-command, 自举, gate, v1.5]
 ---
 
 # /feat 命令实施经验
