@@ -96,8 +96,8 @@
 
 （2026-06-07 整理：7 项已全部评审排期——#1→Vx合并、#2延后、#3跳过、#4→V1.19、#5→V1.23、#6→V2.0合并、#7→V1.19）
 
-- [流程] Compound 步骤 5 归档防遗漏——Agent 频繁只标记 [done] 不执行"移入已关闭"。优化方向：在 feat-workflow.md Compound 步骤 5.d 增加 MUST 措辞，或 feat.md 中增加归档完成的 checklist 自检项 (P2)
-  → 来源：V1.22 会话评审——Compound 遗漏归档，Human 提醒后补做
+- [流程] Compound 归档防遗漏——todo 归档职责应在 feat.md 命令层约束，而非 feat-workflow.md 工作流层。优化方向：feat.md 增加 Compound 完成后 MUST 检查"版本段是否已移入已关闭"的自检步骤；feat-workflow.md Compound 步骤 5 降级为引用"见 feat.md 归档步骤" (P2)
+  → 来源：V1.22 会话评审——Agent 只标记 [done] 未移入已关闭。根因：归档指令在 work flow 层但它是 command 层职责
 
 - [BUG] sw_task_phase_update gate=passed 无 checkpoint 时 warning 未写入 errors.yaml——当前仅返回 warning 到调用方，未持久化 (P2)
   → 来源：V1.19 会话评审 Gate 3
