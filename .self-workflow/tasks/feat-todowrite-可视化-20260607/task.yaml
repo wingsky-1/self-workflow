@@ -46,24 +46,24 @@ phases:
     checkpoint: de7c0f3231e41577af1d45887be70b98e27ee2f8
   - id: 4
     name: 功能验证
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-07T14:00:00+08:00
-    completed: null
+    completed: 2026-06-07T14:30:00+08:00
     artifact: "04-verification.md"
     errors: []
-    checkpoint: null
+    checkpoint: 33382ad226ea8ab44ddfc46b58beea282801fb98
   - id: 5
     name: 总结沉淀
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
-    completed: null
+    started: 2026-06-07T14:30:00+08:00
+    completed: 2026-06-07T14:40:00+08:00
     artifact: "05-summary.md"
     errors: []
     checkpoint: null
 
-experience-draft: false
+experience-draft: true
 
 structure:
   root:
