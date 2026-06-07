@@ -1,9 +1,10 @@
 ---
-title: ADR 与设计文档交叉一致性审查
+title: "ADR 与设计文档交叉一致性审查"
 category: 参考模式
-tags: [adr, gate, 审查, 一致性, design-review]
-created: 2026-06-06
-related: [mem:.self-workflow/configs/guides/feat-workflow.md]
+tags: [adr, gate, review, consistency, design-review]
+date: 2026-06-06
+source: tasks/feat-开始v1-7-20260607
+quality: draft
 ---
 
 # ADR 与设计文档交叉一致性审查

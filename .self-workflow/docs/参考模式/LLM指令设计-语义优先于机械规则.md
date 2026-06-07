@@ -1,9 +1,10 @@
 ---
-title: LLM 指令设计原则——语义理解优先于机械规则
+title: "LLM 指令设计原则——语义理解优先于机械规则"
 category: 参考模式
-tags: [llm, instruction-design, slug, prompt-engineering]
-created: 2026-06-06
-related: [mem:.self-workflow/configs/templates/feat-task.yaml]
+tags: [llm, instruction-design, prompt-engineering]
+date: 2026-06-06
+source: tasks/feat-实现feat命令-20260606
+quality: draft
 ---
 
 # LLM 指令设计原则：语义理解优先于机械规则
