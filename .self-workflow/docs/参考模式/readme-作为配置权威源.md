@@ -1,7 +1,7 @@
 ---
 title: "READMe.md 作为框架配置的权威源模式"
 category: 参考模式
-tags: [readme, 配置, 权威源, 动态扫描, 分类]
+tags: [readme, config, authoritative-source, dynamic-scanning, classification]
 date: 2026-06-06
 source: tasks/feat-开始v1-7-20260606
 quality: draft

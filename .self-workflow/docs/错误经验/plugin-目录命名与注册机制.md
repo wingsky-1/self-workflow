@@ -1,7 +1,7 @@
 ---
 title: "OpenCode Plugin 目录命名与注册机制"
 category: 错误经验
-tags: [plugin, opencode, 目录命名, 自动发现, 注册]
+tags: [plugin, opencode, directory-naming, auto-discovery, registration]
 date: 2026-06-06
 source: tasks/feat-开始v1-7-20260606
 quality: draft

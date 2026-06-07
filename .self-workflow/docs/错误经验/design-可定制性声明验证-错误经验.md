@@ -1,7 +1,7 @@
 ---
 title: "设计中可定制性声明验证"
 category: 错误经验
-tags: [设计审查, 安装器, 自举, manifest]
+tags: [design-review, installer, 自举, manifest]
 date: 2026-06-06
 source: tasks/feat-先做v1-5-2的需求-20260606
 quality: draft

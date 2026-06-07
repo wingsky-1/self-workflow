@@ -1,7 +1,7 @@
 ---
 title: "Phase Gate 验证不能形式化"
 category: 错误经验
-tags: [gate, 验证, phase-4, 形式化, 实质审查]
+tags: [gate, verification, phase-4, formalization, substantive-review]
 date: 2026-06-06
 source: tasks/feat-开始v1-7-20260606
 quality: draft
