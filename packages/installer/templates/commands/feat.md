@@ -144,6 +144,13 @@ workflow-started:
 每个 Gate 入口必须显式计算 scope+risk+user-signal 三维分值以确定 weight（skip/light/full）。
 公式和分值映射见 `feat-workflow.md` 的"Gate 重量量化"章节。示例：`scope=+1(cross-module), risk=+1(architecture), user-signal=0(default) → total=+2 → full`
 
+#### Gate 纪律（MUST，不可跳过）
+
+- **Gate 未通过绝对不进入下一阶段**：Agent MUST 等待所有审查环节（程序化验证 + 对抗性审查）完成，根据结果决定通过/修复。后台审查≠跳过 Gate。
+- **每个 Gate 入口执行前置检查**：按 `feat-workflow.md` 中对应 Gate 的"前置检查"段逐项执行（量化输出 + 产物自查 + 自检清单 + 程序化验证声明），不可跳过。
+- **程序化验证不可静默跳过**：如项目无编译/测试套件，MUST 显式标注跳过理由（格式：`[_] 程序化验证：跳过（理由：___）`）。
+- **实现前必须先确认方案**：Phase 3 入口 MUST 输出修改方案摘要并经用户确认，不可直接编码。
+
 #### 决策捕捉
 阶段中有架构选择（方向性决策、多方案对比、trade-off 评估）→ 按 `specs/default/decision-record.md` 规范创建 ADR。
 
