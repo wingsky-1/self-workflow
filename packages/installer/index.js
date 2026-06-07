@@ -37,6 +37,7 @@ const MANIFEST = [
   [".self-workflow/configs/templates/workflow-metadata-template.yaml", "configs/templates/workflow-metadata-template.yaml"],
   [".self-workflow/configs/templates/adr-simple-template.md",     "configs/templates/adr-simple-template.md"],
   [".self-workflow/configs/templates/adr-complex-template.md",    "configs/templates/adr-complex-template.md"],
+  [".self-workflow/configs/templates/implementation-plan-template.md", "configs/templates/implementation-plan-template.md"],
   [".opencode/agents/review-agent.md",        "agents/review-agent.md"],
   [".opencode/commands/catchup.md",           "commands/catchup.md"],
   [".opencode/commands/feat.md",              "commands/feat.md"],
@@ -51,12 +52,14 @@ const MANIFEST = [
   [".self-workflow/specs/default/ambiguity-clarification.md", "specs/default/ambiguity-clarification.md"],
   [".self-workflow/specs/default/todowrite-display.md",       "specs/default/todowrite-display.md"],
   [".self-workflow/specs/default/exp-governance.md",           "specs/default/exp-governance.md"],
+  [".self-workflow/specs/default/implementation-documentation.md", "specs/default/implementation-documentation.md"],
   [".self-workflow/configs/tasks/feat-task.yaml", "tasks/feat-task.yaml"],
   // docs/ 分类目录 + README + Plugin
   [".self-workflow/docs/实施经验/.gitkeep", "docs/实施经验/.gitkeep"],
   [".self-workflow/docs/参考模式/.gitkeep", "docs/参考模式/.gitkeep"],
   [".self-workflow/docs/错误经验/.gitkeep", "docs/错误经验/.gitkeep"],
   [".self-workflow/docs/关键决策/.gitkeep", "docs/关键决策/.gitkeep"],
+  [".self-workflow/docs/实现方案/.gitkeep", "docs/实现方案/.gitkeep"],
   [".self-workflow/docs/README.md",         "docs/README.md"],
   [".opencode/plugins/self-workflow-session.ts", "plugin/self-workflow-session.ts"],
 ];

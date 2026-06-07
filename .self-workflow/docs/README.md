@@ -16,6 +16,14 @@
 2. 填写 YAML frontmatter（见下方"文档格式"）
 3. 内容建议包含：背景、问题、方案、适用场景
 
+### 创建实现方案文档
+
+实现方案文档描述项目的关键特性设计（而非事后经验）。创建时机在**设计阶段（Phase 2-3）**：
+- 当设计中定义了 ≥2 个模块的接口或数据流时
+- 当 Agent 不确定是否需要创建时，应使用 question 工具询问 Human
+- 格式见 `configs/templates/implementation-plan-template.md`
+- 详细引导见 `specs/default/implementation-documentation.md`
+
 ### 新增分类
 
 如需新增经验分类：
@@ -72,3 +80,6 @@ quality: draft
 
 ### 关键决策/
 跨任务的重大决策记录——从任务 ADR 中晋升，供 Agent 持续查阅引用。
+
+### 实现方案/
+项目核心特性的实现设计文档——模块架构、数据流、设计决策依据。创建于设计阶段（Phase 2-3），随代码变更同步更新。详细引导见 `specs/default/implementation-documentation.md`。
