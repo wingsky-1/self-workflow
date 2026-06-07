@@ -69,6 +69,20 @@ tool.execute.before 钩子 ──► 子 Agent system prompt
 
 **注意**：仅注入索引摘要（非全文）。Agent 需要 Read 工具加载完整 spec 内容。
 
+### sw_task_* 工具注册
+
+Plugin 通过 `tool` 钩子注册 4 个 sw_task_* 内置工具（list / create / read / phase_update），Agent 可在对话中直接调用。
+
+**`sw_task_phase_update` checkpoint 参数**（V1.19）：
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| `checkpoint` | `string?` | Gate 通过时的 checkpoint SHA。由 Agent 外部传入——Agent 先执行 `git tag` + `git rev-parse` 获取 SHA，再调用工具时传入 |
+
+**Checkpoint 外部传入设计**：工具职责保持单一（YAML 写入），不跨域到 git 操作。Agent 按 feat-workflow.md Checkpoint 章节执行 git 操作，传入 SHA 零额外成本。避免 CI/容器环境 git 不可用时工具崩溃。
+
+**Warning 机制**：当 `gate === "passed"` 但 `checkpoint` 未传入或为空时，工具返回 `warning: "gate passed but checkpoint not provided"`。不阻断流程，但提示 Agent 可能遗漏——兼顾灵活性和可靠性。
+
 ## 设计决策依据
 
 见 `docs/关键决策/spec上下文注入架构.md`（双钩子架构的原始设计决策）。
@@ -78,3 +92,4 @@ tool.execute.before 钩子 ──► 子 Agent system prompt
 | 日期 | 任务 | 变更摘要 |
 |------|------|---------|
 | 2026-06-07 | feat-核心特性-实现方案-文档化-20260607 | 初始版本；新增 `实现方案/` 文档分类无需修改 Plugin 代码 |
+| 2026-06-07 | feat-feat流程修补-todo整理-20260607 | sw_task_phase_update 新增 checkpoint 参数（外部传入），新增 gate=passed 时 checkpoint 缺失的 warning 机制 |

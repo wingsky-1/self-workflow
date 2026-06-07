@@ -15,7 +15,7 @@ quality: draft
 
 `/feat` 命令（`commands/feat.md`）是 Self-Workflow 的核心工作流引擎。工作流规则定义在 `configs/guides/feat-workflow.md`。
 
-**一句话**：5 阶段 + 4 Gate + Compound 归档——引导 Agent 从需求到总结走完完整开发周期。
+**一句话**：6 阶段(含 Phase 4.5) + 4 Gate + Compound 归档——引导 Agent 从需求到总结走完完整开发周期。
 
 ## 架构概览
 
@@ -27,7 +27,7 @@ quality: draft
     ▼
 阶段 1: 需求分析 ──→ [Gate/量化] ──→ 阶段 2: 方案设计 ──→ [Gate/量化] ──→
 阶段 3: 代码实现 ──→ [Gate/量化] ──→ 阶段 4: 功能验证 ──→ [Gate/量化] ──→
-阶段 5: 总结沉淀 ──→ Compound（自动归档）
+阶段 4.5: 相关文档同步 ──→ 阶段 5: 总结沉淀 ──→ Compound（自动归档）
 ```
 
 ### 文件结构
@@ -78,3 +78,4 @@ quality: draft
 | 日期 | 任务 | 变更摘要 |
 |------|------|---------|
 | 2026-06-07 | feat-核心特性-实现方案-文档化-20260607 | 初始版本；Phase 2/3/5 各增 1 行实现方案文档检查项 |
+| 2026-06-07 | feat-feat流程修补-todo整理-20260607 | v0.5: Phase 4.5 added (Gate 4→Phase 5 doc sync step), Compound step 5 upgraded to MUST |

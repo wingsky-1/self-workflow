@@ -106,12 +106,14 @@ cross-refs: []                 # 交叉引用列表
 | `sw_task_list` | 扫描所有任务，返回任务状态摘要列表 | `status?`（可选过滤） | `[{workflowId, title, status, currentPhase, ...}]` |
 | `sw_task_create` | 从模板创建完整任务目录 + task.yaml | `slug`, `title`, `description?` | `{workflowId, path, created}` |
 | `sw_task_read` | 读取指定 task.yaml 返回结构化 JSON | `workflowId` | 完整的 task.yaml 解析结果 |
-| `sw_task_phase_update` | 更新指定阶段的 status/gate/时间戳 | `workflowId`, `phaseId`, `status`, `gate?` | `{updated, phase}` |
+| `sw_task_phase_update` | 更新指定阶段的 status/gate/时间戳/checkpoint | `workflowId`, `phaseId`, `status`, `gate?`, `checkpoint?` | `{updated, phase, warning?}` |
 
 工具设计原则：
 - **轻量读写**：不包含业务逻辑，只做文件 I/O 和状态字段更新
 - **文本替换**：`sw_task_phase_update` 使用正则文本替换而非完整 YAML 重写，避免破坏格式和注释
 - **模板驱动**：`sw_task_create` 从 `configs/tasks/feat-task.yaml` 模板生成，模板由安装器管理
+
+**`sw_task_phase_update` started 字段的幂等保护**（V1.19）：当 `status === "in_progress"` 但 `started` 已有有效值（非 null），工具不覆盖 `started` 时间戳。仅在 `started: null` 或字段缺失时才写入当前时间。这确保 Agent 多次调用推进到 `in_progress` 时不会丢失初始开始时间。
 
 ## 关键数据流
 
@@ -191,7 +193,9 @@ Gate 通过
     ├── 2. git commit -m "<workflow-id>: phase-<N> <阶段名> — <模块摘要>"
     ├── 3. git tag <workflow-id>-ph<N>-<name>-gate-passed
     ├── 4. git rev-parse <workflow-id>-ph<N>-<name>-gate-passed → <SHA>
-    └── 5. 人工写入 task.yaml phase[N].checkpoint = <SHA>
+    └── 5. sw_task_phase_update(workflowId, phaseId, "completed", "passed", checkpoint=<SHA>)
+            ├── 工具写入 phase[N].checkpoint = <SHA>（文本替换）
+            └── 若 gate=passed 但 checkpoint 缺失 → 返回 warning（不阻断）
 
 回溯场景：
     git checkout <workflow-id>-ph<M>-<name>-gate-passed
@@ -224,3 +228,4 @@ Compound 补建 tag 场景：
 | 日期 | 任务 | 变更摘要 |
 |------|------|---------|
 | 2026-06-07 | feat-核心特性-实现方案-文档化-20260607 | 初始版本 |
+| 2026-06-07 | feat-feat流程修补-todo整理-20260607 | sw_task_phase_update 新增 checkpoint 参数（外部传入）、started 幂等保护、gate=passed 时 checkpoint 缺失 warning |

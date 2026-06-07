@@ -26,19 +26,19 @@
 
 > P1: 修复 Phase 4→5 文档更新步骤缺失 + Phase 3 文档编辑类任务产物规则；P2: 减少上下文污染。
 
-1. /feat Phase 4→5 增加文档更新步骤——防止实现与文档不一致
+1. [done] /feat Phase 4→5 增加文档更新步骤——防止实现与文档不一致 (feat-feat流程修补-todo整理-20260607)
    → 来源：新增 #6
 
-2. todo 已关闭版本迁移至 done.md——减少会话上下文污染
+2. [done] todo 已关闭版本迁移至 done.md——减少会话上下文污染 (feat-feat流程修补-todo整理-20260607)
    → 来源：新增 #3
 
 3. [wontfix] Phase 3 文档编辑类任务产物规则——纯文档编辑 /feat 任务允许省略 03-implementation.md (P2)
    → 来源：一期评审短板 | 拒绝理由：建议拆分 doc 工作流，非当前版本范围
 
-4. [流程] /feat 工作流强制更新 todo——Agent 在 /feat 任务完成后 MUST 更新 todo.md 中的对应版本项状态 (P1)
+4. [done] /feat 工作流强制更新 todo——Agent 在 /feat 任务完成后 MUST 更新 todo.md 中的对应版本项状态 (P1) (feat-feat流程修补-todo整理-20260607)
    → 来源：新增 #7
 
-5. [BUG] tool 推进 task 状态后 checkpoint 未记录 + yaml 重复字段修复 (P1)
+5. [done] tool 推进 task 状态后 checkpoint 未记录 + yaml 重复字段修复 (P1) (feat-feat流程修补-todo整理-20260607)
    → 来源：新增 #4（原 V1.25）
 
 ---
