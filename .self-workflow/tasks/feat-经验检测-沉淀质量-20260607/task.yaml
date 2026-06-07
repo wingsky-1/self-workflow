@@ -2,7 +2,7 @@ name: 经验检测-沉淀质量
 title: V1.16+V1.17：经验检测与沉淀质量——经验复利机制
 status: completed
 created: 2026-06-07
-updated: 2026-06-07T05:29:36Z
+updated: 2026-06-07T07:30:00Z
 tags: [经验复利, 去重, 一致性审查, spec, skill, exp-governance]
 description: >
   V1.16+V1.17 联合实现经验复利机制。
@@ -27,7 +27,7 @@ phases:
     checkpoint: ec669e730a481e6adc38632b81b978382590d4a5
   - id: 2
     name: 方案设计
-    status: in_progress
+    status: completed
     gate: pending
     started: 2026-06-07T06:15:00Z
     completed: 2026-06-07T06:15:00Z
@@ -36,7 +36,7 @@ phases:
     checkpoint: fd35607aa05bba0680cdcd395b11383755dce6d8
   - id: 3
     name: 代码实现
-    status: in_progress
+    status: completed
     gate: pending
     started: 2026-06-07T07:00:00Z
     completed: null
