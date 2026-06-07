@@ -8,6 +8,40 @@
 ## 已关闭
 
 <details>
+<summary>V1.21：Gate + 流程纪律强化（P0/P1）🟢 — 6/6 项完成 (feat-Gate流程纪律强化-20260607)</summary>
+
+> P0: Gate 纪律——不通过绝对不进入下一阶段；P1: 产物自查 + 提交前自检清单，降低返工率。
+
+- [done] Phase Gate 纪律强化——4 Gate + Phase 3 入口增加 MUST NOT 阻断式措辞（7 处）✅
+- [done] 产物自查——每个 Gate 增加"前置检查"段（量化输出 + 产物自查 + 自检清单 + 程序化验证声明，共 4 Gate × 4 项）✅
+- [done] Gate 提交前自检清单——前置检查段包含 task.yaml/ADR/frontmatter 三项固定检查 ✅
+- [done] Gate 量化强制输出——量化输出移至前置检查段首位，标记"即使 weight=skip 也不可省略" ✅
+- [done] 实现阶段严控——Phase 3 入口增加方案确认段（MUST NOT 确认前修改文件）✅
+- [done] Gate 程序化验证跳过显式声明——Gate 3/4 前置检查段增加跳过理由模板 ✅
+- [done] 附加：review-agent 提示词更新——4 个 Gate 增加 Gate 纪律检查项 ✅
+- [done] 附加：feat.md 系统约束段同步 + gate-审查机制实现方案.md 架构概览更新 ✅
+
+</details>
+
+<details>
+<summary>V1.19：/feat 流程修补 + todo 整理（P1/P2）🟢 — 5/5 项完成，含 1 项 wontfix (feat-feat流程修补-todo整理-20260607)</summary>
+
+> P1: 修复 Phase 4→5 文档更新步骤缺失 + Phase 3 文档编辑类任务产物规则；P2: 减少上下文污染。
+
+- [done] /feat Phase 4→5 增加文档更新步骤——防止实现与文档不一致 ✅
+  → 来源：新增 #6
+- [done] todo 已关闭版本迁移至 done.md——减少会话上下文污染 ✅
+  → 来源：新增 #3
+- [wontfix] Phase 3 文档编辑类任务产物规则——纯文档编辑 /feat 任务允许省略 03-implementation.md
+  → 来源：一期评审短板 | 拒绝理由：建议拆分 doc 工作流，非当前版本范围
+- [done] /feat 工作流强制更新 todo——Agent 在 /feat 任务完成后 MUST 更新 todo.md 中的对应版本项状态 ✅
+  → 来源：新增 #7
+- [done] tool 推进 task 状态后 checkpoint 未记录 + yaml 重复字段修复 ✅
+  → 来源：新增 #4（原 V1.25）
+
+</details>
+
+<details>
 <summary>V1.18：核心特性实现方案（P2）🟢 — 1/1 项完成 (feat-核心特性-实现方案-文档化-20260607)</summary>
 
 > 文档化核心特性实现方案，减少 Agent 开发时重复读代码分析。
