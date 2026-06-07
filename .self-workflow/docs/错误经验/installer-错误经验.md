@@ -1,7 +1,7 @@
 ---
 title: "安装器模板源 vs 运行时文件"
 category: 错误经验
-tags: [installer, 目录职责, 自举, 三层架构]
+tags: [installer, directory-responsibility, 自举, three-layer-architecture]
 date: 2026-06-06
 source: tasks/feat-v1.5剩余问题修复-20260606
 quality: verified

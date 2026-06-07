@@ -1,7 +1,7 @@
 ---
 title: "产物权威来源唯一——ADR引用而非内联"
 category: 参考模式
-tags: [adr, 产物引用, 去重, 单源原则]
+tags: [adr, artifact-reference, dedup, single-source]
 date: 2026-06-06
 source: tasks/feat-v1-5-1-gate强制步骤-20260606
 quality: verified

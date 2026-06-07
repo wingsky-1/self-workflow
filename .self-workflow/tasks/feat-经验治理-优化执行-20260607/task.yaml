@@ -45,6 +45,7 @@ phases:
     errors: []
     checkpoint: null
   - id: 4
+    started: 2026-06-07T06:36:21+08:00
     name: 功能验证
     status: pending
     gate: pending
