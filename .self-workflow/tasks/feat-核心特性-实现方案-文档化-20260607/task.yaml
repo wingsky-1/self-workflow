@@ -36,7 +36,6 @@ phases:
     name: 代码实现
     status: pending
     gate: pending
-    started: null
     completed: null
     artifact: "03-implementation.md"
     errors: []
@@ -55,7 +54,6 @@ phases:
     name: 总结沉淀
     status: pending
     gate: pending
-    started: null
     completed: null
     artifact: "05-summary.md"
     errors: []

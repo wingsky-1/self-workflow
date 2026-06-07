@@ -179,7 +179,8 @@ async function updatePhase(
   workflowId: string,
   phaseId: number,
   status: string,
-  gate?: string
+  gate?: string,
+  checkpoint?: string
 ) {
   const yamlPath = taskYamlPath(directory, workflowId);
   if (!existsSync(yamlPath)) {
@@ -207,13 +208,37 @@ async function updatePhase(
     if (gate) {
       phaseBlock = phaseBlock.replace(/gate:\s*\w+/, `gate: ${gate}`);
     }
-    // 设置 started
-    if (status === "in_progress" && !phaseBlock.includes("started:")) {
-      const statusLineIdx = phaseBlock.indexOf(`status: ${status}`);
-      const afterStatus = phaseBlock.indexOf("\n", statusLineIdx);
-      phaseBlock = phaseBlock.slice(0, afterStatus) + `\n    started: ${now}` + phaseBlock.slice(afterStatus);
-    } else if (status === "in_progress") {
-      phaseBlock = phaseBlock.replace(/started:\s*null/, `started: ${now}`);
+    // checkpoint 处理
+    let warning: string | undefined;
+    if (checkpoint && checkpoint.trim()) {
+      if (/checkpoint:/.test(phaseBlock)) {
+        phaseBlock = phaseBlock.replace(/checkpoint:\s*null\b/, `checkpoint: ${checkpoint}`);
+      } else {
+        // 旧模板无 checkpoint 字段：在 errors: 前插入；如 errors: 也不存在，在 artifact: 行后插入
+        if (/errors:/.test(phaseBlock)) {
+          phaseBlock = phaseBlock.replace(/(\n\s*errors:)/, `\n    checkpoint: ${checkpoint}$1`);
+        } else {
+          phaseBlock = phaseBlock.replace(/(\n\s*artifact:[^\n]*)/, `$1\n    checkpoint: ${checkpoint}`);
+        }
+      }
+    }
+    if (gate === "passed" && (!checkpoint || !checkpoint.trim())) {
+      warning = "gate passed but checkpoint not provided";
+    }
+    // started 字段处理（幂等保护）
+    if (status === "in_progress") {
+      const hasValidStarted = /started:\s*\S/.test(phaseBlock) && !/started:\s*null/.test(phaseBlock);
+      if (!hasValidStarted) {
+        if (/started:\s*null/.test(phaseBlock)) {
+          phaseBlock = phaseBlock.replace(/started:\s*null\b/, `started: ${now}`);
+        } else {
+          const statusLineIdx = phaseBlock.indexOf(`status: ${status}`);
+          if (statusLineIdx !== -1) {
+            const afterStatus = phaseBlock.indexOf("\n", statusLineIdx);
+            phaseBlock = phaseBlock.slice(0, afterStatus) + `\n    started: ${now}` + phaseBlock.slice(afterStatus);
+          }
+        }
+      }
     }
     // 设置 completed
     if (status === "completed" || status === "failed") {
@@ -229,7 +254,9 @@ async function updatePhase(
     }
 
     writeFileSync(yamlPath, updated, "utf-8");
-    return { updated: true, phase: { id: phaseId, status, gate: gate || null } };
+    const result: any = { updated: true, phase: { id: phaseId, status, gate: gate || null } };
+    if (warning) result.warning = warning;
+    return result;
   } catch (e: any) {
     return { error: `Failed to update phase: ${e.message}` };
   }
@@ -417,6 +444,7 @@ export const server = async (input: PluginInput): Promise<Hooks> => {
           phaseId: z.number().min(1).max(5).describe("阶段编号 1-5"),
           status: z.enum(["pending", "in_progress", "completed", "failed"]).describe("新状态"),
           gate: z.enum(["pending", "passed", "failed"]).optional().describe("Gate 状态（可选）"),
+          checkpoint: z.string().optional().describe("Gate 通过时的 checkpoint SHA（git tag commit hash）"),
         },
         async execute(args, ctx) {
           const result = await updatePhase(
@@ -424,7 +452,8 @@ export const server = async (input: PluginInput): Promise<Hooks> => {
             args.workflowId,
             args.phaseId,
             args.status,
-            args.gate
+            args.gate,
+            args.checkpoint
           );
           return { output: JSON.stringify(result, null, 2) };
         },
