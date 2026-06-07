@@ -40,27 +40,27 @@ phases:
     checkpoint: bc35c59b53498bb06694f647b06ac7bdc43c0ec5
   - id: 3
     name: 代码实现
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-07T11:40:00+08:00
-    completed: null
+    completed: 2026-06-07T12:10:00+08:00
     artifact: "03-implementation.md"
     errors: []
-    checkpoint: null
+    checkpoint: 296f2ce5c90667eac0cc4e1dcb54b765abc0b7df
   - id: 4
     name: 功能验证
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-07T12:10:00+08:00
+    completed: 2026-06-07T12:12:00+08:00
     artifact: "04-verification.md"
     errors: []
     checkpoint: null
   - id: 5
     name: 总结沉淀
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
+    started: 2026-06-07T12:12:00+08:00
     completed: null
     artifact: "05-summary.md"
     errors: []
