@@ -1,6 +1,6 @@
 name: 核心特性-实现方案-文档化
 title: V1.18：核心特性实现方案（P2）
-status: in_progress
+status: completed
 created: 2026-06-07
 updated: 2026-06-07T23:00:00+08:00
 tags: [核心特性, 实现方案, 文档化, P2]
@@ -51,6 +51,7 @@ phases:
     errors: []
     checkpoint: null
   - id: 5
+    started: 2026-06-07T07:59:27+08:00
     name: 总结沉淀
     status: pending
     gate: pending
