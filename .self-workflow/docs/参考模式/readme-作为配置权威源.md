@@ -4,7 +4,7 @@ category: 参考模式
 tags: [readme, config, authoritative-source, dynamic-scanning, classification]
 date: 2026-06-06
 source: tasks/feat-开始v1-7-20260606
-quality: draft
+quality: verified
 ---
 
 # READMe.md 作为框架配置的权威源模式

@@ -4,7 +4,7 @@ category: 参考模式
 tags: [adr-promotion, docs-governance, runtime-docs, separation-of-concerns]
 date: 2026-06-07
 source: tasks/feat-specs结构奠基-20260606
-quality: draft
+quality: verified
 ---
 
 # 推广 ADR 的写法——运行时文档与任务记录的分离

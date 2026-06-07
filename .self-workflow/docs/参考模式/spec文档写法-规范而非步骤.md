@@ -4,7 +4,7 @@ category: 参考模式
 tags: [spec-writing, spec-style, rules-over-procedures, concise]
 date: 2026-06-07
 source: tasks/feat-specs结构奠基-20260606
-quality: draft
+quality: verified
 ---
 
 # Spec 文档写法——规范而非步骤

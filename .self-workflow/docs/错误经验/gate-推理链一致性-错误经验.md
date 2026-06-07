@@ -4,7 +4,7 @@ category: 错误经验
 tags: [gate, reasoning-chain, phase-consistency, review]
 date: 2026-06-06
 source: tasks/feat-先做v1-5-2的需求-20260606
-quality: draft
+quality: verified
 ---
 
 # Gate 推理链一致性 —— 踩坑记录

@@ -4,7 +4,7 @@ category: 错误经验
 tags: [design-review, installer, 自举, manifest]
 date: 2026-06-06
 source: tasks/feat-先做v1-5-2的需求-20260606
-quality: draft
+quality: verified
 ---
 
 # 设计中"可定制性"声明验证 —— 踩坑记录

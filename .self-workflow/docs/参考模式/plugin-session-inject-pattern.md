@@ -4,7 +4,7 @@ category: 参考模式
 tags: [plugin, session, injection, marker, system-transform, opencode]
 date: 2026-06-06
 source: tasks/feat-开始v1-7-20260606
-quality: draft
+quality: verified
 ---
 
 # OpenCode Plugin 会话启动注入模式

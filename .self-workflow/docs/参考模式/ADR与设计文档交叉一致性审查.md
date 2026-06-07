@@ -4,7 +4,7 @@ category: 参考模式
 tags: [adr, gate, review, consistency, design-review]
 date: 2026-06-06
 source: tasks/feat-开始v1-7-20260607
-quality: draft
+quality: verified
 ---
 
 # ADR 与设计文档交叉一致性审查

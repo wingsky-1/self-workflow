@@ -4,7 +4,7 @@ category: 参考模式
 tags: [llm, instruction-design, prompt-engineering]
 date: 2026-06-06
 source: tasks/feat-实现feat命令-20260606
-quality: draft
+quality: verified
 ---
 
 # LLM 指令设计原则：语义理解优先于机械规则
