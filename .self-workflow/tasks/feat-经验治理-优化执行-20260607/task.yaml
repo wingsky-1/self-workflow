@@ -25,6 +25,7 @@ phases:
     errors: []
     checkpoint: null           # ← 新增：Gate 通过后填充 git tag 的 commit SHA
   - id: 2
+    started: 2026-06-07T06:31:42+08:00
     name: 方案设计
     status: pending
     gate: pending
@@ -34,6 +35,7 @@ phases:
     errors: []
     checkpoint: null
   - id: 3
+    started: 2026-06-07T06:33:00+08:00
     name: 代码实现
     status: pending
     gate: pending
