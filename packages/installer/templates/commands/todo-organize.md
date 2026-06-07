@@ -16,13 +16,15 @@ argument-hint: [--dry-run]
 
 ### 阶段 1：读取现状
 
-1. 读取 `.self-workflow/todo.md` 全文
-2. 扫描项目现状（只做必要的背景调查，不要扫 task.yaml）：
-   - `.self-workflow/specs/` — 有哪些规范
-   - `.opencode/commands/` — 有哪些命令
-   - `.opencode/agents/` — 有哪些 agent
-   - 是否有未解决错误（快速搜索 errors.yaml 中非空文件）
-   - `.self-workflow/docs/` 规模感知（文件数量即可）
+1. 读取项目 todo 文件（默认 `.self-workflow/todo.md`）全文
+2. 快速感知项目上下文，辅助后续优先级判断（条件性扫描——不存在则跳过，每项 1~2 次查询即可）：
+   - 项目 README — 了解项目定位、约定和约束
+   - `.self-workflow/specs/` — 已定义规范（如存在）
+   - `.opencode/commands/`、`.opencode/agents/` — 已有工具链（如存在）
+   - 未解决问题 — 搜索 errors.yaml 或其他错误记录（如存在）
+   - `.self-workflow/docs/` — 经验文档规模感知（如存在，文件数量即可）
+   
+   ⚠️ 扫描目的是为阶段 2 的优先级判断提供上下文，不是全面审计。不存在则跳过，不要深入。
 
 ### 阶段 2：评审新增项
 
