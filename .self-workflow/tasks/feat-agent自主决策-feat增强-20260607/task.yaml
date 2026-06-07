@@ -1,20 +1,20 @@
 name: agent自主决策-feat增强
-title: V1.11：Agent 自主决策 + /feat 增强
+title: V1.11：/feat 增强 + todo 管理 + 内置工具
 status: in_progress
 created: 2026-06-07
-updated: 2026-06-07T04:21:29+08:00
-tags: ["agent-autonomy", "feat-enhancement", "question-reduction", "todo-management", "tool-builtin"]
+updated: 2026-06-07T04:28:00+08:00
+tags: ["feat-enhancement", "todo-management", "tool-builtin", "spec-ambiguity"]
 description: >
-  V1.11 版本——减少不必要的 question 打断，让 Agent 更自主决策；增强 /feat 命令（无参数自动认领、结束后自动更新 todo）；内置工具化让确定性操作由代码完成。
+  V1.11 版本——增强 /feat 命令（无参数自动认领、完成后自动更新 todo）、
+  todo 整理排期命令、todo 系统注入机制、歧义澄清 spec、内置 tool 化（6 项）。
+  原计划的"自动决策"和"无人值守模式"已移出本版本。
   关联 todo 项：
-  1. 评审问题给出 2~4 个可行方案，置信度 >95 则自动决策
-  2. /feat 增强——无输入时自动分析/认领任务
-  3. /feat 增强——从 todo 领取任务结束后自动更新 todo 状态
-  4. todo 整理排期 command——Agent 可自主整理 todo、排期
-  5. todo 系统注入机制——确定 todo 介绍注入到哪些场景
-  6. 歧义澄清 spec——Agent 遇到歧义输入时必须质疑询问
-  7. /feat 无人值守模式——Agent 自主完成 feat，用户事后评审
-  8. 内置 tool 化——确定性操作由内置 tool 实现
+  1. /feat 增强——无输入时自动分析/认领任务
+  2. /feat 增强——从 todo 领取任务结束后自动更新 todo 状态
+  3. todo 整理排期 command
+  4. todo 系统注入机制
+  5. 歧义澄清 spec
+  6. 内置 tool 化
 
 workflow-id: feat-agent自主决策-feat增强-20260607
 type: feat
@@ -22,18 +22,18 @@ type: feat
 phases:
   - id: 1
     name: 需求分析
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-07T04:21:29+08:00
-    completed: null
+    completed: 2026-06-07T04:26:00+08:00
     artifact: "01-analysis.md"
     errors: []
-    checkpoint: null
+    checkpoint: 6df2ff40174e5ec70419182d889860e027b7faed
   - id: 2
     name: 方案设计
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
+    started: 2026-06-07T04:26:00+08:00
     completed: null
     artifact: "02-design.md"
     errors: []
@@ -71,7 +71,11 @@ experience-draft: false
 structure:
   root:
     - "task.yaml"
-  adrs: []
+  adrs:
+    - "ADR-001-无参数认领策略.md"
+    - "ADR-002-todo注入策略.md"
+    - "ADR-003-内置tool实现方式.md"
+    - "ADR-004-歧义澄清spec关系.md"
   logs: []
   artifacts: []
 
