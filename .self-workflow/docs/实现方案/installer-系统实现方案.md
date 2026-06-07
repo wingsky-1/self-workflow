@@ -4,7 +4,7 @@ category: 实现方案
 tags: [installer, template-deployment, manifest, init, architecture]
 date: 2026-06-07
 source: tasks/feat-核心特性-实现方案-文档化-20260607
-quality: draft
+quality: verified
 ---
 
 # installer 系统实现方案

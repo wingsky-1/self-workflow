@@ -1,10 +1,10 @@
-﻿---
+---
 title: "exp-governance 技能实现方案"
 category: 实现方案
 tags: [exp-governance, skill, quality, lifecycle, dedup]
 date: 2026-06-07
 source: tasks/feat-核心特性-实现方案-文档化-20260607
-quality: draft
+quality: verified
 ---
 
 # exp-governance 技能实现方案

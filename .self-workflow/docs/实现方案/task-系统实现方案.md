@@ -1,10 +1,10 @@
-﻿---
+---
 title: "Task 系统与工作流状态机实现方案"
 category: 实现方案
 tags: [task-system, state-machine, task-yaml, phase-lifecycle, sw-task-tools]
 date: 2026-06-07
 source: tasks/feat-核心特性-实现方案-文档化-20260607
-quality: draft
+quality: verified
 ---
 
 # Task 系统与工作流状态机实现方案

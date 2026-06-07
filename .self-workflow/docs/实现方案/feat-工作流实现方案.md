@@ -4,7 +4,7 @@ category: 实现方案
 tags: [feat-command, workflow, phase-gate, compound, checkpoint]
 date: 2026-06-07
 source: tasks/feat-核心特性-实现方案-文档化-20260607
-quality: draft
+quality: verified
 ---
 
 # /feat 工作流实现方案
