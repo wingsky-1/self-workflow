@@ -46,7 +46,7 @@ quality: draft
 | `tags` | 关键词标签，Agent 用于匹配。英文小写优先，3-5 个为佳 |
 | `date` | 创建日期 |
 | `source` | 来源任务 workflow-id |
-| `quality` | 成熟度（draft / verified） |
+| `quality` | 成熟度（draft / verified / outdated / refreshed / archived） |
 
 ## Tag 约定
 

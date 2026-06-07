@@ -41,6 +41,8 @@ const MANIFEST = [
   [".opencode/commands/catchup.md",           "commands/catchup.md"],
   [".opencode/commands/feat.md",              "commands/feat.md"],
   [".opencode/commands/todo-organize.md",     "commands/todo-organize.md"],
+  // V1.16+V1.17: exp-governance skill — 经验策展
+  [".opencode/skills/exp-governance/SKILL.md",  "skills/exp-governance/SKILL.md"],
   [".self-workflow/specs/README.md",          "specs/README.md"],
   [".self-workflow/specs/default/agent-reasoning.md",       "specs/default/agent-reasoning.md"],
   [".self-workflow/specs/default/interaction-protocol.md",  "specs/default/interaction-protocol.md"],
@@ -48,6 +50,7 @@ const MANIFEST = [
   [".self-workflow/specs/default/decision-record.md",       "specs/default/decision-record.md"],
   [".self-workflow/specs/default/ambiguity-clarification.md", "specs/default/ambiguity-clarification.md"],
   [".self-workflow/specs/default/todowrite-display.md",       "specs/default/todowrite-display.md"],
+  [".self-workflow/specs/default/exp-governance.md",           "specs/default/exp-governance.md"],
   [".self-workflow/configs/tasks/feat-task.yaml", "tasks/feat-task.yaml"],
   // docs/ 分类目录 + README + Plugin
   [".self-workflow/docs/实施经验/.gitkeep", "docs/实施经验/.gitkeep"],

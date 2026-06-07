@@ -7,7 +7,7 @@
 | # | 功能点 | 说明 | 来源 |
 |---|--------|------|------|
 | F1 | 经验去重检测 | 自动扫描 `.self-workflow/docs/`，**Agent 语义判断**（非硬编码算法）。Skill 提供判断维度（标题相似性、主题重叠、内容重复程度），Agent 阅读后自行判定。详见 ADR-003 | todo #7（原 V1.13-1） |
-| F2 | 经验一致性审查 skill | `exp-curation` skill：扫描 docs/ 下所有文档，检查 frontmatter 完整性、tag 规范、category 一致性、source 有效性。用户可通过自然语言触发（"审查经验"），Agent 在 Phase 5 通过 `skill(name="exp-curation")` 加载 | todo 新增（原 V1.13-2） |
+| F2 | 经验一致性审查 skill | `exp-governance` skill：扫描 docs/ 下所有文档，检查 frontmatter 完整性、tag 规范、category 一致性、source 有效性。用户可通过自然语言触发（"审查经验"），Agent 在 Phase 5 通过 `skill(name="exp-governance")` 加载 | todo 新增（原 V1.13-2） |
 
 ### V1.17：经验沉淀质量
 
@@ -46,17 +46,17 @@
 ### F1 — 经验去重检测
 
 - [ ] A1.1：存在 Agent 语义去重机制（经 ADR-003 决策，替代原算法方案）：
-  - Agent 通过 `exp-curation` skill 加载审查指令后，阅读 docs/ 下全部文档
+  - Agent 通过 `exp-governance` skill 加载审查指令后，阅读 docs/ 下全部文档
   - 基于语义理解判断文档是否重复（维度：标题相似性、主题重叠、内容重复程度）
   - 发现疑似重复时 MUST 输出具体判断理由，不能仅给结论
   - **Given** `.self-workflow/docs/` 下有文档
-  - **When** Agent 执行 `exp-curation` skill 的去重维度
+  - **When** Agent 执行 `exp-governance` skill 的去重维度
   - **Then** 输出疑似重复文档对，每条含判断维度和具体理由（阈值可在设计阶段调整，但必须显式定义）
 - [ ] A1.2：检测结果以可读报告形式输出（Markdown），包含：疑似重复对、相似度指标、建议操作（合并/保留/区分标题）
 
 ### F2 — 经验一致性审查
 
-- [ ] A2.1：存在 `exp-curation` skill（用户可通过自然语言触发，如"审查经验文档"；Agent 可通过 `skill(name="exp-curation")` 加载）
+- [ ] A2.1：存在 `exp-governance` skill（用户可通过自然语言触发，如"审查经验文档"；Agent 可通过 `skill(name="exp-governance")` 加载）
   - **Given** 用户在项目中 / Agent 在 Phase 5
   - **When** 用户说"审查经验"或 Agent 加载 skill
   - **Then** 执行 docs/ 完整扫描并输出审查报告
@@ -66,16 +66,16 @@
   - category 一致性（category 字段值与所在目录名匹配）
   - source 有效性（source 引用的 task 目录存在）
   - quality 字段非空
-- [ ] A2.3：Agent 在 Phase 5 总结时可自主调用审查机制（通过 `skill(name="exp-curation")`）
+- [ ] A2.3：Agent 在 Phase 5 总结时可自主调用审查机制（通过 `skill(name="exp-governance")`）
 
 ### F3 — 经验重要程度评估
 
-- [ ] A3.1：存在 `specs/default/exp-curation.md`，**实质性**定义（不可为空 spec 形式化通过）：
+- [ ] A3.1：存在 `specs/default/exp-governance.md`，**实质性**定义（不可为空 spec 形式化通过）：
   - 质量分级标准（至少定义 `draft`/`verified`/`outdated` 三级，每级含明确的转换条件——如：draft→verified 需经至少一次 Agent Review 且被 ≥1 份其他文档引用；verified→outdated 需 source 指向的 task 完成超过 30 天且无新引用）
   - 重要程度评估维度（复用性、对项目推进帮助性、覆盖场景广度）— 每维度含评分标准
   - 过时判定标准（时间 + 引用衰减 + 内容有效性检查）
   - ≥ 3 条 MUST 规则
-- [ ] A3.2：`exp-curation` skill 审查报告中包含每份文档的质量/重要性评估
+- [ ] A3.2：`exp-governance` skill 审查报告中包含每份文档的质量/重要性评估
 
 ### F4 — 经验复利机制
 
@@ -84,23 +84,23 @@
 - [ ] A4.1：spec 定义完整的经验生命周期（节点 + 转换条件）：
   - 状态：draft → verified → outdated → (refreshed → verified | archived)
   - 每个状态转换有明确的触发条件（如 draft→verified 需经至少一次审查且被引用；verified→outdated 需 source task 完成超过 30 天且无活跃引用）
-- [ ] A4.2：`exp-curation` skill 输出包含"建议操作"清单：哪些可晋升、哪些需刷新、哪些可标记过时
-- [ ] A4.3：`feat-workflow.md` 阶段 5 增加经验策展子步骤，引用 `exp-curation` skill 和 `specs/default/exp-curation.md`。**修改路径**：编辑 `packages/installer/templates/configs/guides/feat-workflow.md`（模板源），再运行 `node packages/installer/index.js init --target . --force` 同步到运行时。禁止直接编辑 `.self-workflow/configs/guides/feat-workflow.md`（参考模式：安装器模板源 vs 运行时文件）
+- [ ] A4.2：`exp-governance` skill 输出包含"建议操作"清单：哪些可晋升、哪些需刷新、哪些可标记过时
+- [ ] A4.3：`feat-workflow.md` 阶段 5 增加经验治理子步骤，引用 `exp-governance` skill 和 `specs/default/exp-governance.md`。**修改路径**：编辑 `packages/installer/templates/configs/guides/feat-workflow.md`（模板源），再运行 `node packages/installer/index.js init --target . --force` 同步到运行时。禁止直接编辑 `.self-workflow/configs/guides/feat-workflow.md`（参考模式：安装器模板源 vs 运行时文件）
 
 ### D1 — Skill 作为唯一入口（经 Gate 1 审查推翻原双入口方案）
 
-- [ ] D1.1：`exp-curation` skill 存在，用户可通过自然语言触发（如"审查经验文档"），Agent 在 Phase 5 可通过 `skill(name="exp-curation")` 加载
+- [ ] D1.1：`exp-governance` skill 存在，用户可通过自然语言触发（如"审查经验文档"），Agent 在 Phase 5 可通过 `skill(name="exp-governance")` 加载
 - [ ] D1.2：skill 的 description 注明触发关键词（"经验审查"、"exp-review"、"经验去重"、"经验质量"），确保 Agent 和用户都能发现
 - [ ] D1.3：不创建独立 `/exp-review` command——skill 已覆盖用户手动触发和 Agent 自动调用两个场景
 
 ### D2 — 工作流集成
 
-- [ ] D2.1：`feat-workflow.md` 阶段 5 增加经验策展子步骤（检查清单 + 可选 skill 调用）。**修改路径**：编辑 `packages/installer/templates/configs/guides/feat-workflow.md` → 运行 `init --force` 同步
-- [ ] D2.2：策展环节与现有双级经验模型（task 级→doc 级）不冲突、有明确边界
+- [ ] D2.1：`feat-workflow.md` 阶段 5 增加经验治理子步骤（检查清单 + 可选 skill 调用）。**修改路径**：编辑 `packages/installer/templates/configs/guides/feat-workflow.md` → 运行 `init --force` 同步
+- [ ] D2.2：治理环节与现有双级经验模型（task 级→doc 级）不冲突、有明确边界
 
 ### D3 — Spec 沉淀
 
-- [ ] D3.1：`specs/default/exp-curation.md` 写入安装器模板源 → MANIFEST 注册 → `init --force` 同步
+- [ ] D3.1：`specs/default/exp-governance.md` 写入安装器模板源 → MANIFEST 注册 → `init --force` 同步
 - [ ] D3.2：spec 内容遵循"规范而非步骤"原则（MUST/SHOULD/MAY 分层）
 - [ ] D3.3：`specs/README.md` 的 default/ 分类无需修改——已包含
 
@@ -112,7 +112,7 @@
 | docs/ 内容语义分析/NLP | 去重检测使用基础文本相似度哈希（SimHash/MinHash），不引入语义分析或 NLP 模型 |
 | 跨 docs/ 的引用关系图谱 | 属于 V1.14（延后），不在本次范围 |
 | doc 级经验自动晋升 | 晋升仍由 Agent 提议 + Human 确认（现有机制），不改为自动 |
-| V2.0 子 Agent 拆分 | 本次仅预留接口和结构化策展步骤，不实际拆分 |
+| V2.0 子 Agent 拆分 | 本次仅预留接口和结构化治理步骤，不实际拆分 |
 | 修复现有 docs/ 文件的问题 | 审查工具建设，不批量修改已有文档 |
 
 ## 5. 现有关键发现
@@ -148,6 +148,6 @@
 - 见 `adrs/ADR-001-经验审查工具架构.md`——按 `adr-complex-template.md` 格式重写
 
 **决策 2**（ADR-002）：单一 skill 覆盖所有审查维度
-- 去重、一致性审查、质量评估、复利建议合并为一个 `exp-curation` skill
+- 去重、一致性审查、质量评估、复利建议合并为一个 `exp-governance` skill
 - 分节输出，支持自然语言指定审查范围
 - 见 `adrs/ADR-002-单一审查命令设计.md`——按 `adr-complex-template.md` 格式重写

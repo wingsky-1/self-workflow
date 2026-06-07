@@ -4,7 +4,7 @@
 
 去重是经验复利的基础——相同经验反复沉淀造成负债。常见方案是预定义算法（编辑距离阈值、SimHash/MinHash），但用户明确指示："去重和合并是一个复杂的事情，先有Agent来判断，不定义算法"。
 
-此决策影响 `exp-curation` skill 的指令设计和 spec 中的去重规则定义。
+此决策影响 `exp-governance` skill 的指令设计和 spec 中的去重规则定义。
 
 ## 备选方案
 
@@ -28,8 +28,8 @@
 
 ## 影响
 
-- `exp-curation` skill 指令中的去重部分提供判断维度（标题相似性、主题重叠、内容重复程度），要求 Agent 输出"疑似重复"判定 + 具体理由
-- spec `exp-curation.md` 中去重规则使用 MUST 定义判断流程，SHOULD 定义判断维度，不定义算法阈值
+- `exp-governance` skill 指令中的去重部分提供判断维度（标题相似性、主题重叠、内容重复程度），要求 Agent 输出"疑似重复"判定 + 具体理由
+- spec `exp-governance.md` 中去重规则使用 MUST 定义判断流程，SHOULD 定义判断维度，不定义算法阈值
 - 如果 docs/ 规模增长到 100+，可重新评估引入方案 C 的初筛层
 
 ## 反对意见
