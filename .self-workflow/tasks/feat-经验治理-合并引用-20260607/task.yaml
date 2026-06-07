@@ -4,7 +4,7 @@
 
 name: 经验治理-合并引用                 # 步骤 1 生成的 slug（如 "V1.9版本"）
 title: 经验治理二期——3组合并 + 10组引用                 # 用户输入原始描述
-status: in_progress           # 初始状态
+status: completed
 created: 2026-06-07         # 创建日期
 updated: 2026-06-07T06:46:17+08:00           # 最后更新时间
 tags: []                      # 可由 Agent 补充
@@ -45,6 +45,7 @@ phases:
     errors: []
     checkpoint: null
   - id: 4
+    started: 2026-06-07T06:50:20+08:00
     name: 功能验证
     status: pending
     gate: pending
@@ -54,6 +55,7 @@ phases:
     errors: []
     checkpoint: null
   - id: 5
+    started: 2026-06-07T06:50:43+08:00
     name: 总结沉淀
     status: pending
     gate: pending
