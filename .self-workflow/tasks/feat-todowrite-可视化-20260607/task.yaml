@@ -1,0 +1,77 @@
+name: todowrite-可视化
+title: "V1.15：todowrite 可视化（P2）🟢"
+status: in_progress
+created: 2026-06-07
+updated: 2026-06-07T12:55:00+08:00
+tags:
+  - todowrite
+  - visualization
+  - spec
+  - tool-builtin
+description: >
+  V1.15：todowrite 可视化（P2）— 设计 todowrite 使用模式并沉淀为 default/ spec。
+  关联项：(1) todowrite 使用模式设计——何时展示、展示粒度、与 todo 体系和 task.yaml 的配合；
+  (2) 沉淀 spec——todowrite 使用规范形成 default/ spec。
+
+workflow-id: feat-todowrite-可视化-20260607
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: completed
+    gate: passed
+    started: 2026-06-07T12:38:00+08:00
+    completed: 2026-06-07T12:55:00+08:00
+    artifact: "01-analysis.md"
+    errors: []
+    checkpoint: null
+  - id: 2
+    name: 方案设计
+    status: in_progress
+    gate: pending
+    started: 2026-06-07T12:55:00+08:00
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+    checkpoint: null
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+    checkpoint: null
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+    checkpoint: null
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+    checkpoint: null
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts: []
+
+milestones: []
+
+cross-refs: []
