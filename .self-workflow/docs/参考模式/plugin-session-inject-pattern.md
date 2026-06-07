@@ -72,3 +72,7 @@ return {
 
 - context-mode (mksglu/context-mode)：commit 5aade76 从内存 Set 迁移到 marker 检测
 - systematic (marcusrbrown/systematic)：采用 XML-like marker 替换机制
+
+## 关联经验
+
+- **`Spec 上下文注入架构`**（`关键决策/`）—— 与本文的差异：本文是参考实现——具体的 TypeScript 代码（marker 检测 + 合并而非 push）；该文档是设计决策——为什么选双钩子架构、为什么 marker 优于内存 Set。实现前先读设计决策理解"为什么"，再参考本文看"怎么写"。
