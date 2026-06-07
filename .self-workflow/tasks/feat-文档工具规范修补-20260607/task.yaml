@@ -2,7 +2,7 @@ name: 文档工具规范修补
 title: V1.22：文档/工具规范修补（P1/P2）
 status: completed
 created: 2026-06-07
-updated: 2026-06-07T22:00:00+08:00
+updated: 2026-06-07T22:20:00+08:00
 tags: [v1.22, process-discipline, tool-convention, spec-patching]
 description: >
   V1.22：ADR 先于产物 + todowrite 即时启动 + 内置工具优先 + session 重命名。
