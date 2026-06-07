@@ -15,31 +15,9 @@
 > V1.18：核心特性实现方案已关闭 ✔️（1/1 项完成，9份实现方案文档+spec+模板+工作流更新）
 > V1.21：Gate+流程纪律强化已关闭 ✔️（6/6 项完成）
 > V1.19：/feat 流程修补 + todo 整理已关闭 ✔️（5/5 项完成，含 1 项 wontfix）
+> V1.22：文档/工具规范修补已关闭 ✔️（4/5 项完成，1 项 wontfix）
 > V1.13 tag 治理：已完成 ✔️（两期经验治理实现 tag 英文化+统一）→ 已归档至已关闭
 > V1.14 交叉引用：body-end `## 关联经验` 已落地 11 份文档 ✔️；渐进式披露触发条件 → 并入 V2.0
-
----
-
-## V1.22：文档/工具规范修补（P1/P2）🟢 ✅ 已完成
-
-> P1: ADR 先于产物 + todowrite 即时启动；P2: 内置工具优先 + session 重命名。
-> 完成日期：2026-06-07 | 工作流：feat-文档工具规范修补-20260607
-
-1. [done] [流程] ADR/方案文档先于产物——先创建 ADR 文件(按模板) + 方案分析文档归档到 adrs/，产物文档仅引用摘要不内联。Phase 2 结束时主动归档，不需 Human 提醒 (P1)
-   → 来源：V1.16+V1.17 会话评审 #4（重复犯"内联ADR"错误）+ 二期评审短板（方案归档需 Human 提醒）
-   → ⚠️ V1.19 会话评审再现：3 个 ADR 嵌入 design.md 未独立文件（Gate 2 审查发现后修复），说明此习惯需在 decision-record.md 中强化 MUST 措辞
-
-2. [done] [工具] todowrite 即时启动——Phase 1 入口即创建条目，不延迟到用户提醒后 (P1)
-   → 来源：V1.16+V1.17 会话评审 #3
-
-3. [done] [工具] 内置工具优先——Agent 执行操作前应检查项目是否有内置工具（如 sw_task_* 系列），避免手工重复实现 (P2)
-   → 来源：V1.15 会话评审 #1（未用 sw_task_create 手动创建目录）
-
-4. [done] [工具] /feat 开始时 session 重命名为任务名称——提高 session 辨识度 (P2)
-   → 来源：原 V1.20 #2
-
-5. [wontfix] doc-audience 术语检查——新建 spec/docs 时检查术语是否为领域已有概念（非自创词）(P2)
-   → 来源：V1.16+V1.17 会话评审 #9 | 拒绝理由：待 V1.23 完成后整体经验治理时再统一处理
 
 ---
 
@@ -118,6 +96,9 @@
 
 （2026-06-07 整理：7 项已全部评审排期——#1→Vx合并、#2延后、#3跳过、#4→V1.19、#5→V1.23、#6→V2.0合并、#7→V1.19）
 
+- [流程] Compound 步骤 5 归档防遗漏——Agent 频繁只标记 [done] 不执行"移入已关闭"。优化方向：在 feat-workflow.md Compound 步骤 5.d 增加 MUST 措辞，或 feat.md 中增加归档完成的 checklist 自检项 (P2)
+  → 来源：V1.22 会话评审——Compound 遗漏归档，Human 提醒后补做
+
 - [BUG] sw_task_phase_update gate=passed 无 checkpoint 时 warning 未写入 errors.yaml——当前仅返回 warning 到调用方，未持久化 (P2)
   → 来源：V1.19 会话评审 Gate 3
 
@@ -132,3 +113,17 @@
 ---
 
 ## 已关闭 → 详见 [done.md](done.md)
+
+<details>
+<summary>V1.22：文档/工具规范修补（P1/P2）🟢</summary>
+
+> P1: ADR 先于产物 + todowrite 即时启动；P2: 内置工具优先 + session 重命名。
+> 完成日期：2026-06-07 | 工作流：feat-文档工具规范修补-20260607
+
+1. [done] [流程] ADR/方案文档先于产物
+2. [done] [工具] todowrite 即时启动
+3. [done] [工具] 内置工具优先
+4. [done] [工具] /feat 开始时 session 重命名
+5. [wontfix] doc-audience 术语检查
+
+</details>
