@@ -3,8 +3,8 @@ title: "决策记录与治理规范"
 type: spec
 level: default
 tags: [decision-record, adr, lifecycle, governance, promotion]
-version: 1.2.0
-summary: "何时创建 ADR、模板选择、存储与编号规则、跨任务沉淀晋升与生命周期管理。"
+version: 1.3.0
+summary: "何时创建 ADR、模板选择、存储与编号规则、跨任务沉淀晋升与生命周期管理。含时间约束——Phase 2 产出涉及触发场景时，MUST 先于产物创建独立 ADR 文件。"
 ---
 
 # 决策记录与治理规范
@@ -25,6 +25,13 @@ summary: "何时创建 ADR、模板选择、存储与编号规则、跨任务沉
 - **方向性决策** — 决定项目走向
 - **流程性决策** — 影响工作流或规范的规则
 - **反模式纠正** — 对现有设计做大修正
+
+**时间约束**：当 `/feat` 工作流的 Phase 2（方案设计）产出涉及上述任一触发场景时，Agent **MUST** 在编写 `02-design.md` 前先在 `tasks/<workflow-id>/adrs/` 创建独立 ADR 文件（按下方模板选择规则）。ADR 的完整内容 MUST 在独立文件中；产物文档可保留含对比摘要的引用章节，但禁止将完整 ADR 替换产物文档的独立决策记录段。
+
+判断流程：
+1. Phase 2 产出中是否包含触发场景（架构选择/方向性决策/流程性决策/反模式纠正）？→ 是 → MUST 创建独立 ADR 文件
+2. 不确定？→ 使用 `question` 工具向 Human 确认
+3. 明确不涉及？→ 在 Phase 2 checklist 中显式标注"本阶段无架构决策"
 
 ### 存储结构
 

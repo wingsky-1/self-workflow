@@ -42,6 +42,7 @@ argument-hint: [--quick] <特性描述>
      > "已有进行中任务 `feat-xxx-YYYYMMDD`（阶段 N/5）。不建议并发执行多个工作流。是否继续？"
    - 用户确认后继续（此时不强制阻止，仅警告）
 3. **Todo 上下文**：读取 `.self-workflow/todo.md` 获取当前版本任务列表。后续"无参数模式"依赖此上下文实现自动认领。
+4. **Session 重命名**：调用 `sw_session_rename` 工具将当前 OpenCode session 重命名为 `feat-<slug>-<YYYYMMDD>` 格式以提高辨识度。调用时机：步骤 1 slug 生成后立即调用。
 
 ### 步骤 1：参数解析
 
@@ -62,6 +63,7 @@ argument-hint: [--quick] <特性描述>
   - 示例：`"/feat V1.9版本"`（结合 todo 中 4 项重构任务）→ slug `"安装器重构-模板清理"`
 - 检测 `--quick` 标志
 - 生成 workflow-id：`feat-<slug>-<YYYYMMDD>`
+- **调用 `sw_session_rename`**：将 session 标题设为 `feat-<slug>-<YYYYMMDD>`
 - 检查 `.self-workflow/tasks/` 中是否已有以相同前缀开头的目录（同日同 slug）
   - 无冲突 → 使用
   - 有冲突 → 追加 `-2`, `-3`...（最多 10 次，超出则报错）

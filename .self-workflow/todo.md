@@ -47,7 +47,7 @@
 > 梳理 `docs/迭代报告/` 中的共性失败模式，反哺优化框架 spec/command/agent/skill/hook 的描述。
 
 1. 结合 docs/迭代报告 优化框架自带的 spec command agent skill hook 等描述 (P2)
-    → 来源：新增 #1（迭代报告已积累 4 份会话评审，7 维度评分 + 共性失败模式）
+   → 来源：新增 #1（迭代报告已积累 4 份会话评审，7 维度评分 + 共性失败模式）
 
 2. [优化] spec 参考业界实践——联网搜索优秀的 command/skill spec，汲取最佳实践优化现有 spec (P2)
    → 来源：新增 #5（需联网搜索）
@@ -119,6 +119,14 @@
 
 - [BUG] sw_task_phase_update gate=passed 无 checkpoint 时 warning 未写入 errors.yaml——当前仅返回 warning 到调用方，未持久化 (P2)
   → 来源：V1.19 会话评审 Gate 3
+
+- [可追溯性] 如何确认Agent对specs和docs的遵从性
+  - task中归档阅读记录
+  - 文档产物标准某部分内容，基于 xx docs 或 xx spec 得来
+  - 其他可行的方案讨论
+  - V2.x
+
+- [综合] packages\installer\templates 全面评审优化，为步入V2.x做好准备
 
 ---
 

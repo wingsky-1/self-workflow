@@ -3,7 +3,7 @@ title: "Todowrite 可视化规范"
 type: spec
 level: default
 tags: [todowrite, visualization, progress-tracking, agent-display]
-version: 1.0.0
+version: 1.1.0
 summary: "定义 Agent 何时及如何使用 OpenCode todowrite 工具展示执行进度——三层待办区分、触发时机、条目粒度、与 task.yaml/todo.md 的职责划分。"
 extends: agent-reasoning.md
 ---
@@ -26,15 +26,19 @@ extends: agent-reasoning.md
 
 ## MUST（必须遵守）
 
-### M-1：阶段入口创建条目
+### M-1：阶段入口即时创建条目
 
-Agent 进入 `/feat` 工作流的任意阶段时，**MUST** 创建一条 todowrite 条目。
+Agent 进入 `/feat` 工作流的任意阶段时，**MUST** 在该阶段的**第一个产出操作**时创建一条 todowrite 条目。
+
+> "第一个产出操作"指第一条有意义的工具调用（如创建文件、写入产物）或第一条实质性内容输出（非格式性标题/问候）。准备性读取（如读取分析模板 `analysis-template.md`、读取现有规范文件）和 task.yaml 状态更新（`sw_task_phase_update`）不视为产出操作。
 
 条目内容格式：`Phase N：[阶段名称] — [核心目标]`
 
 示例：
 - `Phase 1：需求分析 — 理解需求、识别约束、定义验收标准`
 - `Phase 3：代码实现 — 编写 spec 文件并通过 lint/typecheck`
+
+**MUST NOT** 延迟到 Human 提醒后才创建——此条目是 Phase 入口的第一个产出操作。
 
 ### M-2：Gate 完成更新状态
 
@@ -95,7 +99,7 @@ Agent **SHOULD** 仅在流程转折点创建条目，而非每次工具调用。
 
 | 触发事件 | 创建条目？ |
 |---------|-----------|
-| 进入新 Phase | ✅ MUST |
+| 进入新 Phase（入口即时） | ✅ MUST — 第一个产出操作时创建 |
 | Gate 审查启动 | ✅ MUST |
 | 子 Agent 委托（>30s） | ✅ MUST |
 | 子 Agent 返回（更新状态） | ✅ MUST（详见 M-3） |

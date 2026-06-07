@@ -175,14 +175,11 @@ Agent 进入 `/feat` 工作流的任意阶段时，**MUST** 在该阶段的**第
 位置：第 44 行之后（"Todo 上下文" 之后），"### 步骤 1：参数解析" 之前
 
 ```markdown
-4. **Session 重命名**：将当前 OpenCode session 重命名为 `feat-<slug>-<YYYYMMDD>` 格式以提高辨识度。
-   - 优先使用 OpenCode session 重命名 API（如存在）
-   - 若 API 不可用，将 session 标识写入 `task.yaml` 的 `metadata.session-id` 字段作为回退：
-     ```yaml
-     metadata:
-       session-id: "feat-<slug>-<YYYYMMDD>"
-     ```
-   - 同时在阶段启动输出中包含 session 标识信息
+4. **Session 重命名**：将当前 OpenCode session 重命名为 `feat-<slug>-<YYYYMMDD>` 格式以提高辨识度。通过 `opencode db` 直接更新 session 表的 `title` 字段：
+   ```bash
+   opencode db "UPDATE session SET title = 'feat-<slug>-<YYYYMMDD>', time_updated = <unix_timestamp_ms> WHERE id = '<current_session_id>';"
+   ```
+   其中 `<current_session_id>` 从当前对话上下文中获取（如 `session_info` 工具或系统提供的 session ID）。
 ```
 
 ---
@@ -218,7 +215,7 @@ Agent 进入 `/feat` 工作流的任意阶段时，**MUST** 在该阶段的**第
 1. 先改 `decision-record.md` + `feat-workflow.md`（P1，捆绑）
 2. 再改 `todowrite-display.md`（P1，独立）
 3. 再改 `agent-reasoning.md`（P2，独立）
-4. 最后改 `feat.md`（P2，独立，需验证 session 重命名 API 可用性）
+4. 最后改 `feat.md`（P2，独立，session 重命名通过 opencode db SQL UPDATE 实现，已验证可用）
 5. 运行 `init --force` 一次同步所有变更
 
 ---

@@ -20,6 +20,7 @@ const TEMPLATE_PATH = ".self-workflow/configs/tasks/feat-task.yaml";
 
 let docsContent: string | null = null;
 let specsContent: string | null = null;
+let currentSessionID: string | null = null;
 
 // ─── 通用工具函数 ────────────────────────────────────────────────────────────
 
@@ -385,10 +386,16 @@ function scanSpecs(directory: string): string | null {
 
 export const server = async (input: PluginInput): Promise<Hooks> => {
   const directory = input.directory;
+  const client = input.client;
 
   return {
     event: async ({ event }) => {
       if (event.type === "session.created") {
+        // 仅捕获主 session（无 parent_id），排除子 Agent session
+        const props = event.properties as any;
+        if (props.info && !props.info.parent_id) {
+          currentSessionID = props.sessionID;
+        }
         docsContent = scanDocs(directory);
         specsContent = scanSpecs(directory);
       }
@@ -456,6 +463,28 @@ export const server = async (input: PluginInput): Promise<Hooks> => {
             args.checkpoint
           );
           return { output: JSON.stringify(result, null, 2) };
+        },
+      }),
+
+      sw_session_rename: tool({
+        description:
+          "重命名当前 OpenCode session 标题。用于 /feat 启动时设置辨识度高的会话名（如 'feat-文档工具规范修补-20260607'）。",
+        args: {
+          title: z.string().describe("新的 session 标题"),
+        },
+        async execute(args, _ctx) {
+          if (!currentSessionID) {
+            return { output: JSON.stringify({ error: "No active session found. The plugin may not have captured the session ID yet." }) };
+          }
+          try {
+            await client.session.update({
+              sessionID: currentSessionID,
+              title: args.title,
+            });
+            return { output: JSON.stringify({ success: true, title: args.title }) };
+          } catch (e: any) {
+            return { output: JSON.stringify({ error: `Failed to rename session: ${e.message}` }) };
+          }
         },
       }),
     },
