@@ -1,7 +1,3 @@
-<!--
-  安装器模板 — 执行 self-workflow init 时复制到 .opencode/commands/feat.md。
-  变更此文件后请运行安装器同步，或手动复制到 .opencode/commands/feat.md。
--->
 ---
 description: 启动特性开发工作流 — 5 阶段 + 4 Gate，自动创建任务目录与元数据
 argument-hint: [--quick] <特性描述>

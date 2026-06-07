@@ -16,7 +16,19 @@ packages/installer/templates/     # 模板源（权威源）
     node packages/installer/index.js init --target .     # 首次安装（不覆盖已有文件）
     node packages/installer/index.js init --target . --force  # 强制同步（覆盖已有文件）
 
-运行时目录：
+## 修改流程
+
+所有运行时文件 `.opencode/` 和 `.self-workflow/configs/`、`.self-workflow/specs/` 的内容由安装器管理。
+修改时须遵循：**模板源是唯一权威源**。
+
+1. 编辑 `packages/installer/templates/` 下的对应模板文件
+2. 运行 `node packages/installer/index.js init --target . --force` 同步到运行时
+3. 不要直接编辑运行时文件（`.opencode/`、`.self-workflow/configs/`、`.self-workflow/specs/`）
+
+例外：`.self-workflow/docs/`、`.self-workflow/tasks/`、`.tasks/`、`.docs/` 由工作流直接写入，可直接编辑。
+
+## 运行时目录
+
     .opencode/         # OpenCode 运行时文件（由安装器管理，禁止直接修改）
     .self-workflow/    # 工作流运行时文件
       ├── configs/     # 由安装器管理 → 修改需通过模板源

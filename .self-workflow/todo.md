@@ -6,68 +6,54 @@
 > V1.6 质量收尾已关闭 ✔️（7/9 项完成，2 项移除/移入 V1.8）
 > V1.7 docs 结构 + 索引注入已关闭 ✔️（2/2 项完成）
 > V1.8：specs 结构奠基（P2）🟢 — 已关闭 ✔️（4/4 项完成）
+> V1.9：重构收尾已关闭 ✔️（4/4 项完成）
 > V1.10 Gate+审查增强已关闭 ✔️（2/2 项完成）
+> V1.11：/feat 增强 + todo 管理 + 内置工具已关闭 ✔️（6/6 项完成）
 
 ---
 
----
+## V1.15：todowrite 可视化（P2）🟢
 
----
+> 使用 opencode 内置 todowrite 工具，将任务执行步骤可视化展示，沉淀 spec。
 
-## V1.11：/feat 增强 + todo 管理 + 内置工具（P1）🟡 ✅
-
-> /feat 命令增强（无参自动认领、完成后自动更新 todo）、todo 整理命令、歧义澄清 spec、内置 tool 化。已完成 ✔️
-
-1. /feat 增强——无输入时自动分析/认领任务 [done]
-   → 来源：todo #18
-
-2. /feat 增强——从 todo 领取任务结束后自动更新 todo 状态 [done]
-   → 来源：新增 #8
-
-3. todo 整理排期 command——Agent 可自主整理 todo、排期 [done]
-   → 来源：新增 #1
-
-4. todo 系统注入机制——确定 todo 介绍注入到哪些场景（主Agent / feat command / 子Agent） [done]
+1. todowrite 使用模式设计——何时展示、展示粒度、与 todo 体系和 task.yaml 的配合
    → 来源：新增 #5
 
-5. 歧义澄清 spec——Agent 遇到歧义输入时必须质疑询问，不自作主张 → 沉淀为 default/ spec [done]
-   → 来源：新增 #8
-
-6. 内置 tool 化——确定性操作由内置 tool 实现（获取未完成 task 列表、创建 task 目录等），减少 token 浪费 [done]
-   → 来源：新增 #7
+2. 沉淀 spec——todowrite 使用规范形成 default/ spec
+   → 来源：新增 #5
 
 ---
 
-## V1.12：经验质量 I —— 可发现性（P2）🟢
+## V1.16：经验检测（P2）🟢
 
-> 让经验和 tag 真正可被 Agent 检索匹配。
-
-1. docs/ 文档 tag 质量治理——统一中英文、同义词→同一 tag、消除大小写不一致
-   → 来源：V1.7 实施 + 新增 #9
-
-2. 文档交叉引用机制——frontmatter 中加 `related:` 字段，Agent 按需追踪关联文档
-   → 来源：V1.7 经验沉淀 + 新增 #10
-
-3. 渐进式披露触发条件细化——READMe.md 每个分类增加"触发场景"描述
-   → 来源：V1.7 注入机制讨论 + 新增 #11
-
----
-
-## V1.13：经验质量 II —— 检测与生命周期（P2）🟢
-
-> 经验库的质量保障和持续维护。
+> 经验库的自动化质量检测——去重 + 一致性审查。
 
 1. 经验去重检测——避免相同经验被反复沉淀
-   → 来源：todo #7
+   → 来源：todo #7（原 V1.13-1）
 
 2. 经验一致性审查 command——默认扫描 `.self-workflow/docs`，Agent 可在总结阶段自主执行
-   → 来源：新增
+   → 来源：新增（原 V1.13-2）
 
-3. 经验沉淀重要程度评估——不仅判断"能不能复用"，还要评估"对项目推进的帮助性"
-   → 来源：新增 #7
+---
 
-4. 经验如何复利——刷新/去重/过时标记/晋升
-   → 来源：todo #7 完整版 + 新增 #12
+## V1.17：经验沉淀质量（P2）🟢
+
+> 经验库的持续策展机制。
+
+1. 经验沉淀重要程度评估——不仅判断"能不能复用"，还要评估"对项目推进的帮助性"
+   → 来源：新增 #7（原 V1.13-3）
+
+2. 经验如何复利——刷新/去重/过时标记/晋升
+   → 来源：todo #7 完整版 + 新增 #12（原 V1.13-4）
+
+---
+
+## V1.18：核心特性实现方案（P2）🟢
+
+> 文档化核心特性实现方案，减少 Agent 开发时重复读代码分析。
+
+1. docs下增加核心特性实现方案——将框架关键实现思路文档化
+   → 来源：新增 #1
 
 ---
 
@@ -91,30 +77,54 @@
 
 ---
 
+## 延后（待设计/更多观察）
+
+> 已识别方向但暂不启动——部分需收集更多实际场景，部分需仔细设计。
+
+### V1.12 延后：流程纪律（原 P1）
+
+> Gate 审查合规性增强 + 实现阶段要严控。暂无可落地方案，需多收集几轮跳过审查/跳过方案解释的实际情况后再设计。
+
+- [postponed] Gate 审查合规性增强——Agent 跳过 Gate 对抗性审查步骤直接展示结果 → 来源：新增 #4
+- [postponed] 实现阶段要严控——Agent 先实现后解释，缺少方案确认环节 → 来源：新增 #6
+
+### V1.13 延后：文档 tag 质量治理（原 P1）
+
+> 文档 tag 统一中英文、消除同义词和大小写不一致。需仔细设计 tag 体系后再执行。
+
+- [postponed] docs/ 文档 tag 质量治理——统一中英文、同义词→同一 tag、消除大小写不一致 → 来源：V1.7 实施 + 新增 #9
+
+### V1.14 延后：经验可发现性（原 P2）
+
+> 文档交叉引用和渐进式披露优化。需与 tag 治理协同设计。
+
+- [postponed] 文档交叉引用机制——frontmatter 中加 `related:` 字段 → 来源：V1.7 经验沉淀 + 新增 #10
+- [postponed] 渐进式披露触发条件细化——READMe.md 每个分类增加"触发场景"描述 → 来源：V1.7 注入机制讨论 + 新增 #11
+
+---
+
+## 新增（待评审排期）
+
+> 未分配版本的临时想法。评审后可排入具体版本或标记 [wontfix]。
+>
+> ⚠️ 此章节是"待办收件箱"——后续修改 todo 时须保留，不应随版本整理被删除。
+
+1. 评审问题给出 2~4 个可行方案，置信度 >95 则自动决策——减少不必要的 question 打断（从 V1.11 移出，待置信度评估框架成熟后再实施）
+2. /feat 无人值守模式——Agent 自主完成 feat，用户事后评审（从 V1.11 移出，依赖自动决策能力）
+
+---
+
 ## 已关闭
 
 <details>
-<summary>V1.8：specs 结构奠基（feat-specs结构奠基-20260606 完成，4/4 项）</summary>
+<summary>V1.11：/feat 增强 + todo 管理 + 内置工具（P1）🟡 — 6/6 项完成</summary>
 
-- [done] 文档受众分类 spec — `specs/default/doc-audience.md` + 推广参考模式 ✅
-- [done] 通用 spec 结构 — `specs/default/` + `specs/README.md` 分类定义段 + Plugin 注入 ✅
-- [done] agent-reasoning + interaction-protocol 降格为 spec — Skill 已删除，内容迁移至 `specs/default/`，双钩子注入架构 ✅
-- [done] 关键决策自动记录→通用 spec — `specs/default/decision-record.md` + `docs/关键决策/` + ADR 晋升流程 + 废弃 `/adr` 命令 ✅
-
-</details>
-
-<details>
-<summary>V1.6：质量收尾（feat-开始v1-6版本-20260606 完成，7/9 项，2 项移除/移入 V1.8）</summary>
-
-- [done] feat.md 前置检查移除已弃用的 `workflow-metadata-template.yaml` ✅
-- [done] 经验文档命名符合 ADR-003 约定（3 个文件重命名） ✅
-- [removed] 文档中 `workflow.yaml` 引用更新 — 用户决定不再处理
-- [done] 文档中旧 `docs/todo.md` 路径更新为 `.self-workflow/todo.md`（3 份文档） ✅
-- [done] catchup.md 修复 `plan.md` 引用 ✅
-- [done] 修复 `feat-先做v1-5-2的需求/task.yaml` 的重复 `artifacts` 键 ✅
-- [moved to V1.8] 文档受众分类 — 需形成 spec 级设计
-- [done] ADR-003（元数据模板填充策略）标记为"被超驰" ✅
-- [done] 删除 `adr-review-template.md` 并更新相关文档 + 安装器 index.js ✅
+- [done] /feat 增强——无输入时自动分析/认领任务 → 来源：todo #18
+- [done] /feat 增强——从 todo 领取任务结束后自动更新 todo 状态 → 来源：新增 #8
+- [done] todo 整理排期 command——Agent 可自主整理 todo、排期 → 来源：新增 #1
+- [done] todo 系统注入机制——确定 todo 介绍注入到哪些场景（主Agent / feat command / 子Agent）→ 来源：新增 #5
+- [done] 歧义澄清 spec——Agent 遇到歧义输入时必须质疑询问，不自作主张 → 沉淀为 default/ spec → 来源：新增 #8
+- [done] 内置 tool 化——确定性操作由内置 tool 实现（获取未完成 task 列表、创建 task 目录等），减少 token 浪费 → 来源：新增 #7
 
 </details>
 
@@ -137,10 +147,35 @@
 </details>
 
 <details>
+<summary>V1.8：specs 结构奠基（feat-specs结构奠基-20260606 完成，4/4 项）</summary>
+
+- [done] 文档受众分类 spec — `specs/default/doc-audience.md` + 推广参考模式 ✅
+- [done] 通用 spec 结构 — `specs/default/` + `specs/README.md` 分类定义段 + Plugin 注入 ✅
+- [done] agent-reasoning + interaction-protocol 降格为 spec — Skill 已删除，内容迁移至 `specs/default/`，双钩子注入架构 ✅
+- [done] 关键决策自动记录→通用 spec — `specs/default/decision-record.md` + `docs/关键决策/` + ADR 晋升流程 + 废弃 `/adr` 命令 ✅
+
+</details>
+
+<details>
 <summary>V1.7：docs 结构 + 索引注入（feat-开始v1-7-20260606 完成，2/2 项）</summary>
 
 - [done] docs/ 目录结构梳理——建立 3 分类目录（实施经验/参考模式/错误经验）+ README.md 权威分类源 ✅
 - [done] docs 索引在 session_start 时自动注入上下文——OpenCode Plugin（session.created + marker 检测 + 渐进式披露） ✅
+
+</details>
+
+<details>
+<summary>V1.6：质量收尾（feat-开始v1-6版本-20260606 完成，7/9 项，2 项移除/移入 V1.8）</summary>
+
+- [done] feat.md 前置检查移除已弃用的 `workflow-metadata-template.yaml` ✅
+- [done] 经验文档命名符合 ADR-003 约定（3 个文件重命名） ✅
+- [removed] 文档中 `workflow.yaml` 引用更新 — 用户决定不再处理
+- [done] 文档中旧 `docs/todo.md` 路径更新为 `.self-workflow/todo.md`（3 份文档） ✅
+- [done] catchup.md 修复 `plan.md` 引用 ✅
+- [done] 修复 `feat-先做v1-5-2的需求/task.yaml` 的重复 `artifacts` 键 ✅
+- [moved to V1.8] 文档受众分类 — 需形成 spec 级设计
+- [done] ADR-003（元数据模板填充策略）标记为"被超驰" ✅
+- [done] 删除 `adr-review-template.md` 并更新相关文档 + 安装器 index.js ✅
 
 </details>
 
@@ -193,18 +228,3 @@
 - [done] 经验分级设计 → ✅ `.self-workflow/docs/经验分级与加载指引.md`
 
 </details>
-
----
-
-## 新增（待评审排期）
-
-> 未分配版本的临时想法。评审后可排入具体版本或标记 [wontfix]。
->
-> ⚠️ 此章节是"待办收件箱"——后续修改 todo 时须保留，不应随版本整理被删除。
-
-1. docs下增加核心特性实现方案，减少开发过程中Agent读取代码分析。
-2. 评审问题给出 2~4 个可行方案，置信度 >95 则自动决策——减少不必要的 question 打断（从 V1.11 移出，待置信度评估框架成熟后再实施）
-3. /feat 无人值守模式——Agent 自主完成 feat，用户事后评审（从 V1.11 移出，依赖自动决策能力）
-4. Gate 审查合规性增强——主 Agent 出现跳过 Gate 对抗性审查步骤直接展示结果给 Human 的问题。需思考：如何让 Agent 在 Gate 入口强制执行审查步骤（方向审查+对抗性审查）而不遗漏？是否需要内置 tool 做 Gate 步骤合规性检查？或强化 feat-workflow.md 中 Gate 节的执行约束措辞？
-5. 善用opencode内置的todowrite，把即将要做的事情可视化的展示出来，可以防止遗忘以及增强用户体验。不仅仅是实现步骤，也可以是评审问题的解决，等一系列多个事情需要处理时。沉淀spec
-6. 实现阶段要严控，必须解释情况每个任务的实现方案，为什么这样实现，与用户是否达成一致了。
