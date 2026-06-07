@@ -28,27 +28,27 @@ phases:
     checkpoint: e6fa4b68ee177b0a429d20428fd4de31711cdd63
   - id: 2
     name: 方案设计
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-07T12:55:00+08:00
-    completed: null
+    completed: 2026-06-07T13:30:00+08:00
     artifact: "02-design.md"
     errors: []
-    checkpoint: null
+    checkpoint: afabcbc37db4d13da5eaf1d97f329b779bec55d1
   - id: 3
     name: 代码实现
-    status: pending
-    gate: pending
-    started: null
-    completed: null
+    status: completed
+    gate: passed
+    started: 2026-06-07T13:30:00+08:00
+    completed: 2026-06-07T14:00:00+08:00
     artifact: "03-implementation.md"
     errors: []
-    checkpoint: null
+    checkpoint: de7c0f3231e41577af1d45887be70b98e27ee2f8
   - id: 4
     name: 功能验证
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
+    started: 2026-06-07T14:00:00+08:00
     completed: null
     artifact: "04-verification.md"
     errors: []
@@ -77,6 +77,10 @@ structure:
     - "artifacts/01-analysis.md"
     - "artifacts/02-design.md"
 
-milestones: []
+milestones:
+  - "Phase 1：需求分析完成，三层待办区分明确"
+  - "Phase 2：方案设计通过 Gate 2 方向审查+Grill 审查，3 个 ADR 创建"
+  - "Phase 3：spec 文件实现+M-3.1 多事项处理+MANIFEST 注册+安装器同步"
+  - "Phase 4：9/9 AC 验证通过（6 项静态+1 项设计推导+2 项质量）"
 
 cross-refs: []
