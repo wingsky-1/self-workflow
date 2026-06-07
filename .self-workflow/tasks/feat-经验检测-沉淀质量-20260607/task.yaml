@@ -24,19 +24,19 @@ phases:
     completed: 2026-06-07T06:10:00Z
     artifact: "01-analysis.md"
     errors: []
-    checkpoint: null
+    checkpoint: ec669e730a481e6adc38632b81b978382590d4a5
   - id: 2
     name: 方案设计
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
-    completed: null
+    started: 2026-06-07T06:15:00Z
+    completed: 2026-06-07T06:15:00Z
     artifact: "02-design.md"
     errors: []
     checkpoint: null
   - id: 3
     name: 代码实现
-    status: pending
+    status: in_progress
     gate: pending
     started: null
     completed: null
@@ -70,9 +70,11 @@ structure:
   adrs:
     - "ADR-001-经验审查工具架构.md"
     - "ADR-002-单一审查命令设计.md"
+    - "ADR-003-去重策略Agent判断.md"
   logs: []
   artifacts:
     - "01-analysis.md"
+    - "02-design.md"
 
 milestones: []
 
