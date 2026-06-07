@@ -9,18 +9,9 @@
 > V1.9：重构收尾已关闭 ✔️（4/4 项完成）
 > V1.10 Gate+审查增强已关闭 ✔️（2/2 项完成）
 > V1.11：/feat 增强 + todo 管理 + 内置工具已关闭 ✔️（6/6 项完成）
+> V1.15：todowrite 可视化已关闭 ✔️（2/2 项完成）
 
 ---
-
-## V1.15：todowrite 可视化（P2）🟢
-
-> 使用 opencode 内置 todowrite 工具，将任务执行步骤可视化展示，沉淀 spec。
-
-1. todowrite 使用模式设计——何时展示、展示粒度、与 todo 体系和 task.yaml 的配合
-   → 来源：新增 #5
-
-2. 沉淀 spec——todowrite 使用规范形成 default/ spec
-   → 来源：新增 #5
 
 ---
 
@@ -111,10 +102,21 @@
 
 1. 评审问题给出 2~4 个可行方案，置信度 >95 则自动决策——减少不必要的 question 打断（从 V1.11 移出，待置信度评估框架成熟后再实施）
 2. /feat 无人值守模式——Agent 自主完成 feat，用户事后评审（从 V1.11 移出，依赖自动决策能力）
+3. todo系统优化，已关闭的todo迁移到done.md，避免过多的上下文污染
+4. 增加生成周报/日报的command
+5. feat开始实施时给seesion改成任务名称，提高session辨识度
 
 ---
 
 ## 已关闭
+
+<details>
+<summary>V1.15：todowrite 可视化（P2）🟢 — 2/2 项完成</summary>
+
+- [done] todowrite 使用模式设计——何时展示、展示粒度、与 todo 体系和 task.yaml 的配合 → 来源：新增 #5
+- [done] 沉淀 spec——todowrite 使用规范形成 default/ spec → 来源：新增 #5
+
+</details>
 
 <details>
 <summary>V1.11：/feat 增强 + todo 管理 + 内置工具（P1）🟡 — 6/6 项完成</summary>
