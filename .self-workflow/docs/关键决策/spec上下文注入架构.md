@@ -40,3 +40,7 @@ Marker 检测防重复注入。
 ## 新增 spec 的注入
 
 在 `specs/default/` 下创建 `.md` → 填写 frontmatter（含 `summary`）→ Plugin 下次会话自动注入。
+
+## 关联经验
+
+- `docs/实现方案/plugin-注入机制实现方案.md` — Plugin 注入机制的完整架构设计（双钩子职责、scanDocs/scanSpecs 数据流、内置工具）。与本文的差异：本文是设计决策（"为什么"选双钩子），实现方案是架构文档（"怎么做"的具体实现）。

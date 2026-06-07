@@ -111,3 +111,7 @@ quality: verified
 | 二级经验（原始） | `tasks/<id>/artifacts/05-summary.md` | — 存档 |
 | Command 定义源码 | `packages/installer/templates/commands/<name>.md` | ✅ 安装器分发 |
 | 需求设计文档 | `docs/<feature>-需求设计.md` | ❌ 参考 |
+
+## 关联经验
+
+- `docs/实现方案/feat-工作流实现方案.md` — /feat 工作流的完整架构设计（5 阶段、4 Gate、Compound、checkpoint）。与本文的差异：本文是 /feat 开发过程中的实施经验，实现方案是 /feat 的架构设计文档。

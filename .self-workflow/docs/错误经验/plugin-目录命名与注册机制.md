@@ -31,3 +31,8 @@ quality: verified
 
 - 所有需要在 OpenCode 中部署 Plugin 的场景
 - 安装器模板中涉及 `.opencode/` 目录创建的场合
+
+## 关联经验
+
+- `docs/实现方案/plugin-注入机制实现方案.md` — Plugin 的双钩子注入架构和数据流设计。与本文的差异：实现方案讲"正常怎么做"（设计），本文讲"做错了会怎样"（坑）。
+- `docs/实现方案/installer-系统实现方案.md` — installer 的 EMPTY_DIRS 和 MANIFEST 机制

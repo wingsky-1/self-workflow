@@ -36,3 +36,5 @@ quality: verified
 ## 关联经验
 
 - **`Gate 推理链一致性`**（`错误经验/`）—— 与本文的差异：本文解决 Agent **跳过** Gate 步骤的问题（三管齐下——措辞/位置/兜底），该文档解决 Agent **执行了** Gate 但忘记前置约束的问题（Phase 2 推翻 Phase 1 须显式说明）。两个问题共享"Gate 纪律"主题但触发场景不同——排查 Gate 违规时两篇都应检索。
+- `docs/实现方案/gate-审查机制实现方案.md` — Gate 审查机制的完整架构设计（量化公式、4 个 Gate、review-agent 调用链）。与本文的差异：本文是解决 Gate 被跳过的实施经验，实现方案是 Gate 的架构设计文档。
+- `docs/实现方案/review-agent-系统实现方案.md` — Review Agent 的审查维度和输出格式
