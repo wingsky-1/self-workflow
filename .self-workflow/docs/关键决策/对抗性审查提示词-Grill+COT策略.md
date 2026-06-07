@@ -4,14 +4,14 @@ category: 关键决策
 tags: [grill, cot, review, gate, prompt-engineering]
 date: 2026-06-06
 source: tasks/feat-开始v1-7-20260607
-quality: draft
+quality: verified
 ---
 
 # 对抗性审查提示词——Grill + COT 策略
 
 ## 背景
 
-将 Gate 1/3/4 的 Review Agent 提示词从确认式改为 Grill 对抗式。当前仅 Gate 2 使用 Grill 风格提示词，Gate 1/3/4 使用确认式提示词。需要决策：采用统一模板还是按 Gate 差异化定制。
+Gate 审查提示词需从确认式改为 Grill 对抗式。需要决策：采用统一模板还是按 Gate 差异化定制。
 
 ## 备选方案
 
