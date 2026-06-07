@@ -3,7 +3,7 @@ title: "对抗性审查提示词——Grill + COT 策略"
 category: 关键决策
 tags: [grill, cot, review, gate, prompt-engineering]
 date: 2026-06-06
-source: tasks/feat-开始v1-7-20260607
+source: tasks/feat-开始v1-7-20260606
 quality: verified
 ---
 

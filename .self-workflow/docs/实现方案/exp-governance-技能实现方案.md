@@ -152,7 +152,7 @@ Phase 5: 总结沉淀
 
 ADR-001（feat-经验检测-沉淀质量-20260607）：经验审查采用"仅 Skill"方案，不创建独立命令。Skill 提供执行指令，Spec 提供判断标准，两者解耦。
 
-参考：docs/实现方案/Plugin 注入机制实现方案.md——Spec 通过 Plugin 自动注入到 system prompt。
+参考：docs/实现方案/plugin-注入机制实现方案.md——Spec 通过 Plugin 自动注入到 system prompt。
 
 ### 审查维度：单一 Skill 分节输出（ADR-002）
 
@@ -182,7 +182,7 @@ exp-governance 在 Phase 5 的"编写经验草稿"之前执行（feat-workflow.m
 | docs/关键决策/跨任务决策沉淀与 ADR 治理.md | 参考 | 晋升流程与 ADR 生命周期模型 |
 | docs/参考模式/ADR推广——位置与写法.md | 参考 | ADR 推广格式规范 |
 | docs/实现方案/feat-工作流实现方案.md | 同级 | /feat 工作流架构 |
-| docs/实现方案/Plugin 注入机制实现方案.md | 同级 | Spec 自动注入机制 |
+| docs/实现方案/plugin-注入机制实现方案.md | 同级 | Spec 自动注入机制 |
 
 ## 变更记录
 
