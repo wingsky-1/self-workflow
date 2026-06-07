@@ -11,7 +11,7 @@ tags: []                      # 可由 Agent 补充
 description: >                # 用户输入原文（YAML folded scalar）
   <描述原文>
 
-workflow-id: <feat-<slug>-<YYYYMMDD>>
+workflow-id: feat-<slug>-<YYYYMMDD>
 type: feat                     # 工作流类型（未来可扩展 fix/refactor 等）
 
 phases:

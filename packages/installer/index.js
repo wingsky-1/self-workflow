@@ -40,11 +40,13 @@ const MANIFEST = [
   [".opencode/agents/review-agent.md",        "agents/review-agent.md"],
   [".opencode/commands/catchup.md",           "commands/catchup.md"],
   [".opencode/commands/feat.md",              "commands/feat.md"],
+  [".opencode/commands/todo-organize.md",     "commands/todo-organize.md"],
   [".self-workflow/specs/README.md",          "specs/README.md"],
   [".self-workflow/specs/default/agent-reasoning.md",       "specs/default/agent-reasoning.md"],
   [".self-workflow/specs/default/interaction-protocol.md",  "specs/default/interaction-protocol.md"],
   [".self-workflow/specs/default/doc-audience.md",          "specs/default/doc-audience.md"],
   [".self-workflow/specs/default/decision-record.md",       "specs/default/decision-record.md"],
+  [".self-workflow/specs/default/ambiguity-clarification.md", "specs/default/ambiguity-clarification.md"],
   [".self-workflow/configs/tasks/feat-task.yaml", "tasks/feat-task.yaml"],
   // docs/ 分类目录 + README + Plugin
   [".self-workflow/docs/实施经验/.gitkeep", "docs/实施经验/.gitkeep"],

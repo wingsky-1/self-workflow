@@ -111,7 +111,7 @@ frontmatter：
   > 补充 interaction-protocol.md 的触发条件。执行格式遵守 interaction-protocol.md 的 question 使用规则。
 ```
 
-### 6. 内置 tool（MCP Server 结构化工具）
+### 6. 内置 tool（Plugin tool hook）
 
 ```
 实现方式：MCP Server，注册为 OpenCode 一等工具

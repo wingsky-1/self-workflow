@@ -626,14 +626,21 @@ git worktree remove ../<worktree-name>
 
    严重级别：blocking（YAML格式错误、spec 层级关键字段缺失）/ warning（tag 不一致、缺少非必填字段）/ info（可优化项）
 
-   通过条件：无 blocking 问题。有 warning 则记录到 errors.yaml（type: compound-doc-review, severity: minor）。
+    通过条件：无 blocking 问题。有 warning 则记录到 errors.yaml（type: compound-doc-review, severity: minor）。
 
-5. **更新元数据**：在 `task.yaml` 中：
+5. **Todo 状态更新**：如果本任务关联 todo.md 中的版本段，自动更新：
+   a. 从 task.yaml description 首行用正则 `/V\d+\.\d+(?:\.\d+)?/` 提取版本号
+   b. 定位 todo.md 中对应的 `## Vx.y.z` 版本段
+   c. 为该版本段下的每一项追加 `[done]` 标记
+   d. 如果版本段所有项均已标记完成，将该版本段移入 `## 已关闭`，用 `<details>` 折叠（格式参考现有已关闭章节）
+   e. 不修改 `## 新增（待评审排期）` 章节
+   f. 如果无法匹配版本号 → 记录到 errors.yaml（type: compound-todo-update, severity: minor）
+6. **更新元数据**：在 `task.yaml` 中：
     - 最后阶段 `status: completed`, `gate: passed`, `completed: <当前时间>`
     - 顶层 `status: completed`, `updated: <当前时间>`
-6. **创建 Compound tag**：`git tag <workflow-id>-ph5-summary-completed`
-7. **经验草稿**：如果阶段 5 产出了经验，在 `task.yaml` 中添加 `experience-draft: true`
-8. **Compound 标记**：完成后不再修改任何 `tasks/<workflow-id>/` 下的文件
+7. **创建 Compound tag**：`git tag <workflow-id>-ph5-summary-completed`
+8. **经验草稿**：如果阶段 5 产出了经验，在 `task.yaml` 中添加 `experience-draft: true`
+9. **Compound 标记**：完成后不再修改任何 `tasks/<workflow-id>/` 下的文件
 
 > **注意**：完整的 Compound（经验自动晋升、检索）将在 V2 实现。V1 仅做基础归档和草稿收集。
 

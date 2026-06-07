@@ -1,9 +1,13 @@
 // Self-Workflow Session Plugin
 // 监听 session.created 事件，在 chat.system.transform 时注入文档索引到 system prompt。
 // marker 检测确保跨 Plugin 重启不重复注入。
+// V1.11: 新增 tool hook——注册 sw_task_list/create/read/phase_update 4 个内置工具。
 import type { PluginInput, Hooks } from "@opencode-ai/plugin";
-import { readFileSync, readdirSync, existsSync, statSync } from "fs";
+import { tool } from "@opencode-ai/plugin";
+import { z } from "zod";
+import { readFileSync, writeFileSync, readdirSync, existsSync, statSync, mkdirSync } from "fs";
 import { resolve, join, basename } from "path";
+import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 
 const DOCS_DIR = ".self-workflow/docs";
 const MARKER = "<!-- SELF_WORKFLOW_DOCS_INDEX -->";
@@ -11,8 +15,13 @@ const MARKER = "<!-- SELF_WORKFLOW_DOCS_INDEX -->";
 const SPECS_DIR = ".self-workflow/specs";
 const SPECS_MARKER = "<!-- SELF_WORKFLOW_SPECS -->";
 
+const TASKS_DIR = ".self-workflow/tasks";
+const TEMPLATE_PATH = ".self-workflow/configs/tasks/feat-task.yaml";
+
 let docsContent: string | null = null;
 let specsContent: string | null = null;
+
+// ─── 通用工具函数 ────────────────────────────────────────────────────────────
 
 function parseCategoryDescriptions(content: string): Record<string, string> {
   const map: Record<string, string> = {};
@@ -36,17 +45,197 @@ function parseFrontmatter(content: string): { title?: string; tags: string[]; su
       result.title = line.replace("title:", "").trim().replace(/^["']|["']$/g, "");
     if (line.startsWith("tags:")) {
       const tagStr = line.replace("tags:", "").trim();
-      result.tags = tagStr
-        .replace(/[\[\]]/g, "")
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean);
+      result.tags = tagStr.replace(/[\[\]]/g, "").split(",").map((t) => t.trim()).filter(Boolean);
     }
     if (line.startsWith("summary:"))
       result.summary = line.replace("summary:", "").trim().replace(/^["']|["']$/g, "");
   }
   return result;
 }
+
+// ─── 简易 YAML 解析器（task.yaml 专用，无外部依赖） ──────────────────────────
+
+function taskYamlPath(directory: string, workflowId: string): string {
+  return resolve(directory, TASKS_DIR, workflowId, "task.yaml");
+}
+
+function getNowISO(): string {
+  return new Date().toISOString().replace(/\.\d{3}Z$/, "+08:00").replace("T", "T");
+}
+
+// ─── Tool: sw_task_list ──────────────────────────────────────────────────────
+
+async function listTasks(directory: string, status?: string) {
+  const tasksDir = resolve(directory, TASKS_DIR);
+  if (!existsSync(tasksDir)) return [];
+
+  const entries = readdirSync(tasksDir, { withFileTypes: true });
+  const tasks: any[] = [];
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const yamlPath = join(tasksDir, entry.name, "task.yaml");
+    if (!existsSync(yamlPath)) continue;
+    try {
+      const content = readFileSync(yamlPath, "utf-8");
+      const data = parseYaml(content);
+      if (status && data.status !== status) continue;
+
+      const phases = Array.isArray(data.phases) ? data.phases : [];
+      let currentPhase = 1;
+      for (const p of phases) {
+        if (p.status && p.status !== "completed") { currentPhase = p.id ?? currentPhase; break; }
+        currentPhase = (p.id ?? currentPhase) + 1;
+      }
+
+      tasks.push({
+        workflowId: entry.name,
+        title: data.title || "",
+        status: data.status || "unknown",
+        currentPhase: Math.min(currentPhase, 5),
+        created: data.created || "",
+        updated: data.updated || "",
+        tags: data.tags || [],
+      });
+    } catch {
+      // 跳过解析失败的任务
+    }
+  }
+
+  return tasks;
+}
+
+// ─── Tool: sw_task_create ────────────────────────────────────────────────────
+
+async function createTask(directory: string, slug: string, title: string, description?: string) {
+  const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  const workflowId = `feat-${slug}-${today}`;
+  const taskDir = resolve(directory, TASKS_DIR, workflowId);
+
+  if (existsSync(taskDir)) {
+    return { error: `Task already exists: ${workflowId}` };
+  }
+
+  // 创建目录结构
+  mkdirSync(taskDir, { recursive: true });
+  mkdirSync(join(taskDir, "adrs"), { recursive: true });
+  mkdirSync(join(taskDir, "logs"), { recursive: true });
+  mkdirSync(join(taskDir, "artifacts"), { recursive: true });
+  mkdirSync(join(taskDir, "errors"), { recursive: true });
+
+  // 读取模板
+  const templatePath = resolve(directory, TEMPLATE_PATH);
+  if (!existsSync(templatePath)) {
+    return { error: `Template not found: ${TEMPLATE_PATH}` };
+  }
+
+  let templateContent = readFileSync(templatePath, "utf-8");
+  const now = getNowISO();
+
+  // 填充模板占位符
+  templateContent = templateContent
+    .replace(/<slug>/g, slug)
+    .replace(/<描述>/g, title)
+    .replace(/<描述原文>/g, description || title)
+    .replace(/<YYYY-MM-DD>/g, today.slice(0, 4) + "-" + today.slice(4, 6) + "-" + today.slice(6, 8))
+    .replace(/<ISO 8601>/g, now)
+    .replace(/<YYYYMMDD>/g, today);
+
+  // 更新 workflow-id 行
+  templateContent = templateContent.replace(
+    /workflow-id:\s*<[^>]+>/,
+    `workflow-id: ${workflowId}`
+  );
+
+  writeFileSync(join(taskDir, "task.yaml"), templateContent, "utf-8");
+  writeFileSync(join(taskDir, "errors", "errors.yaml"), "errors: []\n", "utf-8");
+
+  return {
+    workflowId,
+    path: `${TASKS_DIR}/${workflowId}/`,
+    created: now,
+  };
+}
+
+// ─── Tool: sw_task_read ──────────────────────────────────────────────────────
+
+async function readTask(directory: string, workflowId: string) {
+  const yamlPath = taskYamlPath(directory, workflowId);
+  if (!existsSync(yamlPath)) {
+    return { error: `Task not found: ${workflowId}` };
+  }
+  try {
+    const content = readFileSync(yamlPath, "utf-8");
+    return parseYaml(content);
+  } catch (e: any) {
+    return { error: `Failed to read task: ${e.message}` };
+  }
+}
+
+// ─── Tool: sw_task_phase_update ──────────────────────────────────────────────
+
+async function updatePhase(
+  directory: string,
+  workflowId: string,
+  phaseId: number,
+  status: string,
+  gate?: string
+) {
+  const yamlPath = taskYamlPath(directory, workflowId);
+  if (!existsSync(yamlPath)) {
+    return { error: `Task not found: ${workflowId}` };
+  }
+
+  try {
+    const content = readFileSync(yamlPath, "utf-8");
+    // 直接文本替换 phase 状态——避免完整 YAML rewrite 破坏格式
+    let updated = content;
+    const now = getNowISO();
+
+    // 查找 phase 块并更新
+    const phaseRegex = new RegExp(
+      `(  - id:\\s*${phaseId}\\n[\\s\\S]*?)(?=\\n  - id:|\\n(?:experience-draft|structure:|milestones:|cross-refs:)|$)`,
+      "m"
+    );
+    const match = updated.match(phaseRegex);
+    if (!match) return { error: `Phase ${phaseId} not found in task.yaml` };
+
+    let phaseBlock = match[0];
+
+    // 更新 status
+    phaseBlock = phaseBlock.replace(/status:\s*\w+/, `status: ${status}`);
+    if (gate) {
+      phaseBlock = phaseBlock.replace(/gate:\s*\w+/, `gate: ${gate}`);
+    }
+    // 设置 started
+    if (status === "in_progress" && !phaseBlock.includes("started:")) {
+      const statusLineIdx = phaseBlock.indexOf(`status: ${status}`);
+      const afterStatus = phaseBlock.indexOf("\n", statusLineIdx);
+      phaseBlock = phaseBlock.slice(0, afterStatus) + `\n    started: ${now}` + phaseBlock.slice(afterStatus);
+    } else if (status === "in_progress") {
+      phaseBlock = phaseBlock.replace(/started:\s*null/, `started: ${now}`);
+    }
+    // 设置 completed
+    if (status === "completed" || status === "failed") {
+      phaseBlock = phaseBlock.replace(/completed:\s*null/, `completed: ${now}`);
+    }
+
+    updated = updated.replace(phaseRegex, phaseBlock);
+    // 更新顶层 updated
+    updated = updated.replace(/updated:\s*.+$/, `updated: ${now}`);
+    // 更新顶层 status
+    if (status === "completed" && phaseId === 5) {
+      updated = updated.replace(/^status:\s*.+$/m, `status: completed`);
+    }
+
+    writeFileSync(yamlPath, updated, "utf-8");
+    return { updated: true, phase: { id: phaseId, status, gate: gate || null } };
+  } catch (e: any) {
+    return { error: `Failed to update phase: ${e.message}` };
+  }
+}
+
+// ─── 现有 scan 函数 ──────────────────────────────────────────────────────────
 
 function scanDocs(directory: string): string | null {
   const docsDir = resolve(directory, DOCS_DIR);
@@ -88,8 +277,7 @@ function scanDocs(directory: string): string | null {
           const content = readFileSync(join(catDir, file), "utf-8");
           const fm = parseFrontmatter(content);
           const displayName = fm.title || basename(file, ".md");
-          const tagStr =
-            fm.tags.length > 0 ? ` [${fm.tags.join(", ")}]` : "";
+          const tagStr = fm.tags.length > 0 ? ` [${fm.tags.join(", ")}]` : "";
           lines.push(`  ${displayName}${tagStr}`);
         } catch {
           lines.push(`  ${file}`);
@@ -98,10 +286,7 @@ function scanDocs(directory: string): string | null {
       lines.push("");
     }
 
-    lines.push(
-      "遇到相关主题时，用 Read 工具查看对应文档。无需加载全文到上下文。"
-    );
-
+    lines.push("遇到相关主题时，用 Read 工具查看对应文档。无需加载全文到上下文。");
     return lines.join("\n");
   } catch {
     return null;
@@ -169,6 +354,8 @@ function scanSpecs(directory: string): string | null {
   }
 }
 
+// ─── Plugin Server ───────────────────────────────────────────────────────────
+
 export const server = async (input: PluginInput): Promise<Hooks> => {
   const directory = input.directory;
 
@@ -180,10 +367,75 @@ export const server = async (input: PluginInput): Promise<Hooks> => {
       }
     },
 
+    // ── 内置工具 ──────────────────────────────────────────────────────
+    tool: {
+      sw_task_list: tool({
+        description:
+          "扫描 .self-workflow/tasks/*/task.yaml，返回所有任务状态。可选按 status 过滤。",
+        args: {
+          status: z
+            .enum(["in_progress", "pending", "completed", "cancelled"])
+            .optional()
+            .describe("按任务状态过滤"),
+        },
+        async execute(args, ctx) {
+          const tasks = await listTasks(ctx.directory, args.status);
+          return { output: JSON.stringify(tasks, null, 2) };
+        },
+      }),
+
+      sw_task_create: tool({
+        description:
+          "从 feat-task.yaml 模板创建完整 task 目录结构和初始化文件（task.yaml + errors.yaml）。",
+        args: {
+          slug: z.string().describe("任务 slug（如 'agent自主决策-feat增强'）"),
+          title: z.string().describe("任务标题"),
+          description: z.string().optional().describe("任务描述"),
+        },
+        async execute(args, ctx) {
+          const result = await createTask(ctx.directory, args.slug, args.title, args.description);
+          return { output: JSON.stringify(result, null, 2) };
+        },
+      }),
+
+      sw_task_read: tool({
+        description: "读取指定 task.yaml，返回解析后的结构化 JSON 数据。",
+        args: {
+          workflowId: z.string().describe("workflow-id（如 'feat-agent自主决策-feat增强-20260607'）"),
+        },
+        async execute(args, ctx) {
+          const result = await readTask(ctx.directory, args.workflowId);
+          return { output: JSON.stringify(result, null, 2) };
+        },
+      }),
+
+      sw_task_phase_update: tool({
+        description:
+          "更新 task.yaml 中指定 phase 的 status/gate 和时间戳，自动设置 started/completed 时间。",
+        args: {
+          workflowId: z.string().describe("workflow-id"),
+          phaseId: z.number().min(1).max(5).describe("阶段编号 1-5"),
+          status: z.enum(["pending", "in_progress", "completed", "failed"]).describe("新状态"),
+          gate: z.enum(["pending", "passed", "failed"]).optional().describe("Gate 状态（可选）"),
+        },
+        async execute(args, ctx) {
+          const result = await updatePhase(
+            ctx.directory,
+            args.workflowId,
+            args.phaseId,
+            args.status,
+            args.gate
+          );
+          return { output: JSON.stringify(result, null, 2) };
+        },
+      }),
+    },
+
+    // ── 现有 hooks ────────────────────────────────────────────────────
+
     "experimental.chat.system.transform": async (_input, output) => {
       if (!Array.isArray(output?.system)) return;
 
-      // 注入 docs 索引（独立检查，不阻断 specs 注入）
       let hasDocsMarker = false;
       for (const entry of output.system) {
         if (entry.includes(MARKER)) { hasDocsMarker = true; break; }
@@ -199,7 +451,6 @@ export const server = async (input: PluginInput): Promise<Hooks> => {
         }
       }
 
-      // 注入 specs 索引（独立检查，不阻断 docs 注入）
       let hasSpecsMarker = false;
       for (const entry of output.system) {
         if (entry.includes(SPECS_MARKER)) { hasSpecsMarker = true; break; }
@@ -216,12 +467,10 @@ export const server = async (input: PluginInput): Promise<Hooks> => {
       }
     },
 
-    // 子 Agent 上下文注入（Trellis 模式：拦截 Task 工具调用，修改 prompt）
     "tool.execute.before": async (input, output) => {
       if (input.tool !== "task") return;
       if (!output.args?.subagent_type) return;
 
-      // 注入 docs 和 specs 到子 Agent 的 prompt 开头
       const docs = docsContent ?? scanDocs(directory);
       const specs = specsContent ?? scanSpecs(directory);
       const context = [specs, docs].filter(Boolean).join("\n\n");

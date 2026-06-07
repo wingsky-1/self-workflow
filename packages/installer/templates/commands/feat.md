@@ -45,6 +45,7 @@ argument-hint: [--quick] <特性描述>
    - 已有进行中任务 → 提示用户：
      > "已有进行中任务 `feat-xxx-YYYYMMDD`（阶段 N/5）。不建议并发执行多个工作流。是否继续？"
    - 用户确认后继续（此时不强制阻止，仅警告）
+3. **Todo 上下文**：读取 `.self-workflow/todo.md` 获取当前版本任务列表。后续"无参数模式"依赖此上下文实现自动认领。
 
 ### 步骤 1：参数解析
 
@@ -154,27 +155,32 @@ workflow-started:
 
 ## 无参数模式（`/feat`）
 
-扫描 `.self-workflow/tasks/` 下所有 task，读取每个 `task.yaml`：
-- 优先检查 `phases` 段是否存在 → 按新 schema 读取，遍历 phases 找到第一个 status != completed 的作为当前阶段
-- 无 `phases` 段 → 按旧 schema，读取 task.yaml 的顶层 status，再尝试读取同目录的 `workflow.yaml` 获取阶段信息
+当 `/feat` 不带参数时，Agent 执行以下逻辑：
 
-输出任务仪表盘：
+### 步骤 1：读取 Todo
 
-```
-📊 任务状态
+读取 `.self-workflow/todo.md`，提取所有 `## Vx.y.z` 格式的版本段标题（跳过 `## 已关闭` 和 `## 新增`）。
 
-▶ 进行中 (N)：
-  <workflow-id>  <title>  [阶段 X/5]
+### 步骤 2：检查进行中任务
 
-✅ 已完成 (N)：
-  <workflow-id>  <title>
+扫描 `.self-workflow/tasks/*/task.yaml`，收集所有 `status: in_progress` 的任务。
 
-⚠ 卡住 (N)：
-  <workflow-id>  <title>
+### 步骤 3：匹配未认领版本
 
-❌ 已取消 (N)：
-  <workflow-id>  <title>
-```
+对每个版本段：
+- 从标题用正则 `/V\d+\.\d+(?:\.\d+)?/` 提取版本号
+- 检查是否有 in_progress 任务的 task.yaml description 首行包含相同版本号（精确匹配，大小写敏感）
+- 第一个无匹配的版本段 = 未认领
+
+### 步骤 4：自动启动或展示仪表盘
+
+- **有未认领版本** → 以该版本段标题作为 `<描述>`，按正常 `/feat <描述>` 流程启动工作流（生成 slug → 创建目录 → 进入阶段 1）
+- **无未认领版本** → 展示任务仪表盘（保持现有行为）：
+  ```
+  📊 任务状态
+  ▶ 进行中 (N)：...
+  ✅ 已完成 (N)：...
+  ```
 
 ## 错误处理
 
