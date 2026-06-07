@@ -2,7 +2,7 @@ name: 文档工具规范修补
 title: V1.22：文档/工具规范修补（P1/P2）
 status: in_progress
 created: 2026-06-07
-updated: 2026-06-07T21:53:00+08:00
+updated: 2026-06-07T22:00:00+08:00
 tags: [v1.22, process-discipline, tool-convention, spec-patching]
 description: >
   V1.22：ADR 先于产物 + todowrite 即时启动 + 内置工具优先 + session 重命名。
@@ -14,19 +14,19 @@ type: feat
 phases:
   - id: 1
     name: 需求分析
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-07T21:53:00+08:00
-    completed: null
+    completed: 2026-06-07T21:55:00+08:00
     artifact: "01-analysis.md"
     errors: []
-    checkpoint: null
+    checkpoint: 83bdda5f5d98960072c4109bad0f681274e2f309
   - id: 2
     name: 方案设计
-    status: pending
+    status: completed
     gate: pending
-    started: null
-    completed: null
+    started: 2026-06-07T21:58:00+08:00
+    completed: 2026-06-07T22:00:00+08:00
     artifact: "02-design.md"
     errors: []
     checkpoint: null
@@ -63,9 +63,12 @@ experience-draft: false
 structure:
   root:
     - "task.yaml"
-  adrs: []
+  adrs:
+    - "adrs/ADR-001-内置工具优先-扩展agent-reasoning.md"
   logs: []
-  artifacts: []
+  artifacts:
+    - "artifacts/01-analysis.md"
+    - "artifacts/02-design.md"
 
 milestones: []
 
