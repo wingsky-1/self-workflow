@@ -15,18 +15,18 @@ type: feat
 phases:
   - id: 1
     name: 需求分析
-    status: in_progress
-    gate: pending
+    status: completed
+    gate: passed
     started: 2026-06-07T23:00:00+08:00
-    completed: null
+    completed: 2026-06-07T23:30:00+08:00
     artifact: "01-analysis.md"
     errors: []
-    checkpoint: null
+    checkpoint: d5ba504
   - id: 2
     name: 方案设计
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
+    started: 2026-06-07T23:30:00+08:00
     completed: null
     artifact: "02-design.md"
     errors: []
