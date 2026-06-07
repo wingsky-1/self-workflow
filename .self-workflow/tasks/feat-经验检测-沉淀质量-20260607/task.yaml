@@ -1,0 +1,79 @@
+name: 经验检测-沉淀质量
+title: V1.16+V1.17：经验检测与沉淀质量——经验复利机制
+status: in_progress
+created: 2026-06-07
+updated: 2026-06-07T05:29:36Z
+tags: [经验复利, 去重, 一致性审查, spec, skill, command]
+description: >
+  V1.16+V1.17 联合实现经验复利机制。
+  V1.16 经验检测：去重检测 + 一致性审查 command/skill（用户可手动触发）。
+  V1.17 经验沉淀质量：重要程度评估 + 经验复利（刷新/去重/过时标记/晋升）。
+  设计方向：1)一致性审查/去重/刷新做成 skill/command；
+  2)经验沉淀环节细化保留到工作流，为 V2.0 子Agent 拆分做准备；
+  3)经验评估整理成 default/ spec，后续再评估 default/ 下 spec 质量与划分。
+
+workflow-id: feat-经验检测-沉淀质量-20260607
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: completed
+    gate: pending
+    started: 2026-06-07T05:29:36Z
+    completed: 2026-06-07T06:10:00Z
+    artifact: "01-analysis.md"
+    errors: []
+    checkpoint: null
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+    checkpoint: null
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+    checkpoint: null
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+    checkpoint: null
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+    checkpoint: null
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs:
+    - "ADR-001-经验审查工具架构.md"
+    - "ADR-002-单一审查命令设计.md"
+  logs: []
+  artifacts:
+    - "01-analysis.md"
+
+milestones: []
+
+cross-refs: []
