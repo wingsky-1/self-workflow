@@ -1,8 +1,8 @@
 name: agent自主决策-feat增强
 title: V1.11：/feat 增强 + todo 管理 + 内置工具
-status: in_progress
+status: completed
 created: 2026-06-07
-updated: 2026-06-07T11:40:00+08:00
+updated: 2026-06-07T12:15:00+08:00
 tags: ["feat-enhancement", "todo-management", "tool-builtin", "spec-ambiguity"]
 description: >
   V1.11 版本——增强 /feat 命令（无参数自动认领、完成后自动更新 todo）、
