@@ -17,18 +17,18 @@ type: feat                     # 工作流类型（未来可扩展 fix/refactor 
 phases:
   - id: 1
     name: 需求分析
-    status: in_progress        # pending | in_progress | completed | failed | skipped
-    gate: pending              # pending | passed | failed
+    status: completed
+    gate: passed
     started: 2026-06-07T08:51:07+08:00
-    completed: null
+    completed: 2026-06-07T17:10:00+08:00
     artifact: "01-analysis.md"
     errors: []
-    checkpoint: null           # ← 新增：Gate 通过后填充 git tag 的 commit SHA
+    checkpoint: deffd6825c15f3e29e5d93c29a254e901bbdc132
   - id: 2
     name: 方案设计
-    status: pending
+    status: in_progress
     gate: pending
-    started: null
+    started: 2026-06-07T17:10:00+08:00
     completed: null
     artifact: "02-design.md"
     errors: []
@@ -66,7 +66,7 @@ experience-draft: false
 structure:
   root:
     - "task.yaml"
-  adrs: ["ADR-001-phase4to5-文档同步-强制todo.md"]
+  adrs: ["ADR-001-phase4to5-文档同步-强制todo.md", "ADR-002-checkpoint-外部传入.md", "ADR-003-YAML-幂等保护.md", "ADR-004-phase4to5-插入位置与范围.md"]
   logs: []
   artifacts: []
 
