@@ -1,0 +1,80 @@
+name: agent自主决策-feat增强
+title: V1.11：Agent 自主决策 + /feat 增强
+status: in_progress
+created: 2026-06-07
+updated: 2026-06-07T04:21:29+08:00
+tags: ["agent-autonomy", "feat-enhancement", "question-reduction", "todo-management", "tool-builtin"]
+description: >
+  V1.11 版本——减少不必要的 question 打断，让 Agent 更自主决策；增强 /feat 命令（无参数自动认领、结束后自动更新 todo）；内置工具化让确定性操作由代码完成。
+  关联 todo 项：
+  1. 评审问题给出 2~4 个可行方案，置信度 >95 则自动决策
+  2. /feat 增强——无输入时自动分析/认领任务
+  3. /feat 增强——从 todo 领取任务结束后自动更新 todo 状态
+  4. todo 整理排期 command——Agent 可自主整理 todo、排期
+  5. todo 系统注入机制——确定 todo 介绍注入到哪些场景
+  6. 歧义澄清 spec——Agent 遇到歧义输入时必须质疑询问
+  7. /feat 无人值守模式——Agent 自主完成 feat，用户事后评审
+  8. 内置 tool 化——确定性操作由内置 tool 实现
+
+workflow-id: feat-agent自主决策-feat增强-20260607
+type: feat
+
+phases:
+  - id: 1
+    name: 需求分析
+    status: in_progress
+    gate: pending
+    started: 2026-06-07T04:21:29+08:00
+    completed: null
+    artifact: "01-analysis.md"
+    errors: []
+    checkpoint: null
+  - id: 2
+    name: 方案设计
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "02-design.md"
+    errors: []
+    checkpoint: null
+  - id: 3
+    name: 代码实现
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "03-implementation.md"
+    errors: []
+    checkpoint: null
+  - id: 4
+    name: 功能验证
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "04-verification.md"
+    errors: []
+    checkpoint: null
+  - id: 5
+    name: 总结沉淀
+    status: pending
+    gate: pending
+    started: null
+    completed: null
+    artifact: "05-summary.md"
+    errors: []
+    checkpoint: null
+
+experience-draft: false
+
+structure:
+  root:
+    - "task.yaml"
+  adrs: []
+  logs: []
+  artifacts: []
+
+milestones: []
+
+cross-refs: []
