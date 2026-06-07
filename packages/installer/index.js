@@ -47,6 +47,7 @@ const MANIFEST = [
   [".self-workflow/specs/default/doc-audience.md",          "specs/default/doc-audience.md"],
   [".self-workflow/specs/default/decision-record.md",       "specs/default/decision-record.md"],
   [".self-workflow/specs/default/ambiguity-clarification.md", "specs/default/ambiguity-clarification.md"],
+  [".self-workflow/specs/default/todowrite-display.md",       "specs/default/todowrite-display.md"],
   [".self-workflow/configs/tasks/feat-task.yaml", "tasks/feat-task.yaml"],
   // docs/ 分类目录 + README + Plugin
   [".self-workflow/docs/实施经验/.gitkeep", "docs/实施经验/.gitkeep"],
