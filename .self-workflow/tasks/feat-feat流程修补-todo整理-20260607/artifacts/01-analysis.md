@@ -84,7 +84,7 @@ feat-workflow.md v0.4 已经在 3 个位置涉及文档检查：
 
 - [ ] **AC1（Phase 4→5 相关文档同步）**：Given 一个 /feat 工作流已经完成 Phase 4 功能验证并通过 Gate 4，When Agent 进入 Phase 5 之前，Then Agent 必须扫描本次变更涉及的所有文档（`docs/` 下各分类、`specs/`、`configs/`），评估哪些需要同步更新，并在 `05-summary.md` 的「相关文档同步」节中逐类输出决策——格式 `doc-sync: <分类> → updated | skipped（理由）`
 - [ ] **AC2（/feat 强制更新 todo）**：Given 一个 /feat 工作流完成所有阶段和 Compound 步骤，When Agent 执行 Compound 的 todo 更新步骤，Then Agent 必须更新 todo.md 中对应版本的项状态（标记 [done]），不可跳过或仅记录"建议更新"
-- [ ] **AC3（checkpoint 写入）**：Given 调用 `sw_task_phase_update(workflowId, phaseId, status, gate="passed")`，When gate 为 "passed"，Then 工具自动创建 `git tag <workflow-id>-ph<N>-<name>-gate-passed` 并将 `git rev-parse` 结果写入 task.yaml 对应 phase 的 `checkpoint` 字段
+- [ ] **AC3（checkpoint 写入）**：Given 调用 `sw_task_phase_update(workflowId, phaseId, status, gate="passed", checkpoint="<sha>")`（checkpoint 由 Agent 先执行 `git tag` + `git rev-parse` 获取后外部传入），When gate 为 "passed" 且 checkpoint 非空，Then 工具将 checkpoint SHA 写入 task.yaml 对应 phase 的 `checkpoint` 字段；When gate 为 "passed" 但 checkpoint 未传入，Then 工具返回 warning 提示 Agent 可能遗漏
 - [ ] **AC4（YAML 重复字段修复—幂等保护）**：Given 调用 `sw_task_phase_update` 对已在 in_progress 状态的 phase 再次调用（重入），When 工具执行 `started:` 更新逻辑，Then 不会创建重复的 `started:` 键——通过增加幂等保护实现（检测 `started:` 是否已有非 null 值，有则跳过插入）
 - [ ] **AC4b（历史文件修复）**：Given 3 个受重复 `started:` 影响的 task.yaml 文件（feat-核心特性-实现方案-文档化-20260607, feat-经验治理-优化执行-20260607, feat-经验治理-合并引用-20260607），When 执行修复，Then (1) 每个 phase 删重复行，保留含时间戳的 `started:` 值（如有），删除 `started: null` 版本；(2) 修复后每个 phase 通过 `grep -c 'started:'` 验证仅有 1 个 `started:` 字段
 - [ ] **AC5（todo → done.md 迁移）**：Given `.self-workflow/todo.md` 包含 `## 已关闭` 章节，When 迁移完成，Then `todo.md` 的 `## 已关闭` 替换为引用链接 `详见 [done.md](done.md)`，所有已关闭版本段完整迁移到 `done.md`，格式不变
